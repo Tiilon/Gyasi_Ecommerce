@@ -4,13 +4,14 @@ from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import PermissionsMixin
 from django_resized import ResizedImageField
+
 # from allauth.account.signals import user_signed_up
 
 
 class MyUserManager(BaseUserManager):
     def create_user(self, email, password=None):
         if not email:
-            raise ValueError('Users must have an email address')
+            raise ValueError("Users must have an email address")
 
         user = self.model(
             email=self.normalize_email(email),
@@ -34,11 +35,14 @@ class MyUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
+
 class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
-    username = models.CharField(max_length=255, null=True, blank=True,unique=True)
+    username = models.CharField(max_length=255, null=True, blank=True, unique=True)
     is_active = models.BooleanField(default=True)
-    is_validated = models.BooleanField(default=False)  # to check if user has confirmed with email
+    is_validated = models.BooleanField(
+        default=False
+    )  # to check if user has confirmed with email
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -46,8 +50,8 @@ class User(AbstractBaseUser, PermissionsMixin):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
-    USERNAME_FIELD = 'email'
-    EMAIL_FIELD = 'email'
+    USERNAME_FIELD = "email"
+    EMAIL_FIELD = "email"
     REQUIRED_FIELDS = []
 
     objects = MyUserManager()
@@ -74,15 +78,24 @@ class User(AbstractBaseUser, PermissionsMixin):
     @property
     def get_status(self):
         if self.is_active:
-            return 'Deactivate'
-        return 'Activate'
+            return "Deactivate"
+        return "Activate"
+
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, related_name="user_profile", on_delete=models.CASCADE,null=True, blank=True)
-    first_name = models.CharField(max_length=255,null=True, blank=True)
-    last_name = models.CharField(max_length=255,null=True, blank=True)
-    other_name = models.CharField(max_length=255,null=True, blank=True)
-    image = ResizedImageField(size=[400, 400], upload_to='user/display_image', blank=True, null=True)
+    user = models.OneToOneField(
+        User,
+        related_name="user_profile",
+        on_delete=models.CASCADE,
+        null=True,
+        blank=True,
+    )
+    first_name = models.CharField(max_length=255, null=True, blank=True)
+    last_name = models.CharField(max_length=255, null=True, blank=True)
+    other_name = models.CharField(max_length=255, null=True, blank=True)
+    image = ResizedImageField(
+        size=[400, 400], upload_to="user/display_image", blank=True, null=True
+    )
     # bio_file = models.FileField(upload_to='user/bio', blank=True, null=True)
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
     gender = models.CharField(max_length=10, null=True, blank=True)
@@ -107,8 +120,7 @@ class UserProfile(models.Model):
     # Metadata
     class Meta:
         db_table = "User Profile"
-        
 
     # Methods
     def __str__(self):
-        return f"{self.user.username}"
+        return f"{self.user}"
