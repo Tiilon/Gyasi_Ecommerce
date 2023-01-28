@@ -3,6 +3,7 @@ from user.models import User
 from datetime import datetime
 from django_resized import ResizedImageField
 
+
 class ProductCategoryModel(models.Model):
     name = models.CharField(max_length=250, blank=True, null=True)
     created_by = models.ForeignKey(
@@ -24,9 +25,12 @@ class ProductModel(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=250, blank=True, null=True)
-    product_image = ResizedImageField(size=[400, 400], upload_to='images/product_image', blank=True, null=True)
-    cart_sm_image = ResizedImageField(size=[400, 400], upload_to='user/cart_sm_image', blank=True, null=True)
-    image = ResizedImageField(size=[400, 400], upload_to='user/display_image', blank=True, null=True)
+    product_image = ResizedImageField(
+        size=[500, 500], upload_to="images/product_image", blank=True, null=True
+    )
+    cart_sm_image = ResizedImageField(
+        size=[150, 150], upload_to="user/cart_sm_image", blank=True, null=True
+    )
     ticket_price = models.IntegerField(default=0)
     created_by = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.CASCADE
