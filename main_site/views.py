@@ -21,6 +21,30 @@ class HomeView(View):
         return render(request, template_name, context)
 
 
+# Api to search for image
+def search_product(request):
+    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
+        products=[]
+        input_product = request.POST.get('product')
+        try:
+            products = ProductModel.objects.filter(name__icontains=input_product)
+        except ProductModel.DoesNotExist:
+            pass
+        
+        if len(input_product) > 0 and len(products) > 0:
+            data = []
+            for b in products:
+                item = {
+                    'name': b.name,
+                }
+                data.append(item)
+            res = data
+            print(res)
+        else:
+            res = "No Suggestions keyword..."
+        return JsonResponse({'data': res})
+    return JsonResponse({'data': "Wrong request type"})
+
 class ProductCategoryView(View):
     def get(self, request, cart_id):
         template_name = "public/category.html"
