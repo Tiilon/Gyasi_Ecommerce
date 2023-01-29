@@ -1,4 +1,4 @@
-{% extends 'admin/base.html' %}
+{% extends 'public/base.html' %}
 {% load static %}
 {% block content %}
 
@@ -8,7 +8,7 @@
         <div class="col-12">
             <nav class="breadcrumb bg-light mb-30">
                 <a class="breadcrumb-item text-dark" href="{% url 'main_site:home' %}">Home</a>
-                <span class="breadcrumb-item active">All Products</span>
+                <span class="breadcrumb-item active">Category</span>
             </nav>
         </div>
     </div>
@@ -143,7 +143,7 @@
                 <div class="col-12 pb-1">
                     <div class="d-flex align-items-center justify-content-between mb-4">
                         <div>
-                            <h3>All Items</h3>
+                            <h3>{{category.name}}</h3>
                         </div>
                         {% comment %} <div class="ml-2">
                             <div class="btn-group">

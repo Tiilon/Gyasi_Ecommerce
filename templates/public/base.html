@@ -124,15 +124,9 @@
                                     <a href="" class="dropdown-item">Baby's Dresses</a>
                                 </div>
                             </div> {% endcomment %}
-                            <a href="" class="nav-item nav-link">Shirts</a>
-                            <a href="" class="nav-item nav-link">Jeans</a>
-                            <a href="" class="nav-item nav-link">Swimwear</a>
-                            <a href="" class="nav-item nav-link">Sleepwear</a>
-                            <a href="" class="nav-item nav-link">Sportswear</a>
-                            <a href="" class="nav-item nav-link">Jumpsuits</a>
-                            <a href="" class="nav-item nav-link">Blazers</a>
-                            <a href="" class="nav-item nav-link">Jackets</a>
-                            <a href="" class="nav-item nav-link">Shoes</a>
+                            {% for category in all_categories %}
+                                <a href="{% url 'main_site:category_detail' category.id %}" class="nav-item nav-link">{{category.name}}</a>
+                            {% endfor %}
                         </div>
                     </nav>
                 </div>
