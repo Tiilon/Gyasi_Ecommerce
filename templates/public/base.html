@@ -44,9 +44,12 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
                             <div class="dropdown-menu dropdown-menu-right">
+                                {% if request.user.is_authenticated %}
+                                <button class="dropdown-item" type="button">Logout</button>
+                                {% else %}
                                 <button class="dropdown-item" type="button">Sign in</button>
                                 <button class="dropdown-item" type="button">Sign up</button>
-                                <button class="dropdown-item" type="button">Logout</button>
+                                {% endif %}
                             </div>
                         </div>
                         {% comment %} <div class="btn-group mx-2">
@@ -88,7 +91,7 @@
                 <div class="col-lg-4 col-6 text-left">
                     <form action="">
                         <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for products">
+                            <input type="text" class="form-control" placeholder="Search for products" id="product-search">
                             <div class="input-group-append">
                                 <span class="input-group-text bg-transparent text-primary">
                                     <i class="fa fa-search"></i>
@@ -96,6 +99,9 @@
                             </div>
                         </div>
                     </form>
+                    <div class="not-visible">
+                        <ul class="list-group" id="product-results" style="width: 80%; font-size: 1.5vw;"></ul>
+                    </div>
                 </div>
                 <div class="col-lg-4 col-6 text-right">
                     <p class="m-0">Customer Service</p>
@@ -259,6 +265,53 @@
 
     <!-- Template Javascript -->
     <script src="{% static 'public/js/main.js' %}"></script>
+
+    <!-- Sweet alert -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    const searchInput = document.getElementById('product-search')
+    const searchResults = document.getElementById('product-results')
+
+    const sendSearchBlog = (product) =>{
+        $.ajax({
+            type:'POST',
+            url:'{% url 'main_site:product_search' %}',
+            data: {
+                'csrfmiddlewaretoken':'{{ csrf_token }}',
+                'product':product,
+            },
+            headers:{"X-Requested-With": "XMLHttpRequest"},
+            success: (res)=>{
+                const data = res.data
+                if(Array.isArray(data)){
+                    searchResults.innerHTML = ``
+                    data.forEach(product=>{
+                        
+                        searchResults.innerHTML += `<a href=""><li class="list-group-item list-group-item-primary" id="result-list">${product.name}</li></a>`
+                    })
+                }else{
+                    if(searchInput.value.length > 0){
+                        searchResults.innerHTML = `<b class="text-dark">${data}</b>`
+                    }else {
+                        searchResults.innerHTML = ``
+                        searchResults.classList.add('not-visible')
+                    }
+                }
+            },
+            error:(err)=>{
+                console.log(err)
+            }
+        })
+    }
+
+    searchInput.addEventListener("keyup", e=>{
+        if(searchResults.classList.contains('not-visible')){
+            searchResults.classList.remove('not-visible')
+        }
+        sendSearchBlog(e.target.value)
+    });
+</script>
+  
 </body>
 
 </html>
