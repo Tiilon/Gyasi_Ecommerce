@@ -1,0 +1,194 @@
+{% extends 'admin/base.html' %}
+{% load static %}
+{% block css %}<link href="{% static 'admin/assets/vendors/dropzone/dropzone.min.css' %}" rel="stylesheet" />{% endblock css %}
+{% block content %}
+<div class="card mb-3">
+    <div class="card-body">
+      <div class="row flex-between-center">
+        <div class="col-sm-auto mb-2 mb-sm-0">
+            <button class="btn btn-sm btn-success me-1 mb-0" type="button" type="button" data-bs-toggle="modal" data-bs-target="#new_product_form_modal">+ New</button>
+        </div>
+        <div class="col-sm-auto mb-2 mb-sm-0">
+          {% comment %} <h6 class="mb-0">Showing 1-24 of 205 Products</h6> {% endcomment %}
+        </div>
+        <div class="col-sm-auto">
+          <div class="row gx-2 align-items-center">
+            <div class="col-auto">
+              <form class="row gx-2">
+                <div class="col-auto"><small>Sort by:</small></div>
+                <div class="col-auto"> <select class="form-select form-select-sm" aria-label="Bulk actions">
+                    <option selected="">Best Match</option>
+                    <option value="Refund">Newest</option>
+                    <option value="Delete">Price</option>
+                  </select></div>
+              </form>
+            </div>
+            {% comment %} <div class="col-auto pe-0"> <a class="text-600 px-1" href="product-list.html" data-bs-toggle="tooltip" data-bs-placement="top" title="Product List"><span class="fas fa-list-ul"></span></a></div> {% endcomment %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="card mb-3">
+    <div class="card-body">
+      <div class="row infinite-container-products">
+        {% for product in products %}
+        <div class="mb-4 col-md-6 col-lg-4 infinite-item">
+          <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
+            <div class="overflow-hidden">
+              <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="product-details.html"><img class="img-fluid rounded-top" src="{{product.image}}" alt="" /></a></div>
+              <div class="p-3">
+                <h5 class="fs-0"><a class="text-dark" href="product-details.html">{{product.name}}</a></h5>
+                <p class="fs--1 mb-3"><a class="text-500" href="#!">{{product.category}}</a></p>
+                <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> ${{product.ticket_price}}</h5>
+                <p class="fs--1 mb-1">Stock: <strong class="text-success">{% if product.status %}Available {% else %}Unavailable{% endif %}</strong></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+    <div class="card-footer bg-light d-flex justify-content-center">
+        <div>
+            {% if page_obj.has_next %}
+            <a class="infinite-more-link" href="?page={{ page_obj.next_page_number }}"></a>
+            {% endif %}
+            <div class="d-flex justify-content-center" style="display:none;">
+            <i class="fa fa-spinner fa-spin">...loading</i>
+            </div>
+            {% comment %} <button class="btn btn-falcon-default btn-sm me-2" type="button" disabled="disabled" data-bs-toggle="tooltip" data-bs-placement="top" title="Prev"><span class="fas fa-chevron-left"></span></button>
+            <a class="btn btn-sm btn-falcon-default text-primary me-2" href="#!">1</a>
+            <a class="btn btn-sm btn-falcon-default me-2" href="#!">2</a>
+            <a class="btn btn-sm btn-falcon-default me-2" href="#!"> <span class="fas fa-ellipsis-h"></span></a>
+            <a class="btn btn-sm btn-falcon-default me-2" href="#!">35</a>
+            <button class="btn btn-falcon-default btn-sm" type="button" data-bs-toggle="tooltip" data-bs-placement="top" title="Next"><span class="fas fa-chevron-right"></span></button> {% endcomment %}
+        </div>
+    </div>
+  </div>
+  <div class="modal fade" id="new_product_form_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+      <div class="modal-content position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+            <h4 class="mb-1" id="modalExampleDemoLabel">Create Product</h4>
+          </div>
+          <div class="p-4 pb-0">
+            <form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone" action="{% url 'admin_site:create_product' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label class="form-label" for="exampleFormControlInputna">Name</label>
+                    <input class="form-control" id="exampleFormControlInputna" type="text" name="name" placeholder="Type here..." />
+                </div>
+                <div class="mb-3">
+                    <label for="organizerSingle">Category</label>
+                    <select class="form-select js-choice" id="organizerSingle" size="1" name="cart_id" data-options='{"removeItemButton":true,"placeholder":true}'>
+                        <option value="">Select Category...</option>
+                        {% for cart in all_categories %}
+                        <option value="{{cart.id}}">{{cart.name}}</option>
+                        {% endfor %}
+                    </select> 
+                </div> 
+                <div class="mb-3">
+                    <label class="form-label" for="exampleFormControlInput1">Ticket Price</label>
+                    <input class="form-control" id="exampleFormControlInput1" type="number" name="ticket_price" placeholder="Type here..." />
+                </div> 
+                <div class="mb-3">
+                    <label class="form-label" for="exampleFormControlInputim">Upload Images</label>
+                    <input class="form-control" id="exampleFormControlInputim" type="file" name="product_images"/>
+                </div>
+                {% comment %} <div class="fallback">
+                    <input name="product_images" type="file" multiple="multiple"/>
+                </div> {% endcomment %}
+                {% comment %} <div class="dz-message" data-dz-message="data-dz-message"> <img class="me-2" src="{% static 'admin/assets/img/icons/cloud-upload.svg' %}" width="25" alt="" />Drop your files here</div>
+                <div class="dz-preview dz-preview-multiple m-0 d-flex flex-column">
+                  <div class="d-flex media mb-3 pb-3 border-bottom btn-reveal-trigger"><img class="dz-image" src="{% static 'admin/assets/img/generic/image-file-2.png' %}" alt="..." data-dz-thumbnail="data-dz-thumbnail" />
+                    <div class="flex-1 d-flex flex-between-center">
+                      <div>
+                        <h6 data-dz-name="data-dz-name"></h6>
+                        <div class="d-flex align-items-center">
+                          <p class="mb-0 fs--1 text-400 lh-1" data-dz-size="data-dz-size"></p>
+                          <div class="dz-progress"><span class="dz-upload" data-dz-uploadprogress=""></span></div>
+                        </div><span class="fs--2 text-danger" data-dz-errormessage="data-dz-errormessage"></span>
+                      </div>
+                      <div class="dropdown font-sans-serif"><button class="btn btn-link text-600 btn-sm dropdown-toggle btn-reveal dropdown-caret-none" type="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="fas fa-ellipsis-h"></span></button>
+                        <div class="dropdown-menu dropdown-menu-end border py-2"><a class="dropdown-item" href="#!" data-dz-remove="data-dz-remove">Remove File</a></div>
+                      </div>
+                    </div>
+                  </div>
+                </div> {% endcomment %}
+                <div class="modal-footer">
+                  <button class="btn btn-primary" id="upload_button" type="submit" data-bs-dismiss="modal">Create</button>
+                </div>
+            </form>              
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock content %}
+
+{% block js %}
+<script src="{% static 'admin/assets/vendors/swiper/swiper-bundle.min.js' %}"></script>
+<script src="{% static 'admin/assets/vendors/dropzone/dropzone.min.js' %}"></script>
+<script>
+    Dropzone.autoDiscover = false;
+    $('#my-awesome-dropzone').submit(function (e) {
+        e.preventDefault();
+        var formData = new FormData(this);
+        console.log(formData)
+        $('#upload_button').html('<i class="fa fa-spinner fa-spin"></i> Loading...').attr('disabled', true);
+        const url = $('#my-awesome-dropzone').attr('action')
+        $.ajax({
+            url: url,
+            type: "POST",
+            dateType: "json",
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (response) {
+            if (response.message == 'success') {
+                $("#my-awesome-dropzone").trigger("reset")
+                $('#upload_button').html('Upload').attr('disabled', false);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Upload Was Successful',
+                    showConfirmButton: true,
+                    timer: 2500
+                    })
+                }
+            },
+            error: function (response) {
+                $("#my-awesome-dropzone").trigger("reset")
+                $('#upload_button').html('Upload').attr('disabled', false);
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Upload Failed! We will work on it',
+                    showConfirmButton: true,
+                    timer: 2500
+                })
+            },
+        })
+    })
+
+    var infinite = new Waypoint.Infinite({
+        element: $('.infinite-container-products')[0],
+        handler: function(direction) {
+        
+        },
+        offset: 'bottom-in-view',
+        onBeforePageLoad: function () {
+        $('.spinner-border').show();
+        },
+        onAfterPageLoad: function () {
+        $('.spinner-border').hide();
+        }
+      }) 
+</script>
+{% endblock js %}

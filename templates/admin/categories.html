@@ -1,0 +1,223 @@
+{% extends 'admin/base.html' %}
+{% block content %}
+<div data-list='{"valueNames":["name","created_by"],"page":5,"pagination":true}'>
+    <div class="row justify-content-center g-0">
+        <div class="col-auto col-sm-5 mb-3">
+            <button class="btn btn-sm btn-success me-1 mb-1" type="button" type="button" data-bs-toggle="modal" data-bs-target="#new_cart_form_modal">+ New</button>
+        </div>
+        {% comment %} <div class="col-auto col-sm-5 mb-3">
+            <form>
+            <div class="input-group"><input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search..." aria-label="search" />
+                <div class="input-group-text bg-transparent"><span class="fa fa-search fs--1 text-600"></span></div>
+            </div>
+            </form>
+        </div> {% endcomment %}
+      
+    </div>
+    <div class="table-responsive scrollbar">
+      <table class="table table-bordered table-striped fs--1 mb-0" id="categories_table">
+        <thead class="bg-200 text-900">
+          <tr>
+            <th class="sort" data-sort="name">Name</th>
+            <th class="sort" data-sort="created_by">Created By</th>
+            <th class="sort" data-sort="email">Action</th>
+          </tr>
+        </thead>
+        <tbody class="list" id="cart_list">
+            {% comment %} {% for cart in categories %}
+                <tr>
+                    <td class="name">{{cart.name}}</td>
+                    <td class="email">{{cart.created_by.email}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success me-1 mb-1" type="button">Activate</button>
+                    </td>
+                
+                </tr>
+            {% endfor %} {% endcomment %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--modal for new category-->
+  <div class="modal fade" id="new_cart_form_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+      <div class="modal-content position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+            <h4 class="mb-1" id="modalExampleDemoLabel">Create Category </h4>
+          </div>
+          <div class="p-4 pb-0">
+            <form>
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">Name:</label>
+                <input class="form-control" id="cart-name" type="text" name="name"/>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button class="btn btn-primary" id="new_cart" type="button" data-bs-dismiss="modal">Create</button>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block js %}
+<script>
+  function getCategories() {
+    const cart_list = document.getElementById('cart_list')
+    $.ajax({
+        type: "GET",
+        url:'{% url 'admin_site:all_categories' %}',
+        headers:{"X-Requested-With": "XMLHttpRequest"},
+        success: (res)=>{
+            if(res.message =='success'){
+                const data = res.data;
+
+                if(Array.isArray(data)){
+                cart_list.innerHTML =``
+
+                data.forEach(cart=>{
+                    
+                    cart_list.innerHTML += 
+                    `
+                    <tr>
+                        <td class="name">${cart.name}</td>
+                        <td class="created_by">${cart.created_by}</td>
+                        <td>
+                            <button class="btn btn-sm btn-${cart.cart_class} me-1 mb-1" onclick="changeCartStatus(${parseInt(cart.id)})" type="button">${cart.cart_txt}</button>
+                            <button class="btn btn-sm btn-danger me-1 mb-1" onclick="deleteCart(${parseInt(cart.id)})" type="button"><i class="fas fa-trash-alt"></i></button>
+                            <a href="/admin-site/product-list/${cart.id}" class="btn btn-sm btn-primary me-1 mb-1" type="button"><i class="far fa-list-alt"></i></a>
+                        </td>
+                    </tr>
+                    `
+                })
+                $('#categories_table').DataTable();
+                }else{
+                }
+            } 
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+      })
+    }
+    
+    $(document).ready(function () {
+      getCategories()
+
+      $('#new_cart').click(function (e){
+          var cart_name = $("#cart-name").val()
+          $.ajax({
+              type:'POST',
+              url:'{% url 'admin_site:category' %}',
+              data: {
+                  'csrfmiddlewaretoken':'{{ csrf_token }}',
+                  'cart_name':cart_name,
+              },
+              headers:{"X-Requested-With": "XMLHttpRequest"},
+              success: (res)=>{
+                  if(res.message =='success'){
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Created',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                      getCategories()
+                  }
+                  else{
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'error',
+                          title: 'Failed',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                  }
+                  
+              },
+              error:(err)=>{
+                  console.log(err)
+              }
+          })
+      })
+    })
+
+    function changeCartStatus(cart_id){
+      url = `/admin-site/change-cart-status/${cart_id}`
+      $.ajax({
+          type:'GET',
+          url:url,
+          headers:{"X-Requested-With": "XMLHttpRequest"},
+          success: (res)=>{
+              if(res.message =='success'){
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Updated',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+                  getCategories()
+
+              }
+              else{
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'Failed',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+              }
+              
+          },
+          error:(err)=>{
+              console.log(err)
+          }
+      })
+
+    }
+
+    function deleteCart(cart_id){
+      url = `/admin-site/delete/${cart_id}`
+      $.ajax({
+          type:'GET',
+          url:url,
+          headers:{"X-Requested-With": "XMLHttpRequest"},
+          success: (res)=>{
+              if(res.message =='success'){
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Updated',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+                  getCategories()
+              }
+              else{
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'Failed',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+              }
+              
+          },
+          error:(err)=>{
+              console.log(err)
+          }
+      })
+
+    }
+</script>
+{% endblock js %}
