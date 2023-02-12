@@ -39,7 +39,6 @@ def search_product(request):
                 }
                 data.append(item)
             res = data
-            print(res)
         else:
             res = "No Suggestions keyword..."
         return JsonResponse({'data': res})

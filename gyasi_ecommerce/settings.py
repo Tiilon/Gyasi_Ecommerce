@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'user',
-    'main_site'
+    'main_site',
+    'admin_site',
 ]
 
 MIDDLEWARE = [
@@ -76,10 +77,21 @@ WSGI_APPLICATION = 'gyasi_ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gyasi_ecommerce',
+        'USER': 'postgres',
+        'PASSWORD': 'Sparrow0500',
+        'HOST': 'localhost',
+        # 'DISABLE_SERVER_SIDE_CURSORS': True,
     }
 }
 
