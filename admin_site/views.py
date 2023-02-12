@@ -25,9 +25,11 @@ class CategoryView(View):
     
     def post(self, request):
         name = request.POST.get('cart_name')
+        image = request.FILES.get('edit-cart-image')
         message = ''
         new_cart = ProductCategoryModel.objects.create(
             name = name,
+            cart_sm_image = image,
             created_by=request.user
         )
         if new_cart:
@@ -41,11 +43,11 @@ def get_categories(request):
     cart_list = []
     for cart in categories:
         details = {
-            'id': cart.id,
+            'id': cart.id, # pyright: ignore
             'name': cart.name,
-            'created_by': cart.created_by.email,
+            'created_by': cart.created_by.email, # pyright: ignore
             'cart_class': 'warning' if cart.status == 1 else 'success',
-            'cart_txt': 'Deactivate' if cart.status == 1 else 'Activate',
+            'cart_txt': "<i title='Deactivate' class='far far fa-times-circle'></i>" if cart.status == 1 else "<i title='Activate' class='far fa-check-circle'></i>",
         }
         cart_list.append(details)
     return JsonResponse({'message': message, 'data': cart_list})
@@ -63,12 +65,31 @@ def change_cart_status(request, cart_id):
         return JsonResponse({'message': 'success'})
     return JsonResponse({'message': 'failed'})
 
+def get_cart_details(request, cart_id):
+    cart = ProductCategoryModel.objects.get(id=cart_id)
+    details = {
+        'id': cart.id, # pyright: ignore
+        'name': cart.name,
+        'image': cart.cart_sm_image.url if cart.cart_sm_image else '',
+        'created_by': cart.created_by.email, # pyright: ignore
+    }
+    return JsonResponse({'message': 'success', 'details': details})
+
+
+def update_cart(request, cart_id):
+    cart = ProductCategoryModel.objects.get(id=cart_id)
+    name = request.POST.get('edit-cart-name')
+    image = request.FILES.get('edit-cart-image')
+    old_image = cart.cart_sm_image
+    cart.name = name
+    cart.cart_sm_image = image if image else old_image
+    cart.save()
+    return JsonResponse({'message': 'success'})
+    
 
 def delete_cart(request, cart_id):
     category = ProductCategoryModel.objects.get(id=cart_id)
     category.delete()
-    print(category)
-    # category.save()
     return JsonResponse({'message': 'success'})
 
 class ProductListView(ListView):
@@ -85,15 +106,17 @@ class ProductListView(ListView):
         if self.kwargs.get('cart_id'):
             category = ProductCategoryModel.objects.get(id=self.kwargs.get('cart_id'))
             products = ProductModel.objects.filter(category=category).order_by('-created_at')
-            
+            context['category']=category
         else:
             products = ProductModel.objects.all().order_by('-created_at')
         for p in products:
             images = ProductImageModel.objects.filter(product=p)
             details={
+                'id': p.id, #pyright: ignore
+                'cart_id': p.category.id, #pyright: ignore
                 'name': p.name,
-                'category': p.category.name,
-                'image': images[0].image.url,
+                'category': p.category.name,# pyright: ignore
+                'image': images[0].image.url if images else '',
                 'ticket_price': p.ticket_price,
                 'status': p.status
             }
@@ -118,7 +141,24 @@ def create_product(request):
             ProductImageModel.objects.create(
                 product = new_product,
                 image=image,
+                product_admin_size=image,
                 resized_image=image
             )
         return JsonResponse({'message': 'success'})
         
+
+def get_product_details(request, product_id):
+    product = ProductModel.objects.get(id=product_id)
+    images = ProductImageModel.objects.filter(product=product)
+    context = {
+        'name': product.name,
+        'category': product.category.name, #pyright: ignore
+        'ticket_price': product.ticket_price,
+        'images': [{'id':image.id,'url':image.product_admin_size.url} for image in images] #pyright: ignore
+    }
+    return render(request,'admin/product_details.html',context)
+       
+def delete_product(request, product_id):
+    product = ProductModel.objects.get(id=product_id)
+    product.delete()
+    return JsonResponse({'message': 'success'})
