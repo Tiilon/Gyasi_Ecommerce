@@ -37,10 +37,10 @@
         <div class="mb-4 col-md-6 col-lg-4 infinite-item">
           <div class="border rounded-1 h-100 d-flex flex-column justify-content-between pb-3">
             <div class="overflow-hidden">
-              <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="product-details.html"><img class="img-fluid rounded-top" src="{{product.image}}" alt="" /></a></div>
+              <div class="position-relative rounded-top overflow-hidden"><a class="d-block" href="{% url 'admin_site:get_product_details' product.id %}"><img class="img-fluid rounded-top" src="{{product.image}}" alt="" /></a></div>
               <div class="p-3">
-                <h5 class="fs-0"><a class="text-dark" href="product-details.html">{{product.name}}</a></h5>
-                <p class="fs--1 mb-3"><a class="text-500" href="#!">{{product.category}}</a></p>
+                <h5 class="fs-0"><a class="text-dark" href="{% url 'admin_site:get_product_details' product.id %}">{{product.name}}</a></h5>
+                <p class="fs--1 mb-3"><a class="text-500" href="{% url 'admin_site:get_cart_product_list' product.cart_id %}">{{product.category}}</a></p>
                 <h5 class="fs-md-2 text-warning mb-0 d-flex align-items-center mb-3"> ${{product.ticket_price}}</h5>
                 <p class="fs--1 mb-1">Stock: <strong class="text-success">{% if product.status %}Available {% else %}Unavailable{% endif %}</strong></p>
               </div>
@@ -80,26 +80,32 @@
           <div class="p-4 pb-0">
             <form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone" action="{% url 'admin_site:create_product' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
+                  <div class="mb-3" id="cart_options" data-href="{% if category%}{{category}}{% endif %}">
+                    {% if category%}
+                    <input type="hidden" value="{{category.id}}" name="cart_id">
+                    <h3>Category: {{category.name}}</h3>
+                  {% else %}
+                  <label for="organizerSingle">Category</label>
+                  <select class="form-select js-choice" id="organizerSingle" size="1" name="cart_id" data-options='{"removeItemButton":true,"placeholder":true}'>
+                      <option value="">Select Category...</option>
+                      {% for cart in all_categories %}
+                      <option value="{{cart.id}}">{{cart.name}}</option>
+                      {% endfor %}
+                  </select> 
+                  {% endif %}
+              </div>
                 <div class="mb-3">
                     <label class="form-label" for="exampleFormControlInputna">Name</label>
                     <input class="form-control" id="exampleFormControlInputna" type="text" name="name" placeholder="Type here..." />
                 </div>
-                <div class="mb-3">
-                    <label for="organizerSingle">Category</label>
-                    <select class="form-select js-choice" id="organizerSingle" size="1" name="cart_id" data-options='{"removeItemButton":true,"placeholder":true}'>
-                        <option value="">Select Category...</option>
-                        {% for cart in all_categories %}
-                        <option value="{{cart.id}}">{{cart.name}}</option>
-                        {% endfor %}
-                    </select> 
-                </div> 
+                 
                 <div class="mb-3">
                     <label class="form-label" for="exampleFormControlInput1">Ticket Price</label>
                     <input class="form-control" id="exampleFormControlInput1" type="number" name="ticket_price" placeholder="Type here..." />
                 </div> 
                 <div class="mb-3">
                     <label class="form-label" for="exampleFormControlInputim">Upload Images</label>
-                    <input class="form-control" id="exampleFormControlInputim" type="file" name="product_images"/>
+                    <input class="form-control" id="exampleFormControlInputim" type="file" multiple name="product_images"/>
                 </div>
                 {% comment %} <div class="fallback">
                     <input name="product_images" type="file" multiple="multiple"/>
@@ -140,7 +146,6 @@
     $('#my-awesome-dropzone').submit(function (e) {
         e.preventDefault();
         var formData = new FormData(this);
-        console.log(formData)
         $('#upload_button').html('<i class="fa fa-spinner fa-spin"></i> Loading...').attr('disabled', true);
         const url = $('#my-awesome-dropzone').attr('action')
         $.ajax({
@@ -162,6 +167,7 @@
                     timer: 2500
                     })
                 }
+                $(".infinite-container-products").load(location.href + " .infinite-container-products");
             },
             error: function (response) {
                 $("#my-awesome-dropzone").trigger("reset")

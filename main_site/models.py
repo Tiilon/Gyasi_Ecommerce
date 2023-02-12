@@ -21,9 +21,9 @@ class ProductCategoryModel(models.Model):
     
     def get_data(self):
         return {
-            'id': self.id,
+            'id': self.id, # pyright: ignore
             'name': self.name,
-            'created_by': self.created_by.email
+            'created_by': self.created_by.email # pyright: ignore
         }
 
 
@@ -59,6 +59,11 @@ class ProductImageModel(models.Model):
     resized_image = ResizedImageField(
         size=[500, 500], upload_to="images/resized/product_image", blank=True, null=True
     )
+    product_admin_size = ResizedImageField(
+        size=[1098, 717], upload_to="images/resized/product_image", blank=True, null=True
+    )
+    status = models.BooleanField(default=True)
+    
     
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
