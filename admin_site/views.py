@@ -1,12 +1,13 @@
 from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
-from django.core.paginator import Paginator
 from main_site.models import ProductCategoryModel,ProductModel,ProductImageModel
 from utils import tokenizer
 from django.views.generic.list import ListView
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class DashboardView(View):
+class DashboardView(LoginRequiredMixin,View):
     def get(self, request):
         template_name = "admin/dashboard.html"
         # products = ProductModel.objects.all()
@@ -15,7 +16,7 @@ class DashboardView(View):
         return render(request, template_name, context)
 
 
-class CategoryView(View):
+class CategoryView(LoginRequiredMixin,View):
     def get(self, request):
         template_name = "admin/categories.html"
         categories = ProductCategoryModel.objects.all()
@@ -36,7 +37,7 @@ class CategoryView(View):
             message = "success"
         return JsonResponse({'message': message})
     
-
+@login_required
 def get_categories(request):
     categories = ProductCategoryModel.objects.all()
     message = 'success'
@@ -52,6 +53,7 @@ def get_categories(request):
         cart_list.append(details)
     return JsonResponse({'message': message, 'data': cart_list})
 
+@login_required
 def change_cart_status(request, cart_id):
     category = ProductCategoryModel.objects.get(id=cart_id)
     if category.status == True:
@@ -65,6 +67,7 @@ def change_cart_status(request, cart_id):
         return JsonResponse({'message': 'success'})
     return JsonResponse({'message': 'failed'})
 
+@login_required
 def get_cart_details(request, cart_id):
     cart = ProductCategoryModel.objects.get(id=cart_id)
     details = {
@@ -75,7 +78,7 @@ def get_cart_details(request, cart_id):
     }
     return JsonResponse({'message': 'success', 'details': details})
 
-
+@login_required
 def update_cart(request, cart_id):
     cart = ProductCategoryModel.objects.get(id=cart_id)
     name = request.POST.get('edit-cart-name')
@@ -86,13 +89,13 @@ def update_cart(request, cart_id):
     cart.save()
     return JsonResponse({'message': 'success'})
     
-
+@login_required
 def delete_cart(request, cart_id):
     category = ProductCategoryModel.objects.get(id=cart_id)
     category.delete()
     return JsonResponse({'message': 'success'})
 
-class ProductListView(ListView):
+class ProductListView(LoginRequiredMixin,ListView):
     model = ProductModel
     paginate_by = 6 # number of posts will load
     context_object_name = 'products'
@@ -123,18 +126,22 @@ class ProductListView(ListView):
             product_list.append(details)
         context['products'] = product_list
         return context
-    
+
+
+@login_required # pyright: ignore
 def create_product(request):
     if request.method == "POST":
         images = request.FILES.getlist('product_images')
         category = ProductCategoryModel.objects.get(id=request.POST.get('cart_id'))
         name= request.POST.get('name')
         ticket_price = request.POST.get('ticket_price')
+        description = request.POST.get('p_description')
         
         new_product = ProductModel.objects.create(
             category=category,
             name=name,
             ticket_price=ticket_price,
+            description=description,
         )
         
         for image in images:
@@ -145,20 +152,56 @@ def create_product(request):
                 resized_image=image
             )
         return JsonResponse({'message': 'success'})
-        
 
+
+@login_required # pyright: ignore
+def update_product(request,product_id):
+    if request.method == "POST":
+        images = request.FILES.getlist('p_images')
+        product = ProductModel.objects.get(id=product_id)
+        name= request.POST.get('p_name')
+        ticket_price = request.POST.get('p_ticket')
+        status = request.POST.get('p_status')
+        description = request.POST.get('p_description')
+        product.name = name
+        product.ticket_price = ticket_price
+        product.status = status
+        product.description = description
+        product.save()
+        
+        if images:
+            for image in images:
+                ProductImageModel.objects.create(
+                    product = product,
+                    image=image,
+                    product_admin_size=image,
+                    resized_image=image
+                )
+        return JsonResponse({'message': 'success'})
+    
+@login_required
 def get_product_details(request, product_id):
     product = ProductModel.objects.get(id=product_id)
     images = ProductImageModel.objects.filter(product=product)
     context = {
+        'id': product.id, #pyright:ignore
         'name': product.name,
+        'status': product.status,
+        'description': product.description,
         'category': product.category.name, #pyright: ignore
         'ticket_price': product.ticket_price,
         'images': [{'id':image.id,'url':image.product_admin_size.url} for image in images] #pyright: ignore
     }
     return render(request,'admin/product_details.html',context)
-       
+
+@login_required      
 def delete_product(request, product_id):
     product = ProductModel.objects.get(id=product_id)
     product.delete()
+    return JsonResponse({'message': 'success'})
+
+@login_required      
+def delete_product_image(request, image_id):
+    product_image = ProductImageModel.objects.get(id=image_id)
+    product_image.delete()
     return JsonResponse({'message': 'success'})

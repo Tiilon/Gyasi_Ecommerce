@@ -15,4 +15,7 @@ urlpatterns = [
     path("product-list/<int:cart_id>", ProductListView.as_view(), name="get_cart_product_list"),
     path("product-details/<int:product_id>", get_product_details, name="get_product_details"),
     path("create-product/", create_product, name="create_product"), # pyright: ignore
+    path("update-product/<int:product_id>", update_product, name="update_product"), # pyright: ignore
+    path("delete-product/<product_id>", delete_product, name="delete_product"),
+    path("delete-image/<image_id>", delete_product_image, name="delete_product_image"),
 ]

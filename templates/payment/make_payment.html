@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script src="https://js.paystack.co/v1/inline.js"></script> 
+    <button onclick="payWithPayStack()">Make payment</button>
+
+    <script>
+        function payWithPayStack() {
+            let currency = "GHS";
+            let plan = ""
+            let reference = "a1bFzIVeM-m3MYz6g8fkgl1AvYUqpXMQHn8AroH9kya1i6ucY4yXDR5Di5vjvqg_DgE"
+            let obj = {
+                key: 'pk_test_c8f20ce2ea76ad9c6c08e3be47fb764736cb59c8',
+                email: 'tiilon@outlook.com',
+                amount:'50000',
+                ref:reference,
+                callback: function(response) {
+                    window.location.href = `/payment/p/${reference}`
+                }
+            }
+            if (Boolean(currency)){
+                obj.currency = currency.toUpperCase()
+            }
+
+            if (Boolean(plan)){
+                obj.plan = plan;
+            }
+
+            var handler = PaystackPop.setup(obj);
+            handler.openIframe();
+        }
+    </script>
+</body>
+</html>
