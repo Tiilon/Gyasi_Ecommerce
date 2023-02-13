@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 import os
 from pathlib import Path
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-@hxgoy#e0asb2#7oms9k4+dfcsk@scr#a_9+wcq0!v+*+v^qc_'
+SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -179,8 +180,8 @@ DJANGORESIZED_DEFAULT_FORCE_FORMAT = 'JPEG'
 DJANGORESIZED_DEFAULT_FORMAT_EXTENSIONS = {'JPEG': ".jpg"}
 DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
-PAYSTACK_PUBLIC_KEY='pk_test_c8f20ce2ea76ad9c6c08e3be47fb764736cb59c8'
-PAYSTACK_SECRET_KEY='sk_test_3ac72326897a976aa05beda1f1bbe6cbeb1235bd'
+PAYSTACK_PUBLIC_KEY=config('PAYSTACK_PUBLIC_KEY')
+PAYSTACK_SECRET_KEY=config('PAYSTACK_SECRET_KEY')
 
 # django_heroku.settings(locals())
 LANGUAGE_CODE = 'en'

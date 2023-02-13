@@ -14,11 +14,11 @@
         function payWithPayStack() {
             let currency = "GHS";
             let plan = ""
-            let reference = "a1bFzIVeM-m3MYz6g8fkgl1AvYUqpXMQHn8AroH9kya1i6ucY4yXDR5Di5vjvqg_DgE"
+            let reference = "{{payment.reference}}"
             let obj = {
-                key: 'pk_test_c8f20ce2ea76ad9c6c08e3be47fb764736cb59c8',
+                key: '{{public_key}}',
                 email: 'tiilon@outlook.com',
-                amount:'50000',
+                amount:'2000',
                 ref:reference,
                 callback: function(response) {
                     window.location.href = `/payment/p/${reference}`

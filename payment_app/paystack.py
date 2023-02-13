@@ -2,7 +2,8 @@ from django.conf import settings
 import requests
 
 class PayStack:
-    PAYSTACK_SECRET_KEY = 'sk_test_3ac72326897a976aa05beda1f1bbe6cbeb1235bd'
+    # PAYSTACK_SECRET_KEY = 'sk_test_3ac72326897a976aa05beda1f1bbe6cbeb1235bd'
+    PAYSTACK_SECRET_KEY = settings.PAYSTACK_SECRET_KEY
     base_url = 'https://api.paystack.co'
     
     def verify_payment(self, ref, *args, **kwargs):
