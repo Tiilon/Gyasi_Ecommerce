@@ -36,6 +36,7 @@ class ProductModel(models.Model):
         on_delete=models.CASCADE,
     )
     name = models.CharField(max_length=250, blank=True, null=True)
+    description = models.TextField(blank=True, null=True)
     status = models.BooleanField(default=True)
     ticket_price = models.IntegerField(default=0)
     created_by = models.ForeignKey(

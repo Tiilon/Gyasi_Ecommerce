@@ -131,7 +131,7 @@
                         <td>
                             <button class="btn btn-sm btn-${cart.cart_class} me-1 mb-1" onclick="changeCartStatus(${parseInt(cart.id)})" type="button">${cart.cart_txt}</button>
                             <button title='Delete' class="btn btn-sm btn-danger me-1 mb-1" onclick="deleteCart(${parseInt(cart.id)})" type="button"><i class="fas fa-trash-alt"></i></button>
-                            <a href="/admin-site/product-list/${cart.id}" class="btn btn-sm btn-primary me-1 mb-1" type="button"><i title='View Products' class="far fa-list-alt"></i></a>
+                            <a href="/management/product-list/${cart.id}" class="btn btn-sm btn-primary me-1 mb-1" type="button"><i title='View Products' class="far fa-list-alt"></i></a>
                             <button class="btn btn-sm btn-info me-1 mb-1" onclick="appendCartDetails(${parseInt(cart.id)})" type="button" data-bs-toggle="modal" data-bs-target="#edit_cart_form_modal"><i class="fas fa-pen"></i></button>
                         </td>
                     </tr>
@@ -197,7 +197,7 @@
 
         $.ajax({
           type:'POST',
-          url:`/admin-site/update-cart-details/${parseInt(update_cart_id)}`,
+          url:`/management/update-cart-details/${parseInt(update_cart_id)}`,
           data: formData,
           dateType: "json",
           processData: false,
@@ -233,7 +233,7 @@
     function appendCartDetails(cart_id){
       $.ajax({
         type:'GET',
-        url:`/admin-site/get-cart-details/${parseInt(cart_id)}`,
+        url:`/management/get-cart-details/${parseInt(cart_id)}`,
         headers:{"X-Requested-With": "XMLHttpRequest"},
         success: (res)=>{
             if(res.message =='success'){
@@ -265,7 +265,7 @@
     }
 
     function changeCartStatus(cart_id){
-      url = `/admin-site/change-cart-status/${cart_id}`
+      url = `/management/change-cart-status/${cart_id}`
       $.ajax({
           type:'GET',
           url:url,
@@ -301,7 +301,7 @@
     }
 
     function deleteCart(cart_id){
-      url = `/admin-site/delete/${cart_id}`
+      url = `/management/delete/${cart_id}`
       Swal.fire({
         title: 'Are you sure?',
         text: "You won't be able to revert this! This will also delete all products associated with it",

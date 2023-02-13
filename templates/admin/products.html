@@ -80,10 +80,10 @@
           <div class="p-4 pb-0">
             <form class="dropzone dropzone-multiple p-0" id="my-awesome-dropzone" data-dropzone="data-dropzone" action="{% url 'admin_site:create_product' %}" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                  <div class="mb-3" id="cart_options" data-href="{% if category%}{{category}}{% endif %}">
-                    {% if category%}
-                    <input type="hidden" value="{{category.id}}" name="cart_id">
-                    <h3>Category: {{category.name}}</h3>
+                <div class="mb-3" id="cart_options" data-href="{% if category%}{{category}}{% endif %}">
+                  {% if category%}
+                  <input type="hidden" value="{{category.id}}" name="cart_id">
+                  <h3>Category: {{category.name}}</h3>
                   {% else %}
                   <label for="organizerSingle">Category</label>
                   <select class="form-select js-choice" id="organizerSingle" size="1" name="cart_id" data-options='{"removeItemButton":true,"placeholder":true}'>
@@ -93,12 +93,15 @@
                       {% endfor %}
                   </select> 
                   {% endif %}
-              </div>
+                </div>
                 <div class="mb-3">
                     <label class="form-label" for="exampleFormControlInputna">Name</label>
                     <input class="form-control" id="exampleFormControlInputna" type="text" name="name" placeholder="Type here..." />
                 </div>
-                 
+                <div class="mb-3">
+                  <label class="form-label" for="basic-form-textarea">Description</label>
+                  <textarea class="form-control" id="basic-form-textarea" rows="3" placeholder="Description" name="p_description"></textarea>
+                </div>
                 <div class="mb-3">
                     <label class="form-label" for="exampleFormControlInput1">Ticket Price</label>
                     <input class="form-control" id="exampleFormControlInput1" type="number" name="ticket_price" placeholder="Type here..." />
