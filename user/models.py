@@ -61,7 +61,7 @@ class User(AbstractBaseUser, PermissionsMixin):
         # indexes = [models.Index(fields=['zone']), models.Index(fields=['owner'])]
 
     def __str__(self):
-        return f"{self.username}"
+        return f"{self.email}"
 
     # For checking permissions. to keep it simple all admin have ALL permissions
     def has_perm(self, perm, obj=None):
@@ -99,7 +99,7 @@ class UserProfile(models.Model):
     # bio_file = models.FileField(upload_to='user/bio', blank=True, null=True)
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
     gender = models.CharField(max_length=10, null=True, blank=True)
-    # bio = models.TextField(null=True, blank=True)
+    address = models.TextField(null=True, blank=True)
     # profession = models.CharField(max_length=255,null=True, blank=True)
     # work_experience = models.IntegerField(default=0)
     # nationality = models.ForeignKey(Nationality, related_name='nationality', on_delete=models.CASCADE, null=True, blank=True)
