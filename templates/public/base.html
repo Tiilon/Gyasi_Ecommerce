@@ -1,317 +1,1460 @@
+{% load unicorn %}
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
+
+<!-- Mirrored from nouthemes.net/html/yobazar/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 08:08:03 GMT -->
 <head>
     <meta charset="utf-8">
-    <title>Site Name - Online Shop Website</title>
-    <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <meta content="Ecommerce" name="keywords">
-    <meta content="Tickets" name="description">
-
-    <!-- Favicon -->
-    <link href="img/favicon.ico" rel="icon">
-
-    <!-- Google Web Fonts -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">  
-
-    <!-- Font Awesome -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
-
-    <!-- Libraries Stylesheet -->
-    <link href="{% static 'public/lib/animate/animate.min.css' %}" rel="stylesheet">
-    <link href="{% static 'public/lib/owlcarousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
-
-    <!-- Customized Bootstrap Stylesheet -->
-    <link href="{% static 'public/css/style.css' %}" rel="stylesheet">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <link href="img/favicon.png" rel="apple-touch-icon-precomposed">
+    <link href="img/favicon.png" rel="shortcut icon" type="image/png">
+    <meta name="author" content="">
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <title>NoName</title>
+    <link rel="stylesheet" href="{% static 'public/plugins/font-awesome/css/font-awesome.min.css' %} ">
+    <link rel="preconnect" href="https://fonts.gstatic.com/">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&amp;display=swap&amp;ver=1621600324">
+    <link rel="stylesheet" href="{% static 'public/plugins/bootstrap4/css/bootstrap.min.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/plugins/owl-carousel/assets/owl.carousel.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/plugins/slick/slick/slick.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/plugins/lightGallery/dist/css/lightgallery.min.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/plugins/jquery-bar-rating/dist/themes/fontawesome-stars.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/plugins/select2/dist/css/select2.min.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/plugins/lightGallery/dist/css/lightgallery.min.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/plugins/noUiSlider/nouislider.css' %} ">
+    <link rel="stylesheet" href="{% static 'public/css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'public/css/home-1.css' %}">
+    {% unicorn_scripts %}
 </head>
 
 <body>
-        <!-- Topbar Start -->
-        <div class="container-fluid">
-            <div class="row bg-secondary py-1 px-xl-5">
-                <div class="col-lg-6 d-none d-lg-block">
-                    <div class="d-inline-flex align-items-center h-100">
-                        <a class="text-body mr-3" href="">About</a>
-                        <a class="text-body mr-3" href="">Contact</a>
-                        {% comment %} <a class="text-body mr-3" href="">Help</a> {% endcomment %}
-                        {% comment %} <a class="text-body mr-3" href="">FAQs</a> {% endcomment %}
-                    </div>
+    {% csrf_token %}
+    <div class="ps-page">
+        <header class="ps-header ps-header--1">
+            {% comment %} <div class="ps-notify">
+                <div class="container">
+                    <p class="ps-notify__text">Summer sale for all swim suits - off 50%!<a class="ps-notify__link" href="shop-list.html">Shop Now</a></p>
+                </div><a class="ps-notify__close" href="#"><img src="{% static 'public/img/icon/close.svg' %}" alt=""></a>
+            </div> {% endcomment %}
+            <div class="ps-header__inner">
+                <div class="ps-header__left">
+                    <div class="ps-logo"><a href="index.html"> <img src="{% static 'public/img/logo.png' %}" alt></a></div>
                 </div>
-                <div class="col-lg-6 text-center text-lg-right">
-                    <div class="d-inline-flex align-items-center">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">My Account</button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                {% if request.user.is_authenticated %}
-                                <button class="dropdown-item" type="button">Logout</button>
-                                {% else %}
-                                <button class="dropdown-item" type="button">Sign in</button>
-                                <button class="dropdown-item" type="button">Sign up</button>
-                                {% endif %}
-                            </div>
-                        </div>
-                        {% comment %} <div class="btn-group mx-2">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">USD</button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item" type="button">EUR</button>
-                                <button class="dropdown-item" type="button">GBP</button>
-                                <button class="dropdown-item" type="button">CAD</button>
-                            </div>
-                        </div> {% endcomment %}
-                        {% comment %} <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-light dropdown-toggle" data-toggle="dropdown">EN</button>
-                            <div class="dropdown-menu dropdown-menu-right">
-                                <button class="dropdown-item" type="button">FR</button>
-                                <button class="dropdown-item" type="button">AR</button>
-                                <button class="dropdown-item" type="button">RU</button>
-                            </div>
-                        </div> {% endcomment %}
-                    </div>
-                    <div class="d-inline-flex align-items-center d-block d-lg-none">
-                        <a href="" class="btn px-0 ml-2">
-                            <i class="fas fa-heart text-dark"></i>
-                            <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                        </a>
-                        <a href="" class="btn px-0 ml-2">
-                            <i class="fas fa-shopping-cart text-dark"></i>
-                            <span class="badge text-dark border border-dark rounded-circle" style="padding-bottom: 2px;">0</span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="row align-items-center bg-light py-3 px-xl-5 d-none d-lg-flex">
-                <div class="col-lg-4">
-                    <a href="" class="text-decoration-none">
-                        <span class="h1 text-uppercase text-primary bg-dark px-2">Shop</span>
-                        <span class="h1 text-uppercase text-dark bg-primary px-2 ml-n1">Name</span>
-                    </a>
-                </div>
-                <div class="col-lg-4 col-6 text-left">
-                    <form action="">
-                        <div class="input-group">
-                            <input type="text" class="form-control" placeholder="Search for products" id="product-search">
-                            <div class="input-group-append">
-                                <span class="input-group-text bg-transparent text-primary">
-                                    <i class="fa fa-search"></i>
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                    <div class="not-visible">
-                        <ul class="list-group" id="product-results" style="width: 80%; font-size: 1.5vw;"></ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-6 text-right">
-                    <p class="m-0">Customer Service</p>
-                    <h5 class="m-0">+012 345 6789</h5>
-                </div>
-            </div>
-        </div>
-        <!-- Topbar End -->
-    
-    
-        <!-- Navbar Start -->
-        <div class="container-fluid bg-dark mb-30">
-            <div class="row px-xl-5">
-                <div class="col-lg-3 d-none d-lg-block">
-                    <a class="btn d-flex align-items-center justify-content-between bg-primary w-100" data-toggle="collapse" href="#navbar-vertical" style="height: 65px; padding: 0 30px;">
-                        <h6 class="text-dark m-0"><i class="fa fa-bars mr-2"></i>Categories</h6>
-                        <i class="fa fa-angle-down text-dark"></i>
-                    </a>
-                    <nav class="collapse position-absolute navbar navbar-vertical navbar-light align-items-start p-0 bg-light" id="navbar-vertical" style="width: calc(100% - 30px); z-index: 999;">
-                        <div class="navbar-nav w-100">
-                            {% comment %} <div class="nav-item dropdown dropright">
-                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Dresses <i class="fa fa-angle-right float-right mt-1"></i></a>
-                                <div class="dropdown-menu position-absolute rounded-0 border-0 m-0">
-                                    <a href="" class="dropdown-item">Men's Dresses</a>
-                                    <a href="" class="dropdown-item">Women's Dresses</a>
-                                    <a href="" class="dropdown-item">Baby's Dresses</a>
-                                </div>
-                            </div> {% endcomment %}
-                            {% for category in all_categories %}
-                                <a href="{% url 'main_site:category_detail' category.id %}" class="nav-item nav-link">{{category.name}}</a>
-                            {% endfor %}
-                        </div>
-                    </nav>
-                </div>
-                <div class="col-lg-9">
-                    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 py-lg-0 px-0">
-                        <a href="" class="text-decoration-none d-block d-lg-none">
-                            <span class="h1 text-uppercase text-dark bg-light px-2">Multi</span>
-                            <span class="h1 text-uppercase text-light bg-primary px-2 ml-n1">Shop</span>
-                        </a>
-                        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
-                        <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
-                            <div class="navbar-nav mr-auto py-0">
-                                {% comment %} <a href="index.html" class="nav-item nav-link active">Home</a> {% endcomment %}
-                                {% comment %} <a href="shop.html" class="nav-item nav-link">Categories</a> {% endcomment %}
-                                <a href="{% url 'main_site:items' %}" class="nav-item nav-link">All Products</a>
-                                {% comment %} <div class="nav-item dropdown">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages <i class="fa fa-angle-down mt-1"></i></a>
-                                    <div class="dropdown-menu bg-primary rounded-0 border-0 m-0">
-                                        <a href="cart.html" class="dropdown-item">Shopping Cart</a>
-                                        <a href="checkout.html" class="dropdown-item">Checkout</a>
+                <div class="ps-header__center">
+                    <ul class="menu">
+                        <li class="has-mega-menu"><a href="#">Quick Browse<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu__row">
+                                        {% for cart in all_categories %}
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>{{cart.name}}</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                {% for product in cart.products %}
+                                                <li><a href="#">{{product.name}}</a></li>
+                                                {% endfor %}
+                                                {% comment %} <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">T-shirts</a></li>
+                                                <li><a href="#">Polo shirts</a></li>
+                                                <li><a href="#">Tracksuits</a></li>
+                                                <li><a href="#">Shirts</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Underwear</a></li> {% endcomment %}
+                                            </ul>
+                                        </div>
+                                        {% endfor %}
+                                        {% comment %} <div class="mega-menu__column column-flex">
+                                            <h4>Women</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="#">Coats &amp; Jackets</a></li>
+                                                <li><a href="#">Dresses</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Lingerie</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Skirts</a></li>
+                                                <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Tops</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Other</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="#">Accessories</a></li>
+                                                <li><a href="#">Bags</a></li>
+                                                <li><a href="#">Belts</a></li>
+                                                <li><a href="#">Hats</a></li>
+                                                <li><a href="#">Watches</a></li>
+                                                <li><a href="#">Jewellery</a></li>
+                                                <li><a href="#">Sale</a></li>
+                                                <li><a href="#">Vintage</a></li>
+                                                <li><a href="#">Designers</a></li>
+                                                <li><a href="#">Lifestyle</a></li>
+                                            </ul>
+                                        </div> {% endcomment %}
                                     </div>
-                                </div> {% endcomment %}
-                                {% comment %} <a href="contact.html" class="nav-item nav-link">Contact</a> {% endcomment %}
-                            </div>
-                            <div class="navbar-nav ml-auto py-0 d-none d-lg-block">
-                                <a href="" class="btn px-0">
-                                    <i class="fas fa-heart text-primary"></i>
-                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                                </a>
-                                <a href="{% url 'main_site:cart' %}" class="btn px-0 ml-3">
-                                    <i class="fas fa-shopping-cart text-primary"></i>
-                                    <span class="badge text-secondary border border-secondary rounded-circle" style="padding-bottom: 2px;">0</span>
-                                </a>
-                            </div>
-                        </div>
-                    </nav>
-                </div>
-            </div>
-        </div>
-        <!-- Navbar End -->
-    {% block content %}{% endblock content %}
-
-    <!-- Footer Start -->
-    <div class="container-fluid bg-dark text-secondary mt-5 pt-5">
-        <div class="row px-xl-5 pt-5">
-            <div class="col-lg-4 col-md-12 mb-5 pr-3 pr-xl-5">
-                <h5 class="text-secondary text-uppercase mb-4">Get In Touch</h5>
-                <p class="mb-4">No dolore ipsum accusam no lorem. Invidunt sed clita kasd clita et et dolor sed dolor. Rebum tempor no vero est magna amet no</p>
-                <p class="mb-2"><i class="fa fa-map-marker-alt text-primary mr-3"></i>123 Street, New York, USA</p>
-                <p class="mb-2"><i class="fa fa-envelope text-primary mr-3"></i>info@example.com</p>
-                <p class="mb-0"><i class="fa fa-phone-alt text-primary mr-3"></i>+012 345 67890</p>
-            </div>
-            <div class="col-lg-8 col-md-12">
-                <div class="row">
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Quick Shop</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">My Account</h5>
-                        <div class="d-flex flex-column justify-content-start">
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Home</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
-                            <a class="text-secondary mb-2" href="#"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
-                            <a class="text-secondary" href="#"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-5">
-                        <h5 class="text-secondary text-uppercase mb-4">Newsletter</h5>
-                        <p>Duo stet tempor ipsum sit amet magna ipsum tempor est</p>
-                        <form action="">
-                            <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Your Email Address">
-                                <div class="input-group-append">
-                                    <button class="btn btn-primary">Sign Up</button>
                                 </div>
                             </div>
-                        </form>
-                        <h6 class="text-secondary text-uppercase mt-4 mb-3">Follow Us</h6>
-                        <div class="d-flex">
-                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-twitter"></i></a>
-                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-facebook-f"></i></a>
-                            <a class="btn btn-primary btn-square mr-2" href="#"><i class="fab fa-linkedin-in"></i></a>
-                            <a class="btn btn-primary btn-square" href="#"><i class="fab fa-instagram"></i></a>
+                        </li>
+                        <li class="has-mega-menu"><a href="#">All Categories<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-flex">
+                                            <ul class="sub-menu--mega sub-column--3">
+                                                {% for cart in total_categories %}
+                                                <li><a href="{% url 'main_site:category_items' cart.id %}">{{cart.name}}</a></li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {% comment %} <li class="has-mega-menu"><a href="#">Categories<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="ps-category--menu">
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %}" alt="" /></a><img class="ps-category__image" src="{% static 'public/img/women-cat.jpg' %} " alt="Women" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Women</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %}" alt="" /></a><img class="ps-category__image" src="{% static 'public/img/men-cat.jpg' %} " alt="Men" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Men</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %}" alt="" /></a><img class="ps-category__image" src="{% static 'public/img/shoes.jpg' %} " alt="Shoes" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Shoes</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %}" alt="" /></a><img class="ps-category__image" src="{% static 'public/img/bag.jpg' %} " alt="Bags" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Bags</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %}" alt="" /></a><img class="ps-category__image" src="{% static 'public/img/glasses.jpg' %} " alt="Glasses" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Glasses</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %}" alt="" /></a><img class="ps-category__image" src="{% static 'public/img/jewelry.jpg' %} " alt="Jewelry" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Jewelry</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> {% endcomment %}
+                        {% comment %} <li class="has-mega-menu"><a href="#">Men<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu pb-0">
+                                <div class="container pb-0">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-flex w-50">
+                                            <h4>Men</h4>
+                                            <ul class="sub-menu--mega sub-column--3">
+                                                <li><a href="#">Jackets &amp; Coats</a></li>
+                                                <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">T-shirts</a></li>
+                                                <li><a href="#">Polo shirts</a></li>
+                                                <li><a href="#">Tracksuits</a></li>
+                                                <li><a href="#">Shirts</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Underwear</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex w-50"><img class="mega-menu__thumbnail" src="{% static 'public/img/man.png' %} " alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mega-menu__slider" data-background="{% static 'public/img/menu-slider.jpg' %} ">
+                                    <div class="mega-menu__box">
+                                        <h3>The latest men's trends <br />this season</h3>
+                                        <p class="mega-menu__text">New collections!</p><a class="ps-btn ps-btn--danger ps-btn--rounded" href="shop-list.html">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> {% endcomment %}
+                        {% comment %} <li class="has-mega-menu"><a href="#">Women<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu pb-0">
+                                <div class="container pb-0">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-bg" data-background="img/women.png">
+                                            <h4>Women</h4>
+                                            <ul class="sub-menu--mega ">
+                                                <li><a href="#">Coats &amp; Jackets</a></li>
+                                                <li><a href="#">Dresses</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Lingerie</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Skirts</a></li>
+                                                <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Tops</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <div class="mega-menu__other">
+                                                <div class="mega-menu__promo">
+                                                    <div class="ps-promo ps-promo--left"><img class="ps-promo__banner" src="{% static 'public/img/promotion/banner-menu.jpg' %} " alt="alt" />
+                                                        <div class="ps-promo__content">
+                                                            <h4 class="ps-promo__title">Street style <br/>has its own <br/>rules</h4>
+                                                            <div class="ps-promo__link"> <a href="shop-list.html"><span>Shop Now</span><img src="{% static 'public/img/icon/arrow-long-right.svg' %} " alt="" /></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mega-menu__product">
+                                                    <div class="ps-product ps-product--standard">
+                                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/1.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/12.jpg' %} " alt="alt" />
+                                                                </figure>
+                                                            </a>
+                                                            <div class="ps-product__actions">
+                                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                                                            </div>
+                                                            <div class="ps-product__badge">
+                                                                <div class="ps-badge ps-badge--sale">-70%</div>
+                                                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                                                        </div>
+                                                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                                                        <div class="ps-product__content">
+                                                            <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                                                            <div class="ps-product__meta"><span class="ps-product__price sale">$38.39</span><span class="ps-product__del">$53.99</span>
+                                                            </div>
+                                                            <div class="ps-product__footer">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input class="custom-control-input" type="radio" id="navigationRed2" name="productOption" value="Red" />
+                                                                    <label class="custom-control-label" for="navigationRed2" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input class="custom-control-input" type="radio" id="navigationBlack2" name="productOption" value="Black" />
+                                                                    <label class="custom-control-label" for="navigationBlack2" style="--bg-color: #191919"><span style="--bg-color: #191919"></span></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> {% endcomment %}
+                        {% comment %} <li class="has-mega-menu"><a href="#">Pages<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Home</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="index.html">Home 01</a></li>
+                                                <li><a href="home-2.html">Home 02</a></li>
+                                                <li><a href="home-3.html">Home 03</a></li>
+                                                <li><a href="home-4.html">Home 04</a></li>
+                                                <li><a href="home-5.html">Home 05</a></li>
+                                                <li><a href="home-6.html">Home 06</a></li>
+                                                <li><a href="home-7.html">Home 07</a></li>
+                                                <li><a href="home-8.html">Home 08</a></li>
+                                                <li><a href="home-9.html">Home 09</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Shop</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="shop-promo.html">Shop promo</a></li>
+                                                <li><a href="shop-list.html">Shop list</a></li>
+                                                <li><a href="shop-grid.html">Shop grid</a></li>
+                                                <li><a href="shop-slidebar.html">Shop slidebar</a></li>
+                                                <li><a href="shopping-cart.html">Shopping cart</a></li>
+                                                <li><a href="product-1.html">Product layout 1</a></li>
+                                                <li><a href="product-2.html">Product layout 2</a></li>
+                                                <li><a href="product-3.html">Product layout 3</a></li>
+                                                <li><a href="product-4.html">Product layout 4</a></li>
+                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Other</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="404.html">404</a></li>
+                                                <li><a href="about-us.html">About</a></li>
+                                                <li><a href="portfolio.html">Portfolio</a></li>
+                                                <li><a href="portfolio-detail.html">Portfolio detail</a></li>
+                                                <li><a href="contact-us-v1.html">Contact us v1</a></li>
+                                                <li><a href="contact-us-v2.html">Contact us v2</a></li>
+                                                <li><a href="blog-layout1.html">Blog default</a></li>
+                                                <li><a href="blog-layout2.html">Blog layout 2</a></li>
+                                                <li><a href="blog-post.html">Blog detail</a></li>
+                                                <li><a href="coming-soon-v1.html">Coming soon 1</a></li>
+                                                <li><a href="coming-soon-v2.html">Coming soon 2</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li> {% endcomment %}
+                        <li class="has-mega-menu"><a href="{% url 'main_site:items' %}">Explore Products</a></li>
+                        <li class="has-mega-menu"><a href="contact-us-v1.html">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="ps-header__right">
+                    {% comment %} <div class="ps-language-currency">
+                        <select class="ps-single-no-search" name="state">
+                            <option value="en">EN</option>
+                            <option value="fr">FR</option>
+                        </select>
+                        <select class="ps-single-no-search" name="state">
+                            <option value="usd">USD</option>
+                            <option value="eur">EUR</option>
+                        </select>
+                    </div> {% endcomment %}
+                    <ul class="ps-header__icons">
+                        <li class="ps-header__item"><a class="ps-header__link open-search" href="#"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></li>
+                        <li class="ps-header__item open-user"><a class="ps-header__link" href="#"><img src="{% static 'public/img/icon/user.svg' %} " alt=""></a>
+                            <div class="ps-login--modal">
+                                <form method="get" action="https://nouthemes.net/html/yobazar/do_action">
+                                    <div class="form-group">
+                                        <label>Username or Email Address</label>
+                                        <input class="form-control" type="text">
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password</label>
+                                        <input class="form-control" type="password">
+                                    </div>
+                                    <div class="ps-login__footer">
+                                        <button class="ps-btn ps-btn--rounded ps-btn--dark" type="submit">Log In</button>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="rememberCheck">
+                                            <label class="form-check-label" for="rememberCheck">Remember Me</label>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </li>
+                        <li class="ps-header__item"><a class="ps-header__link" href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %} " alt=""><span class="badge">3</span></a></li>
+                        <li class="ps-header__item "><a class="ps-header__link" href="{% url 'main_site:cart' %}"><img src="{% static 'public/img/icon/cart.svg' %} " alt=""><span class="badge" id="cart_number"></span></a>
+                            <div class="ps-cart--mini">
+                                <div class="ps-cart__content">
+                                    <ul class="ps-cart__items" id="cart_item_list">
+                                        {% comment %} <li class="ps-cart__item">
+                                            <div class="ps-product--mini-cart"><a class="ps-product__thumbnail" href="product-default.html"><img src="{% static 'public/img/products/1.jpg' %} " alt="alt" /></a>
+                                                <div class="ps-product__content"><a class="ps-product__name" href="product-default.html">Somersung Sonic X2500 Pro White</a>
+                                                    <div class="ps-product__meta"><span class="ps-product__price">$399.99</span>
+                                                    </div>
+                                                    <div class="ps-product__quantity">
+                                                        <div class="def-number-input number-input safari_only">
+                                                            <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><img src="{% static 'public/img/icon/minus.svg' %} " alt="" /></button>
+                                                            <input class="quantity" min="0" name="quantity" value="1" type="number" />
+                                                            <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></button>
+                                                        </div>
+                                                        <div class="ps-product__total"> <span class="ps-product__price">$399.99</span></div>
+                                                    </div>
+                                                </div><a class="ps-product__remove" href="javascript: void(0)"><img src="{% static 'public/img/icon/close.svg' %} " alt="" /></a>
+                                            </div>
+                                        </li> {% endcomment %}
+                                    </ul>
+                                    <div class="ps-cart__total"><span>Subtotal </span><span id="cart_sub_total"></span></div>
+                                    <div class="ps-cart__footer">
+                                        <a class="ps-btn ps-btn--rounded ps-btn--dark" href="shopping-cart.html">View Cart</a>
+                                        <a class="ps-btn ps-btn--rounded ps-btn--danger" href="checkout.html">Checkout</a>
+                                    </div>
+                                </div>
+                                <p class="ps-cart__text">Your cart is currently empty.</p>
+                                <div class="ps-cart__empty"><img src="{% static 'public/img/icon/cart-empty.svg' %} " alt="">
+                                </div>
+                            </div>                            
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <nav class="ps-navigation">
+                <div class="container">
+                    <ul class="menu">
+                        <li class="has-mega-menu"><a href="#">Shop<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Men</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="#">Jackets &amp; Coats</a></li>
+                                                <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">T-shirts</a></li>
+                                                <li><a href="#">Polo shirts</a></li>
+                                                <li><a href="#">Tracksuits</a></li>
+                                                <li><a href="#">Shirts</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Underwear</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Women</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="#">Coats &amp; Jackets</a></li>
+                                                <li><a href="#">Dresses</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Lingerie</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Skirts</a></li>
+                                                <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Tops</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Other</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="#">Accessories</a></li>
+                                                <li><a href="#">Bags</a></li>
+                                                <li><a href="#">Belts</a></li>
+                                                <li><a href="#">Hats</a></li>
+                                                <li><a href="#">Watches</a></li>
+                                                <li><a href="#">Jewellery</a></li>
+                                                <li><a href="#">Sale</a></li>
+                                                <li><a href="#">Vintage</a></li>
+                                                <li><a href="#">Designers</a></li>
+                                                <li><a href="#">Lifestyle</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega-menu"><a href="#">Categories<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="ps-category--menu">
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></a><img class="ps-category__image" src="{% static 'public/img/women-cat.jpg' %} " alt="Women" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Women</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></a><img class="ps-category__image" src="{% static 'public/img/men-cat.jpg' %} " alt="Men" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Men</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></a><img class="ps-category__image" src="{% static 'public/img/shoes.jpg' %} " alt="Shoes" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Shoes</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></a><img class="ps-category__image" src="{% static 'public/img/bag.jpg' %} " alt="Bags" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Bags</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></a><img class="ps-category__image" src="{% static 'public/img/glasses.jpg' %} " alt="Glasses" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Glasses</a></h6>
+                                        </div>
+                                        <div class="ps-category__item">
+                                            <div class="ps-category__thumbnail"> <a class="ps-category__overlay" href="shop-list.html"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></a><img class="ps-category__image" src="{% static 'public/img/jewelry.jpg' %} " alt="Jewelry" /></div>
+                                            <h6 class="ps-category__name"><a href="shop-list.html">Jewelry</a></h6>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega-menu"><a href="#">Men<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu pb-0">
+                                <div class="container pb-0">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-flex w-50">
+                                            <h4>Men</h4>
+                                            <ul class="sub-menu--mega sub-column--3">
+                                                <li><a href="#">Jackets &amp; Coats</a></li>
+                                                <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">T-shirts</a></li>
+                                                <li><a href="#">Polo shirts</a></li>
+                                                <li><a href="#">Tracksuits</a></li>
+                                                <li><a href="#">Shirts</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Underwear</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex w-50"><img class="mega-menu__thumbnail" src="{% static 'public/img/man.png' %} " alt="" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="mega-menu__slider" data-background="img/menu-slider.jpg">
+                                    <div class="mega-menu__box">
+                                        <h3>The latest men's trends <br />this season</h3>
+                                        <p class="mega-menu__text">New collections!</p><a class="ps-btn ps-btn--danger ps-btn--rounded" href="shop-list.html">Shop Now</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega-menu"><a href="#">Women<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu pb-0">
+                                <div class="container pb-0">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-bg" data-background="img/women.png">
+                                            <h4>Women</h4>
+                                            <ul class="sub-menu--mega ">
+                                                <li><a href="#">Coats &amp; Jackets</a></li>
+                                                <li><a href="#">Dresses</a></li>
+                                                <li><a href="#">Jeans</a></li>
+                                                <li><a href="#">Lingerie</a></li>
+                                                <li><a href="#">Loungewear</a></li>
+                                                <li><a href="#">Shorts</a></li>
+                                                <li><a href="#">Skirts</a></li>
+                                                <li><a href="#">Suits</a></li>
+                                                <li><a href="#">Swimwear</a></li>
+                                                <li><a href="#">Tops</a></li>
+                                                <li><a href="#">Trousers</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <div class="mega-menu__other">
+                                                <div class="mega-menu__promo">
+                                                    <div class="ps-promo ps-promo--left"><img class="ps-promo__banner" src="{% static 'public/img/promotion/banner-menu.jpg' %} " alt="alt" />
+                                                        <div class="ps-promo__content">
+                                                            <h4 class="ps-promo__title">Street style <br/>has its own <br/>rules</h4>
+                                                            <div class="ps-promo__link"> <a href="shop-list.html"><span>Shop Now</span><img src="{% static 'public/img/icon/arrow-long-right.svg' %} " alt="" /></a></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mega-menu__product">
+                                                    <div class="ps-product ps-product--standard">
+                                                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/1.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/12.jpg' %} " alt="alt" />
+                                                                </figure>
+                                                            </a>
+                                                            <div class="ps-product__actions">
+                                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                                                            </div>
+                                                            <div class="ps-product__badge">
+                                                                <div class="ps-badge ps-badge--sale">-70%</div>
+                                                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                                                        </div>
+                                                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                                                        <div class="ps-product__content">
+                                                            <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                                                            <div class="ps-product__meta"><span class="ps-product__price sale">$38.39</span><span class="ps-product__del">$53.99</span>
+                                                            </div>
+                                                            <div class="ps-product__footer">
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input class="custom-control-input" type="radio" id="navigationRed1" name="productOption" value="Red" />
+                                                                    <label class="custom-control-label" for="navigationRed1" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
+                                                                </div>
+                                                                <div class="custom-control custom-checkbox">
+                                                                    <input class="custom-control-input" type="radio" id="navigationBlack1" name="productOption" value="Black" />
+                                                                    <label class="custom-control-label" for="navigationBlack1" style="--bg-color: #191919"><span style="--bg-color: #191919"></span></label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega-menu"><a href="#">Pages<span class="sub-toggle"><i class="fa fa-chevron-down"></i></span></a>
+                            <div class="mega-menu">
+                                <div class="container">
+                                    <div class="mega-menu__row">
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Home</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="index.html">Home 01</a></li>
+                                                <li><a href="home-2.html">Home 02</a></li>
+                                                <li><a href="home-3.html">Home 03</a></li>
+                                                <li><a href="home-4.html">Home 04</a></li>
+                                                <li><a href="home-5.html">Home 05</a></li>
+                                                <li><a href="home-6.html">Home 06</a></li>
+                                                <li><a href="home-7.html">Home 07</a></li>
+                                                <li><a href="home-8.html">Home 08</a></li>
+                                                <li><a href="home-9.html">Home 09</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Shop</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="shop-promo.html">Shop promo</a></li>
+                                                <li><a href="shop-list.html">Shop list</a></li>
+                                                <li><a href="shop-grid.html">Shop grid</a></li>
+                                                <li><a href="shop-slidebar.html">Shop slidebar</a></li>
+                                                <li><a href="shopping-cart.html">Shopping cart</a></li>
+                                                <li><a href="product-1.html">Product layout 1</a></li>
+                                                <li><a href="product-2.html">Product layout 2</a></li>
+                                                <li><a href="product-3.html">Product layout 3</a></li>
+                                                <li><a href="product-4.html">Product layout 4</a></li>
+                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                            </ul>
+                                        </div>
+                                        <div class="mega-menu__column column-flex">
+                                            <h4>Other</h4>
+                                            <ul class="sub-menu--mega sub-column--2">
+                                                <li><a href="404.html">404</a></li>
+                                                <li><a href="about-us.html">About</a></li>
+                                                <li><a href="portfolio.html">Portfolio</a></li>
+                                                <li><a href="portfolio-detail.html">Portfolio detail</a></li>
+                                                <li><a href="contact-us-v1.html">Contact us v1</a></li>
+                                                <li><a href="contact-us-v2.html">Contact us v2</a></li>
+                                                <li><a href="blog-layout1.html">Blog default</a></li>
+                                                <li><a href="blog-layout2.html">Blog layout 2</a></li>
+                                                <li><a href="blog-post.html">Blog detail</a></li>
+                                                <li><a href="coming-soon-v1.html">Coming soon 1</a></li>
+                                                <li><a href="coming-soon-v2.html">Coming soon 2</a></li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="has-mega-menu"><a href="blog-layout1.html">Blog</a></li>
+                        <li class="has-mega-menu"><a href="contact-us-v1.html">Contact</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
+        {% comment %} <header class="ps-header ps-header--mobile">
+            <div class="ps-notify">
+                <div class="container">
+                    <p class="ps-notify__text">Summer sale for all swim suits - off 50%!<a class="ps-notify__link" href="shop-list.html">Shop Now</a></p>
+                </div><a class="ps-notify__close" href="#"><img src="{% static 'public/img/icon/close.svg' %} " alt=""></a>
+            </div>
+            <div class="ps-header__inner">
+                <div class="ps-header__left">
+                    <div class="ps-logo"><a href="index.html"> <img src="{% static 'public/img/logo.png' %} " alt></a></div>
+                </div>
+                <div class="ps-header__right">
+                    <ul class="ps-header__icons">
+                        <li class="ps-header__item"><a class="ps-header__link open-search" href="#"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></li>
+                    </ul>
+                </div>
+            </div>
+        </header> {% endcomment %}
+        {% block content %}{% endblock content %}
+        <footer class="ps-footer ps-footer--1">
+            <div class="container">
+                <div class="ps-footer__middle">
+                    <div class="row">
+                        <div class="col-12 col-md-4 col-lg-3">
+                            <div class="ps-footer--address">
+                                <div class="ps-logo"><a href="index.html"> <img src="{% static 'public/img/logo.png' %} " alt><img class="logo-white" src="{% static 'public/img/logo-white.png' %} " alt></a></div>
+                                <p>Wl395/1 Kasoa Cp<br>P.O.Box TX 16819</p>
+                                <p><a target="_blank" href="https://www.google.com/maps/place/Arlington,+TX,+USA/@32.701968,-97.2054529,12z/data=!3m1!4b1!4m8!1m2!2m1!1s1487+Rocky+Horse+Carrefour+Arlington,+TX+16819!3m4!1s0x864e62d2e40898d3:0xb5ef6ac1fa05351!8m2!3d32.735687!4d-97.1080656">Show on map</a></p>
+                                <ul class="ps-social">
+                                    <li><a class="ps-social__link facebook" href="#"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></a></li>
+                                    <li><a class="ps-social__link instagram" href="#"><i class="fa fa-instagram"></i><span class="ps-tooltip">Instagram</span></a></li>
+                                    <li><a class="ps-social__link youtube" href="#"><i class="fa fa-youtube-play"></i><span class="ps-tooltip">Youtube</span></a></li>
+                                    <li><a class="ps-social__link pinterest" href="#"><i class="fa fa-pinterest-p"></i><span class="ps-tooltip">Pinterest</span></a></li>
+                                    <li><a class="ps-social__link linkedin" href="#"><i class="fa fa-linkedin"></i><span class="ps-tooltip">Linkedin</span></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-8 col-lg-5">
+                            <div class="row">
+                                <div class="col-6 col-md-6">
+                                    <div class="ps-footer--widget">
+                                        <ul class="ps-footer__list">
+                                            <li><a href="#">Jeans</a></li>
+                                            <li><a href="#">Jackets &amp; Coats</a></li>
+                                            <li><a href="#">Loungewear</a></li>
+                                            <li><a href="#">Polo shirts</a></li>
+                                            <li><a href="#">Underwear</a></li>
+                                            <li><a href="#">Shirts</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                 <div class="col-6 col-md-6">
+                                    <div class="ps-footer--widget">
+                                        <ul class="ps-footer__list">
+                                            <li><a href="#">Shorts</a></li>
+                                            <li><a href="#">Suits</a></li>
+                                            <li><a href="#">Swimwear</a></li>
+                                            <li><a href="#">Tracksuits</a></li>
+                                            <li><a href="#">Trousers</a></li>
+                                            <li><a href="#">T-Shirts</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% comment %}
+                                <div class="col-6 col-md-4">
+                                    <div class="ps-footer--widget">
+                                        <ul class="ps-footer__account">
+                                            <li><a href="#">My account</a></li>
+                                            <li><a href="#">Order History</a></li>
+                                            <li><a href="#">Wish List</a></li>
+                                            <li><a href="#">Newsletter</a></li>
+                                            <li><a href="#">Affiliate</a></li>
+                                            <li><a href="#">Returns</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                {% endcomment %}
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-5 col-lg-4">
+                            <div class="ps-footer--newsletter">
+                                <h5 class="ps-footer__title">Join our newsletter and get $20 for your first order</h5>
+                                <form action="https://nouthemes.net/html/yobazar/do_action" method="post">
+                                    <div class="ps-form--newsletter">
+                                        <div class="input-group">
+                                            <input class="form-control ps-input" type="text" placeholder="Your e-mail address">
+                                            <button class="ps-btn ps-btn--danger ps-btn--rounded">Subscribe </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
+                {% comment %} <div class="ps-footer--service">
+                    <div class="container">
+                        <div class="ps-footer__row">
+                            <p class="ps-footer__item"><a class="ps-footer__link" href="#"><img src="{% static 'public/img/icon/delivery.svg' %} " alt=""><span>Free delivery</span></a></p>
+                            <p class="ps-footer__item"><a class="ps-footer__link" href="#"><img src="{% static 'public/img/icon/non-contact.svg' %} " alt=""><span>Non-contact shipping</span></a></p>
+                            <p class="ps-footer__item"><a class="ps-footer__link" href="#"><img src="{% static 'public/img/icon/wallet.svg' %} " alt=""><span>Money-back quarantee</span></a></p>
+                            <p class="ps-footer__item"><a class="ps-footer__link" href="#"><img src="{% static 'public/img/icon/security.svg' %} " alt=""><span>Secure payments</span></a></p>
+                        </div>
+                    </div>
+                </div> {% endcomment %}
+                <div class="ps-footer--bottom">
+                    <div class="row">
+                        <div class="col-12 col-md-6">
+                            <p class="ps-footer__contact"> <a class="ps-footer__phone" href="tel:024685449">024685449</a><a class="ps-footer__mail" href="https://nouthemes.net/cdn-cgi/l/email-protection#96fff8f0f9d6f5f9fbe6f7f8efb8f5f9fb"><span class="__cf_email__" data-cfemail="f1989f979eb1929e9c81909f88df929e9c">[email&#160;protected]</span></a></p>
+                            <p class="ps-footer__copyright">Copyright © 2021, Your Store. All Rights Reserved.</p>
+                        </div>
+                        {% comment %} <div class="col-12 col-md-6 text-right"><img src="{% static 'public/img/payment.png' %} " alt><img class="img-white" src="{% static 'public/img/payment-white.png' %} " alt></div> {% endcomment %}
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="row border-top mx-xl-5 py-4" style="border-color: rgba(256, 256, 256, .1) !important;">
-            <div class="col-md-6 px-xl-0">
-                <p class="mb-md-0 text-center text-md-left text-secondary">
-                    &copy; <a class="text-primary" href="#">Domain</a>. All Rights Reserved. Designed
-                    by
-                    <a class="text-primary" href="https://htmlcodex.com">HTML Codex</a>
-                </p>
-            </div>
-            <div class="col-md-6 px-xl-0 text-center text-md-right">
-                <img class="img-fluid" src="img/payments.png" alt="">
+        </footer>
+    </div>
+    <div class="ps-search">
+        <div class="ps-search__content ps-search--mobile"><a class="ps-search__close" href="#" id="close-search"><img src="{% static 'public/img/icon/close.svg' %} " alt=""></a>
+            <h3>Search</h3>
+            <form action="https://nouthemes.net/html/yobazar/do_action" method="post">
+                <div class="ps-search-table">
+                    <div class="input-group">
+                        <input class="form-control ps-input" type="text" placeholder="Search">
+                        <div class="input-group-append"><a href="#"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></div>
+                    </div>
+                </div>
+            </form>
+            <div class="ps-search__result">
+                <div class="ps-product ps-product--horizontal">
+                    <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                            <figure><img src="{% static 'public/img/products/26.jpg' %} " alt="alt" /></figure>
+                        </a></div>
+                    <div class="ps-product__content">
+                        <h5 class="ps-product__title"><a href="product-1.html">Dark blue classic long sleeves shirt</a></h5>
+                        <div class="ps-product__desc">
+                            <ul class="ps-product__list">
+                                <li>Study history up to 30 days</li>
+                                <li>Up to 5 users simultaneously</li>
+                                <li>Has HEALTH certificate</li>
+                            </ul>
+                        </div>
+                        <div class="ps-product__meta"><span class="ps-product__price">$117.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-product ps-product--horizontal">
+                    <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                            <figure><img src="{% static 'public/img/products/6.jpg' %} " alt="alt" /></figure>
+                        </a></div>
+                    <div class="ps-product__content">
+                        <h5 class="ps-product__title"><a href="product-1.html">White short checkered T-shirt</a></h5>
+                        <div class="ps-product__desc">
+                            <ul class="ps-product__list">
+                                <li>Study history up to 30 days</li>
+                                <li>Up to 5 users simultaneously</li>
+                                <li>Has HEALTH certificate</li>
+                            </ul>
+                        </div>
+                        <div class="ps-product__meta"><span class="ps-product__price">$35.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-product ps-product--horizontal">
+                    <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                            <figure><img src="{% static 'public/img/products/12.jpg' %} " alt="alt" /></figure>
+                        </a></div>
+                    <div class="ps-product__content">
+                        <h5 class="ps-product__title"><a href="product-1.html">Blue classic long sleeves shirt</a></h5>
+                        <div class="ps-product__desc">
+                            <ul class="ps-product__list">
+                                <li>Study history up to 30 days</li>
+                                <li>Up to 5 users simultaneously</li>
+                                <li>Has HEALTH certificate</li>
+                            </ul>
+                        </div>
+                        <div class="ps-product__meta"><span class="ps-product__price sale">$20.00</span><span class="ps-product__del">$26.00</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-search__more"> <a href="shop-result.html">View all 8 results</a></div>
             </div>
         </div>
     </div>
-    <!-- Footer End -->
-
-
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-primary back-to-top"><i class="fa fa-angle-double-up"></i></a>
-
-
-    <!-- JavaScript Libraries -->
+    <div class="ps-navigation--footer">
+        <div class="ps-nav__item"><a href="#" id="open-menu"><img src="{% static 'public/img/icon/menu.svg' %} " alt=""></a><a href="#" id="close-menu"><img src="{% static 'public/img/icon/close-red' %} .svg" alt=""></a></div>
+        <div class="ps-nav__item"><a href="index.html"><img src="{% static 'public/img/icon/home.svg' %}" alt=""></a></div>
+        <div class="ps-nav__item"><a href="my-account.html"><img src="{% static 'public/img/icon/user.svg' %}" alt=""></a></div>
+        <div class="ps-nav__item"><a href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %}" alt=""><span class="badge">3</span></a></div>
+        <div class="ps-nav__item"><a href="shopping-cart.html"><img src="{% static 'public/img/icon/cart.svg' %}" alt=""><span class="badge">2</span></a></div>
+    </div>
+    <div class="ps-menu--slidebar">
+        <div class="ps-menu__content">
+            <ul class="menu--mobile">
+                <li class="has-mega-menu"><a href="#">Quick Browse</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                    <div class="mega-mobile">
+                        <div class="mega-mobile__header">
+                            <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Categories</a></h5>
+                        </div>
+                        <div class="mega-mobile__content">
+                            {% for cart in all_categories %}
+                            <div class="mega-mobile__item"><a class="nav-item" href="#">{{cart.name}}</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>{{cart.name}}</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            {% for product in cart.products %}
+                                                <li><a href="#">{{product.name}}</a></li>
+                                            {% endfor %}
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                            {% comment %} <div class="mega-mobile__item"><a class="nav-item" href="#">Women</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Women</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            <li><a href="#">Coats &amp; Jackets</a></li>
+                                            <li><a href="#">Dresses</a></li>
+                                            <li><a href="#">Jeans</a></li>
+                                            <li><a href="#">Lingerie</a></li>
+                                            <li><a href="#">Loungewear</a></li>
+                                            <li><a href="#">Shorts</a></li>
+                                            <li><a href="#">Skirts</a></li>
+                                            <li><a href="#">Suits</a></li>
+                                            <li><a href="#">Swimwear</a></li>
+                                            <li><a href="#">Tops</a></li>
+                                            <li><a href="#">Trousers</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mega-mobile__item"><a class="nav-item" href="#">Other</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Other</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            <li><a href="#">Accessories</a></li>
+                                            <li><a href="#">Bags</a></li>
+                                            <li><a href="#">Belts</a></li>
+                                            <li><a href="#">Hats</a></li>
+                                            <li><a href="#">Watches</a></li>
+                                            <li><a href="#">Jewellery</a></li>
+                                            <li><a href="#">Sale</a></li>
+                                            <li><a href="#">Vintage</a></li>
+                                            <li><a href="#">Designers</a></li>
+                                            <li><a href="#">Lifestyle</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega-menu"><a href="#">Explore Categories</a></li>
+                {% comment %} <li class="has-mega-menu"><a href="#">Men</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                    <div class="mega-mobile">
+                        <div class="mega-mobile__header">
+                            <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Men</a></h5>
+                        </div>
+                        <div class="mega-mobile__content">
+                            <div class="mega-mobile__item"><a class="nav-item" href="#">Men</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Men</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            <li><a href="#">Jackets &amp; Coats</a></li>
+                                            <li><a href="#">Suits</a></li>
+                                            <li><a href="#">Jeans</a></li>
+                                            <li><a href="#">Swimwear</a></li>
+                                            <li><a href="#">Loungewear</a></li>
+                                            <li><a href="#">T-shirts</a></li>
+                                            <li><a href="#">Polo shirts</a></li>
+                                            <li><a href="#">Tracksuits</a></li>
+                                            <li><a href="#">Shirts</a></li>
+                                            <li><a href="#">Trousers</a></li>
+                                            <li><a href="#">Shorts</a></li>
+                                            <li><a href="#">Underwear</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mega-mobile__item"><a class="nav-item" href="#"></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega-menu"><a href="#">Women</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                    <div class="mega-mobile">
+                        <div class="mega-mobile__header">
+                            <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Women</a></h5>
+                        </div>
+                        <div class="mega-mobile__content">
+                            <div class="mega-mobile__item"><a class="nav-item" href="#">Women</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Women</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            <li><a href="#">Coats &amp; Jackets</a></li>
+                                            <li><a href="#">Dresses</a></li>
+                                            <li><a href="#">Jeans</a></li>
+                                            <li><a href="#">Lingerie</a></li>
+                                            <li><a href="#">Loungewear</a></li>
+                                            <li><a href="#">Shorts</a></li>
+                                            <li><a href="#">Skirts</a></li>
+                                            <li><a href="#">Suits</a></li>
+                                            <li><a href="#">Swimwear</a></li>
+                                            <li><a href="#">Tops</a></li>
+                                            <li><a href="#">Trousers</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mega-mobile__item"><a class="nav-item" href="#"></a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                <li class="has-mega-menu"><a href="#">Pages</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                    <div class="mega-mobile">
+                        <div class="mega-mobile__header">
+                            <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Pages</a></h5>
+                        </div>
+                        <div class="mega-mobile__content">
+                            <div class="mega-mobile__item"><a class="nav-item" href="#">Home</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Home</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            <li><a href="index.html">Home 01</a></li>
+                                            <li><a href="home-2.html">Home 02</a></li>
+                                            <li><a href="home-3.html">Home 03</a></li>
+                                            <li><a href="home-4.html">Home 04</a></li>
+                                            <li><a href="home-5.html">Home 05</a></li>
+                                            <li><a href="home-6.html">Home 06</a></li>
+                                            <li><a href="home-7.html">Home 07</a></li>
+                                            <li><a href="home-8.html">Home 08</a></li>
+                                            <li><a href="home-9.html">Home 09</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mega-mobile__item"><a class="nav-item" href="#">Shop</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Shop</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            <li><a href="shop-promo.html">Shop promo</a></li>
+                                            <li><a href="shop-list.html">Shop list</a></li>
+                                            <li><a href="shop-grid.html">Shop grid</a></li>
+                                            <li><a href="shop-slidebar.html">Shop slidebar</a></li>
+                                            <li><a href="shopping-cart.html">Shopping cart</a></li>
+                                            <li><a href="product-1.html">Product layout 1</a></li>
+                                            <li><a href="product-2.html">Product layout 2</a></li>
+                                            <li><a href="product-3.html">Product layout 3</a></li>
+                                            <li><a href="product-4.html">Product layout 4</a></li>
+                                            <li><a href="wishlist.html">Wishlist</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mega-mobile__item"><a class="nav-item" href="#">Other</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
+                                <div class="mega-mobile">
+                                    <div class="mega-mobile__header">
+                                        <h5 class="mega-mobile__heading"><a href="#"> <i class="fa fa-chevron-left"></i>Other</a></h5>
+                                    </div>
+                                    <div class="mega-mobile__content">
+                                        <ul class="menu--mobile">
+                                            <li><a href="404.html">404</a></li>
+                                            <li><a href="about-us.html">About</a></li>
+                                            <li><a href="portfolio.html">Portfolio</a></li>
+                                            <li><a href="portfolio-detail.html">Portfolio detail</a></li>
+                                            <li><a href="contact-us-v1.html">Contact us v1</a></li>
+                                            <li><a href="contact-us-v2.html">Contact us v2</a></li>
+                                            <li><a href="blog-layout1.html">Blog default</a></li>
+                                            <li><a href="blog-layout2.html">Blog layout 2</a></li>
+                                            <li><a href="blog-post.html">Blog detail</a></li>
+                                            <li><a href="coming-soon-v1.html">Coming soon 1</a></li>
+                                            <li><a href="coming-soon-v2.html">Coming soon 2</a></li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li> 
+                <li class="has-mega-menu"><a href="blog-layout1.html">Blog</a>
+                </li>{% endcomment %}
+                <li class="has-mega-menu"><a href="contact-us-v1.html">Contact</a>
+                </li>
+            </ul>
+        </div>
+        <div class="ps-menu__footer">
+            <div class="ps-menu__item">
+                <form action="https://nouthemes.net/html/yobazar/do_action" method="post">
+                    <div class="ps-search-table">
+                        <div class="input-group">
+                            <input class="form-control ps-input" type="text" placeholder="Search">
+                            <div class="input-group-append"><a href="#"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="ps-menu__item">
+                <select class="ps-single-no-search" name="state">
+                    <option value="en">EN</option>
+                    <option value="fr">FR</option>
+                </select>
+                <select class="ps-single-no-search" name="state">
+                    <option value="usd">USD</option>
+                    <option value="eur">EUR</option>
+                </select>
+            </div>
+        </div>
+    </div>
+    <button class="btn scroll-top"><i class="fa fa-angle-double-up"></i></button>
+    <div class="ps-preloader" id="preloader">
+        <div class="ps-preloader-section ps-preloader-left"></div>
+        <div class="ps-preloader-section ps-preloader-right"></div>
+    </div>
+    <div class="modal fade" id="popupQuickview" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered ps-quickview">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="wrap-modal-slider container-fluid ps-quickview__body">
+                        <button class="close ps-quickview__close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="ps-product--detail">
+                            <div class="row">
+                                <div class="col-12 col-lg-6">
+                                    <div class="ps-product--gallery-2">
+                                        <div class="ps-product__thumbnail">
+                                            <div class="slide"><img src="{% static 'public/img/products/3.jpg' %}" alt="alt" /></div>
+                                            <div class="slide"><img src="{% static 'public/img/products/3_1.jpg' %}" alt="alt" /></div>
+                                            <div class="slide"><img src="{% static 'public/img/products/3_2.jpg' %}" alt="alt" /></div>
+                                            <div class="slide"><img src="{% static 'public/img/products/3_3.jpg' %}" alt="alt" /></div>
+                                            <div class="slide"><img src="{% static 'public/img/products/5.jpg' %}" alt="alt" /></div>
+                                            <div class="slide"><img src="{% static 'public/img/products/5_2.jpg' %}" alt="alt" /></div>
+                                        </div>
+                                        <div class="ps-gallery--images">
+                                            <div class="slide">
+                                                <div class="ps-gallery__item"><img src="{% static 'public/img/products/3.jpg' %} " alt="alt" /></div>
+                                            </div>
+                                            <div class="slide">
+                                                <div class="ps-gallery__item"><img src="{% static 'public/img/products/3_1.jpg' %} " alt="alt" /></div>
+                                            </div>
+                                            <div class="slide">
+                                                <div class="ps-gallery__item"><img src="{% static 'public/img/products/3_2.jpg' %} " alt="alt" /></div>
+                                            </div>
+                                            <div class="slide">
+                                                <div class="ps-gallery__item"><img src="{% static 'public/img/products/3_3.jpg' %} " alt="alt" /></div>
+                                            </div>
+                                            <div class="slide">
+                                                <div class="ps-gallery__item"><img src="{% static 'public/img/products/5.jpg' %} " alt="alt" /></div>
+                                            </div>
+                                            <div class="slide">
+                                                <div class="ps-gallery__item"><img src="{% static 'public/img/products/5_2.jpg' %} " alt="alt" /></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 col-lg-6">
+                                    <div class="ps-product__info">
+                                        <div class="ps-product__branch"><a href="#">Apple</a></div>
+                                        <h4 class="ps-product__title"><a href="product-1.html">Checkered shirt with long sleeves</a></h4>
+                                        <div class="ps-product__rating">
+                                            <select class="ps-rating" data-read-only="true">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4" selected="selected">4</option>
+                                                <option value="5">5</option>
+                                            </select><span class="ps-product__review">45 Reviews</span><a class="ps-product__write" href="#">Write a review</a>
+                                        </div>
+                                        <div class="ps-product__meta"><span class="ps-product__price sale">$695.00</span><span class="ps-product__del">$2295.00</span>
+                                        </div>
+                                        <div class="ps-product__available">
+                                            <div class="ps-product__text">Hurry! Only left in stock</div>
+                                            <div class="progress">
+                                                <div class="progress-bar" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                            <div class="ps-product__sale"> <img src="{% static 'public/img/icon/fire.svg' %} " alt="" />28 sold in last 24 hours</div>
+                                        </div>
+                                        <div class="ps-product__feature">
+                                            <div class="ps-product__group">
+                                                <h6>Color</h6>
+                                                <div class="ps-product__color">
+                                                    <div class="custom-control">
+                                                        <input class="custom-control-input" type="radio" name="color" value="Gray" id="color#5b6c8fquickview" />
+                                                        <label class="custom-control-label" for="color#5b6c8fquickview"> <img src="{% static 'public/img/products/3.jpg' %} " alt="" /></label>
+                                                    </div>
+                                                    <div class="custom-control">
+                                                        <input class="custom-control-input" type="radio" name="color" value="Red" id="color#f00000quickview" />
+                                                        <label class="custom-control-label" for="color#f00000quickview"> <img src="{% static 'public/img/products/3.jpg' %} " alt="" /></label>
+                                                    </div>
+                                                    <div class="custom-control">
+                                                        <input class="custom-control-input" type="radio" name="color" value="Black" id="color#313330quickview" />
+                                                        <label class="custom-control-label" for="color#313330quickview"> <img src="{% static 'public/img/products/3.jpg' %} " alt="" /></label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="ps-product__group">
+                                                <h6>Size</h6>
+                                                <div class="ps-product__size ps-select--feature">
+                                                    <div class="custom-control">
+                                                        <input class="custom-control-input" type="radio" name="size" value="L" id="sizeLquickview" />
+                                                        <label class="custom-control-label" for="sizeLquickview">L</label>
+                                                    </div>
+                                                    <div class="custom-control">
+                                                        <input class="custom-control-input" type="radio" name="size" value="M" id="sizeMquickview" />
+                                                        <label class="custom-control-label" for="sizeMquickview">M</label>
+                                                    </div>
+                                                    <div class="custom-control">
+                                                        <input class="custom-control-input" type="radio" name="size" value="S" id="sizeSquickview" />
+                                                        <label class="custom-control-label" for="sizeSquickview">S</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="ps-product__quantity">
+                                            <h6>Quantity<span> in stock</span>
+                                            </h6>
+                                            <div class="d-flex align-items-center">
+                                                <div class="def-number-input number-input safari_only">
+                                                    <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><img src="{% static 'public/img/icon/minus.svg' %} " alt="" /></button>
+                                                    <input class="quantity" min="0" name="quantity" value="1" type="number" />
+                                                    <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><img src="{% static 'public/img/icon/plus.svg' %} " alt="" /></button>
+                                                </div><a class="ps-btn ps-btn--rounded ps-btn--dark" href="#" data-toggle="modal" data-target="#popupAddcartV2"> <img src="{% static 'public/img/icon/cart.svg' %} " alt="" />Add to cart</a>
+                                            </div>
+                                        </div><a class="ps-btn ps-btn--rounded ps-product__buy" href="shopping-cart.html">Buy it now</a>
+                                        <div class="ps-product__variations"><a class="ps-product__link" href="wishlist.html"> <i class="fa fa-heart-o"></i>Add to wishlist</a><a class="ps-product__link rotate" href="compare.html"> <i class="fa fa-align-left"> </i>Add to Compare</a><a class="ps-product__link" href="#"> <i class="fa fa-envelope-o"></i>Ask about product</a></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="popupCompare" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-xl modal-dialog-centered ps-compare--popup">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="wrap-modal-slider ps-compare__body">
+                        <button class="close ps-compare__close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <div class="ps-compare--product">
+                            <div class="ps-compare__header">
+                                <div class="container">
+                                    <h2>Compare Products</h2>
+                                </div>
+                            </div>
+                            <div class="ps-compare__content">
+                                <div class="ps-compare__table">
+                                    <table class="table ps-table">
+                                        <tbody>
+                                            <tr>
+                                                <th></th>
+                                                <td>
+                                                    <div class="ps-product__remove"><a href="#"><i class="fa fa-times"></i></a></div>
+                                                    <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                                            <figure><img src="{% static 'public/img/products/1.jpg' %} " alt></figure>
+                                                        </a></div>
+                                                    <div class="ps-product__content">
+                                                        <h5 class="ps-product__title"><a href="product-1.html">Blood Pressure Monitor</a></h5>
+                                                        <div class="ps-product__meta"><span class="ps-product__price">$77.65</span>
+                                                        </div>
+                                                        <button class="ps-btn ps-btn--rounded ps-btn--dark">Add to cart</button>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div class="ps-product__remove"><a href="#"><i class="fa fa-times"></i></a></div>
+                                                    <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                                            <figure><img src="{% static 'public/img/products/6.jpg' %} " alt></figure>
+                                                        </a></div>
+                                                    <div class="ps-product__content">
+                                                        <h5 class="ps-product__title"><a href="product-1.html">Blood Pressure Monitor Upper Arm</a></h5>
+                                                        <div class="ps-product__meta"><span class="ps-product__del">$64.65</span><span class="ps-product__price sale">$86.67</span>
+                                                        </div>
+                                                        <button class="ps-btn ps-btn--rounded ps-btn--dark">Add to cart</button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Description</th>
+                                                <td>
+                                                    <ul class="ps-product__list">
+                                                        <li class="ps-check-line">5 cleaning programs</li>
+                                                        <li class="ps-check-line">Digital display</li>
+                                                        <li class="ps-check-line">Memory for 3 user</li>
+                                                    </ul>
+                                                </td>
+                                                <td>
+                                                    <ul class="ps-product__list">
+                                                        <li class="ps-check-line">5 cleaning programs</li>
+                                                        <li class="ps-check-line">Digital display</li>
+                                                        <li class="ps-check-line">Memory for 3 user</li>
+                                                    </ul>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Sku</th>
+                                                <td>
+                                                    <p class="ps-product__text">SF-006</p>
+                                                </td>
+                                                <td>
+                                                    <p class="ps-product__text">BE-001</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Availability</th>
+                                                <td>
+                                                    <p class="ps-product__text ps-check-line">in stock</p>
+                                                </td>
+                                                <td>
+                                                    <p class="ps-product__text ps-check-line">in stock</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Weight</th>
+                                                <td>
+                                                    <p class="ps-product__text">10 kg</p>
+                                                </td>
+                                                <td>
+                                                    <p class="ps-product__text">10 kg</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Dimensions</th>
+                                                <td>
+                                                    <p class="ps-product__text">10 × 10 × 10 cm</p>
+                                                </td>
+                                                <td>
+                                                    <p class="ps-product__text">10 × 10 × 10 cm</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Color</th>
+                                                <td>
+                                                    <p class="ps-product__text">Red, Navy</p>
+                                                </td>
+                                                <td>
+                                                    <p class="ps-product__text">Green</p>
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <th>Size </th>
+                                                <td>S, M, L</td>
+                                                <td>S, M, L</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="popupAddcart" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered ps-addcart">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="wrap-modal-slider container-fluid ps-addcart__body">
+                        <button class="close ps-addcart__close" type="button" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <p class="ps-addcart__noti"> <i class="fa fa-check"></i>Added to cart succesfully</p>
+                        <div class="row">
+                            <div class="col-12 col-md-6">
+                                <div class="ps-product ps-product--standard">
+                                    <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                            <figure><img class="ps-product__image-default" src="{% static 'public/img/products/1.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/2.jpg' %} " alt="alt" />
+                                            </figure>
+                                        </a>
+                                        <div class="ps-product__actions">
+                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                            <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                                        </div>
+                                        <div class="ps-product__badge">
+                                            <div class="ps-badge ps-badge--sale">-70%</div>
+                                        </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                                    </div>
+                                    <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                                    <div class="ps-product__content">
+                                        <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                                        <div class="ps-product__meta"><span class="ps-product__price sale">$89.65</span><span class="ps-product__del">$60.65</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <div class="ps-addcart__content">
+                                    <p>There are two items in your cart.</p>
+                                    <p class="ps-addcart__total">Total: <span class="ps-price">$44.00</span></p><a class="ps-btn ps-btn--rounded ps-btn--danger" href="#" data-dismiss="modal" aria-label="Close">Continue shopping</a><a class="ps-btn ps-btn--rounded ps-btn--dark" href="shopping-cart.html">View cart</a><a class="ps-btn ps-btn--rounded ps-btn--gray" href="checkout.html">Proceed to checkout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
-    <script src="{% static 'public/lib/easing/easing.min.js' %}"></script>
-    <script src="{% static 'public/lib/owlcarousel/owl.carousel.min.js' %}"></script>
-
-    <!-- Contact Javascript File -->
-    <script src="{% static 'public/mail/jqBootstrapValidation.min.js' %}"></script>
-    <script src="{% static 'public/mail/contact.js' %}"></script>
-
-    <!-- Template Javascript -->
-    <script src="{% static 'public/js/main.js' %}"></script>
-
-    <!-- Sweet alert -->
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script>
-    const searchInput = document.getElementById('product-search')
-    const searchResults = document.getElementById('product-results')
-
-    const sendSearchBlog = (product) =>{
-        $.ajax({
-            type:'POST',
-            url:'{% url 'main_site:product_search' %}',
-            data: {
-                'csrfmiddlewaretoken':'{{ csrf_token }}',
-                'product':product,
-            },
-            headers:{"X-Requested-With": "XMLHttpRequest"},
-            success: (res)=>{
-                const data = res.data
-                if(Array.isArray(data)){
-                    searchResults.innerHTML = ``
-                    data.forEach(product=>{
-                        
-                        searchResults.innerHTML += `<a href=""><li class="list-group-item list-group-item-primary" id="result-list">${product.name}</li></a>`
-                    })
-                }else{
-                    if(searchInput.value.length > 0){
-                        searchResults.innerHTML = `<b class="text-dark">${data}</b>`
-                    }else {
-                        searchResults.innerHTML = ``
-                        searchResults.classList.add('not-visible')
-                    }
-                }
-            },
-            error:(err)=>{
-                console.log(err)
-            }
-        })
-    }
-
-    searchInput.addEventListener("keyup", e=>{
-        if(searchResults.classList.contains('not-visible')){
-            searchResults.classList.remove('not-visible')
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.min.js" integrity="sha512-CEiA+78TpP9KAIPzqBvxUv8hy41jyI3f2uHi7DGp/Y/Ka973qgSdybNegWFciqh6GrN2UePx2KkflnQUbUhNIA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/shortcuts/infinite.min.js" integrity="sha512-m3kH21aSkKrGeoqdb7IP7rlu1VcQee5VrjLQepeSOp5M05Wl6HwqJ1Jwo14EHOuBg77pkAlBtQuVMPVeXzfueg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+    <script src="{% static 'public/plugins/jquery.min.js' %}"></script>
+    <script src="{% static 'public/plugins/popper.min.js' %} "></script>
+    <script src="{% static 'public/plugins/bootstrap4/js/bootstrap.min.js' %} "></script>
+    <script src="{% static 'public/plugins/select2/dist/js/select2.full.min.js' %} "></script>
+    <script src="{% static 'public/plugins/owl-carousel/owl.carousel.min.js' %} "></script>
+    <script src="{% static 'public/plugins/jquery-bar-rating/dist/jquery.barrating.min.js' %} "></script>
+    <script src="{% static 'public/plugins/lightGallery/dist/js/lightgallery-all.min.js' %} "></script>
+    <script src="{% static 'public/plugins/slick/slick/slick.min.js' %} "></script>
+    <script src="{% static 'public/plugins/noUiSlider/nouislider.min.js' %} "></script>
+    <!-- custom code-->
+    <script src="{% static 'public/js/main.js' %} "></script>
+    {% block js %}{% endblock js %}
+    <script>
+        function getCartItems() {
+            const cart_item_list = document.getElementById('cart_item_list')
+            const cart_number = document.getElementById('cart_number')
+            const cart_sub_total = document.getElementById('cart_sub_total')
+            $.ajax({
+              type: "GET",
+              url:`/get-cart-items`,
+              headers:{"X-Requested-With": "XMLHttpRequest"},
+              success: (res)=>{
+                  if(res.message =='success'){
+                    cart_item_list.innerHTML = ""
+                    cart_number.innerHTML = res.cart_number
+                    cart_sub_total.innerHTML = res.total_payable
+                      const data = res.data;
+                      if(Array.isArray(data)){
+                      data.forEach(function callback(data, index) {
+                        let active = (index == 0) ? " active" : "";	
+                        cart_item_list.innerHTML += 
+                                `
+                                <li class="ps-cart__item">
+                                    <div class="ps-product--mini-cart"><a class="ps-product__thumbnail" href="product-default.html"><img src="{% static 'public/img/products/1.jpg' %} " alt="alt" /></a>
+                                        <div class="ps-product__content"><a class="ps-product__name" href="product-default.html">${data.product}</a>
+                                            <div class="ps-product__meta"><span class="ps-product__price">GHS: ${data.ticket} each</span></div>
+                                            <div class="ps-product__quantity">
+                                                <div class="ps-product__meta"><span class="ps-product__price">Qty: ${data.quantity}</span></div>
+                                                
+                                                <div class="ps-product__total"> <span class="ps-product__price">GHS: ${data.price}</span></div>
+                                            </div>
+                                        </div><a class="ps-product__remove" href="javascript: void(0)"><img src="{% static 'public/img/icon/close.svg' %} " alt="" /></a>
+                                    </div>
+                                </li>
+                                `;
+                      });
+                      }else{
+                      }
+                  } 
+              },
+              error:(err)=>{
+                  console.log(err)
+              }
+            })
         }
-        sendSearchBlog(e.target.value)
-    });
-</script>
-  
+
+        $(document).ready(function () {
+            getCartItems()
+        })
+
+        $('#addToCart').click(function() {
+            var id = $('#addToCart').attr('data-href')
+            var ticket_price = $('#addToCart').attr('cart-href')
+            var qty = $("#cart_product_quantity").val()
+            var price = parseFloat(ticket_price) * parseInt(qty)
+            $.ajax({
+                type:'POST',
+                url:`/add-cart-item/${id}`,
+                data: {
+                    'csrfmiddlewaretoken':'{{ csrf_token }}',
+                    'quantity':qty,
+                    'price':price,
+                },
+                headers:{"X-Requested-With": "XMLHttpRequest"},
+                success: (res)=>{
+                    if(res.message =='success'){
+                        getCartItems()
+                    }
+                    else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Failed to add to cart',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                    
+                },
+                error:(err)=>{
+                    console.log(err)
+                }
+            })
+       })
+    </script>
+    {% block script %}{% endblock script %}
 </body>
 
+
+<!-- Mirrored from nouthemes.net/html/yobazar/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 08:09:44 GMT -->
 </html>
