@@ -6,6 +6,7 @@ from main_site.models import Cart, ProductCategoryModel, ProductImageModel, Prod
 from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
+from django.conf import settings
 
 class AboutUs(View):
     def get(self, request):
@@ -135,7 +136,6 @@ class CartView(View):
             }
             cart_list.append(details)
             total_payable += item.price #pyright: ignore
-        print(cart_list)
         context = {
             'cart_items': cart_list,
             'total_payable': total_payable,
@@ -175,3 +175,31 @@ def add_cart_item(request, product_id):
     
     return JsonResponse({"message": "success"})
     
+
+class CheckOutView(View):
+    def get(self, request):
+        template_name = "public/checkout.html"
+        cart_items = Cart.objects.filter(user = request.user)
+        cart_list = []
+        total_payable = 0
+        for item in cart_items:
+            p_image = ProductImageModel.objects.filter(product=item.product)
+            image = p_image[0].image.url
+            details={
+                "id": item.id, #pyright: ignore
+                "product": item.product.name, #pyright: ignore
+                "ticket": item.product.ticket_price, #pyright: ignore
+                "quantity": item.quantity,
+                "price": item.price,
+                "image": image,
+            }
+            cart_list.append(details)
+            total_payable += item.price #pyright: ignore
+        context = {
+            'cart_items': cart_list,
+            'total_payable': total_payable,
+            'cart_count': cart_items.count(),
+            'public_key':settings.PAYSTACK_PUBLIC_KEY
+        }
+        return render(request, template_name, context)
+        

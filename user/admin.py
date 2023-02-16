@@ -24,3 +24,6 @@ class UserAdmin(DjangoUserAdmin):
 
     search_fields = ('email', 'username')
     ordering = ('-created_at',)
+
+
+admin.site.register(UserProfile)

@@ -14,34 +14,35 @@
                 <div class="col-12 col-lg-8">
                     <ul class="ps-shopping__list">
                         <!--Mobile view list begins here-->
+                        {% for item in cart_items %}
                         <li>
                             <div class="ps-product ps-product--wishlist">
-                                <div class="ps-product__remove"><a href="#"><img src="{% static 'public/img/icon/close.svg' %}" alt="" /></a></div>
+                                <div class="ps-product__remove"><a href="#"><img src="{% static 'public/img/icon/close.svg' %}" alt="" onclick="deleteCartItem({{item.id}})"/></a></div>
                                 <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
-                                        <figure><img class="ps-product__image-default" src="{% static 'public/img/products/1.jpg' %}" alt="alt" />
+                                        <figure><img class="ps-product__image-default" src="{{item.image}}" alt="alt" />
                                         </figure>
                                     </a>
                                 </div>
                                 <div class="ps-product__content">
-                                    <h5 class="ps-product__title"><a href="product-1.html">Somersng Sonic X2500 Pro White</a></h5>
+                                    <h5 class="ps-product__title"><a href="product-1.html">{{item.product}}</a></h5>
                                     <div class="ps-product__row">
                                         <div class="ps-product__label">Price:</div>
-                                        <div class="ps-product__value"><span class="ps-product__price">$399.99</span>
+                                        <div class="ps-product__value"><span class="ps-product__price">${{item.ticket}}</span>
                                         </div>
                                     </div>
                                     <div class="ps-product__row">
-                                        <div class="ps-product__label">Price:</div>
-                                        <div class="ps-product__value"><span class="ps-product__price">$399.99</span>
+                                        <div class="ps-product__label">Qty:</div>
+                                        <div class="ps-product__value"><span class="ps-product__price">{{item.quantity}}</span>
                                         </div>
                                     </div>
-                                    <div class="ps-product__row ps-product__stock">
+                                    {% comment %} <div class="ps-product__row ps-product__stock">
                                         <div class="ps-product__label">Stock:</div>
                                         <div class="ps-product__value"><span class="ps-product__in-stock">In Stock</span>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                     <div class="ps-product__cart"> <a class="ps-btn ps-btn--rounded ps-btn--dark" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
                                     </div>
-                                    <div class="ps-product__row ps-product__quantity">
+                                    {% comment %} <div class="ps-product__row ps-product__quantity">
                                         <div class="ps-product__label">Quantity:</div>
                                         <div class="ps-product__value">
                                             <div class="def-number-input number-input safari_only">
@@ -50,14 +51,15 @@
                                                 <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><img src="{% static 'public/img/icon/plus.svg' %}" alt="" /></button>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> {% endcomment %}
                                     <div class="ps-product__row ps-product__subtotal">
                                         <div class="ps-product__label">Subtotal:</div>
-                                        <div class="ps-product__value">$399.99</div>
+                                        <div class="ps-product__value">${{item.price}}</div>
                                     </div>
                                 </div>
                             </div>
                         </li>
+                        {% endfor %}
                         <!--Mobile view list ends here-->
                     </ul>
                     <div class="ps-shopping__table">
@@ -141,7 +143,7 @@
                             <div class="ps-shopping__label">Total</div>
                             <div class="ps-shopping__total">${{total_payable}}</div>
                         </div>
-                        <div class="ps-shopping__checkout"><a class="ps-btn ps-btn--rounded ps-btn--dark" href="checkout.html">Proceed to checkout</a></div>
+                        <div class="ps-shopping__checkout"><a class="ps-btn ps-btn--rounded ps-btn--dark" href="{% url 'main_site:checkout' %}">Proceed to checkout</a></div>
                     </div>
                 </div>
             </div>
@@ -162,7 +164,7 @@
           cancelButtonColor: '#d33',
           confirmButtonText: 'Yes, delete it!'
         }).then((result) => {
-          if (result.isConfirmed) {
+        if (result.isConfirmed) {
             $.ajax({
                 type:'GET',
                 url:url,
@@ -192,6 +194,6 @@
           }
         })
     
-      }
+    }
 </script>
 {% endblock js %}

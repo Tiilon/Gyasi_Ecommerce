@@ -2,192 +2,323 @@
 {% load static %}
 {% block content %}
 
-<!-- Breadcrumb Start -->
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-12">
-            <nav class="breadcrumb bg-light mb-30">
-                <a class="breadcrumb-item text-dark" href="{% url 'main_site:home' %}">Home</a>
-                <a class="breadcrumb-item text-dark" href="{% url 'main_site:cart' %}">Cart</a>
-                <span class="breadcrumb-item active">Checkout</span>
-            </nav>
-        </div>
-    </div>
-</div>
-<!-- Breadcrumb End -->
-
-<!-- Checkout Start -->
-<div class="container-fluid">
-    <div class="row px-xl-5">
-        <div class="col-lg-8">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Personal Details</span></h5>
-            <div class="bg-light p-30 mb-5">
-                <div class="row">
-                    <div class="col-md-6 form-group">
-                        <label>First Name</label>
-                        <input class="form-control" type="text" placeholder="John">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Last Name</label>
-                        <input class="form-control" type="text" placeholder="Doe">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>E-mail</label>
-                        <input class="form-control" type="text" placeholder="example@email.com">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Mobile No</label>
-                        <input class="form-control" type="text" placeholder="+123 456 789">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Address Line 1</label>
-                        <input class="form-control" type="text" placeholder="123 Street">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Address Line 2</label>
-                        <input class="form-control" type="text" placeholder="123 Street">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>Country</label>
-                        <select class="custom-select">
-                            <option selected>United States</option>
-                            <option>Afghanistan</option>
-                            <option>Albania</option>
-                            <option>Algeria</option>
-                        </select>
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>City</label>
-                        <input class="form-control" type="text" placeholder="New York">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>State</label>
-                        <input class="form-control" type="text" placeholder="New York">
-                    </div>
-                    <div class="col-md-6 form-group">
-                        <label>ZIP Code</label>
-                        <input class="form-control" type="text" placeholder="123">
-                    </div>
-                    <div class="col-md-12 form-group">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="newaccount">
-                            <label class="custom-control-label" for="newaccount">Create an account</label>
-                        </div>
-                    </div>
-                    {% comment %} <div class="col-md-12">
-                        <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="shipto">
-                            <label class="custom-control-label" for="shipto"  data-toggle="collapse" data-target="#shipping-address">Ship to different address</label>
-                        </div>
-                    </div> {% endcomment %}
-                </div>
-            </div>
-            {% comment %} <div class="collapse mb-5" id="shipping-address">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Shipping Address</span></h5>
-                <div class="bg-light p-30">
-                    <div class="row">
-                        <div class="col-md-6 form-group">
-                            <label>First Name</label>
-                            <input class="form-control" type="text" placeholder="John">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Last Name</label>
-                            <input class="form-control" type="text" placeholder="Doe">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>E-mail</label>
-                            <input class="form-control" type="text" placeholder="example@email.com">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Mobile No</label>
-                            <input class="form-control" type="text" placeholder="+123 456 789">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 1</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Address Line 2</label>
-                            <input class="form-control" type="text" placeholder="123 Street">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>Country</label>
-                            <select class="custom-select">
-                                <option selected>United States</option>
-                                <option>Afghanistan</option>
-                                <option>Albania</option>
-                                <option>Algeria</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>City</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>State</label>
-                            <input class="form-control" type="text" placeholder="New York">
-                        </div>
-                        <div class="col-md-6 form-group">
-                            <label>ZIP Code</label>
-                            <input class="form-control" type="text" placeholder="123">
-                        </div>
-                    </div>
-                </div>
+<div class="ps-checkout">
+    <div class="container">
+        <ul class="ps-breadcrumb">
+            <li class="ps-breadcrumb__item"><a href="index.html">Home</a></li>
+            <li class="ps-breadcrumb__item"><a class="active" aria-current="page" href="#"> Checkout</a></li>
+        </ul>
+        <h3 class="ps-checkout__title"> Checkout</h3>
+        <div class="ps-checkout__content">
+            {% comment %} <div class="ps-checkout__wapper">
+                <p class="ps-checkout__text">Returning customer? <a href="my-account.html">Click here to login</a></p>
+                <p class="ps-checkout__text">Have a coupon? <a href="shopping-cart.html">Click here to enter your code</a></p>
             </div> {% endcomment %}
-        </div>
-        <div class="col-lg-4">
-            <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Order Total</span></h5>
-            <div class="bg-light p-30 mb-5">
-                <div class="border-bottom">
-                    <h6 class="mb-3">Products</h6>
-                    <div class="d-flex justify-content-between">
-                        <p>Product Name (number of tickets)</p>
-                        <p>$150</p>
-                    </div>
-                </div>
-                <div class="border-bottom pt-3 pb-2">
-                    <div class="d-flex justify-content-between mb-3">
-                        <h6>Subtotal</h6>
-                        <h6>$150</h6>
-                    </div>
-                    {% comment %} <div class="d-flex justify-content-between">
-                        <h6 class="font-weight-medium">Shipping</h6>
-                        <h6 class="font-weight-medium">$10</h6>
-                    </div> {% endcomment %}
-                </div>
-                <div class="pt-2">
-                    <div class="d-flex justify-content-between mt-2">
-                        <h5>Total</h5>
-                        <h5>$160</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="mb-5">
-                <h5 class="section-title position-relative text-uppercase mb-3"><span class="bg-secondary pr-3">Payment</span></h5>
-                <div class="bg-light p-30">
-                    <div class="form-group">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="paypal">
-                            <label class="custom-control-label" for="paypal">Paypal</label>
+            <form action="" method="post" id="paymentForm">
+                {% csrf_token %}
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <div class="ps-checkout__form">
+                            <h3 class="ps-checkout__heading">Account Details</h3>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Email address *</label>
+                                        <input class="ps-input" type="email" id="email-address" name="user_email" value="{{request.user.email}}">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">First name *</label>
+                                        <input class="ps-input" type="text" value="{{request.user.user_profile.first_name}}">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Last name *</label>
+                                        <input class="ps-input" type="text" value="{{request.user.user_profile.last_name}}">
+                                    </div>
+                                </div>
+                                <div class="col-12 col-md-6">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Other name</label>
+                                        <input class="ps-input" type="text" value="{{request.user.user_profile.other_name}}">
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Company name (optional)</label>
+                                        <input class="ps-input" type="text">
+                                    </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Street address *</label>
+                                        <input class="ps-input mb-3" type="text" placeholder="House number and street name">
+                                        <input class="ps-input" type="text" placeholder="Apartment, suite, unit, etc. (optional)">
+                                    </div>
+                                </div> {% endcomment %}
+                                <div class="col-12 col-md-6">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Phone *</label>
+                                        <input class="ps-input" type="text" value="{{request.user.user_profile.phone}}">
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-12 col-md-6">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Postcode *</label>
+                                        <input class="ps-input" type="text">
+                                    </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">County (optional)</label>
+                                        <input class="ps-input" type="text">
+                                    </div>
+                                </div> {% endcomment %}
+                                <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Address</label>
+                                        <input class="ps-input" type="text" value="{{request.user.user_profile.address}}">
+                                    </div>
+                                </div>
+                                {% comment %} <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="create-account">
+                                            <label class="form-check-label" for="create-account">Create an account?</label>
+                                        </div>
+                                    </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div class="col-12 ps-hidden" data-for="create-account">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label ps-label--danger">Create account password *</label>
+                                        <div class="input-group">
+                                            <input class="form-control ps-input" type="password" placeholder="Password">
+                                            <div class="input-group-append"><a class="fa fa-eye-slash toogle-password" href="javascript: vois(0);"></a></div>
+                                        </div>
+                                    </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="ship-address">
+                                            <label class="form-check-label" for="ship-address">Ship to a different address?</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-12 ps-hidden" data-for="ship-address">
+                                    <div class="row">
+                                        <div class="col-12 col-md-6">
+                                            <div class="ps-checkout__group">
+                                                <label class="ps-checkout__label">First name *</label>
+                                                <input class="ps-input" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <div class="ps-checkout__group">
+                                                <label class="ps-checkout__label">Last name *</label>
+                                                <input class="ps-input" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="ps-checkout__group">
+                                                <label class="ps-checkout__label">Company name (optional)</label>
+                                                <input class="ps-input" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="ps-checkout__group">
+                                                <label class="ps-checkout__label">Street address *</label>
+                                                <input class="ps-input mb-3" type="text" placeholder="House number and street name">
+                                                <input class="ps-input" type="text" placeholder="Apartment, suite, unit, etc. (optional)">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <div class="ps-checkout__group">
+                                                <label class="ps-checkout__label">Town / City *</label>
+                                                <input class="ps-input" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6">
+                                            <div class="ps-checkout__group">
+                                                <label class="ps-checkout__label">Postcode *</label>
+                                                <input class="ps-input" type="text">
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="ps-checkout__group">
+                                                <label class="ps-checkout__label">County (optional)</label>
+                                                <input class="ps-input" type="text">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div> {% endcomment %}
+                                {% comment %} <div class="col-12">
+                                    <div class="ps-checkout__group">
+                                        <label class="ps-checkout__label">Order notes (optional)</label>
+                                        <textarea class="ps-textarea" rows="7" placeholder="Notes about your order, e.g. special notes for delivery."></textarea>
+                                    </div>
+                                </div> {% endcomment %}
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="directcheck">
-                            <label class="custom-control-label" for="directcheck">Direct Check</label>
+                    <div class="col-12 col-lg-4">
+                        <div class="ps-checkout__order">
+                            <h3 class="ps-checkout__heading">Your order</h3>
+                            <div class="ps-checkout__row">
+                                <div class="ps-title">Product</div>
+                                <div class="ps-title">Amount</div>
+                            </div>
+                            {% for item in cart_items %}
+                            <div class="ps-checkout__row ps-product">
+                                <div class="ps-product__name">{{item.product}} <span>{{item.quantity}}</span></div>
+                                <div class="ps-product__price">${{item.price}}</div>
+                            </div>
+                            {% endfor %}
+                            <div class="ps-checkout__row ps-product">
+                                <div class="ps-product__name">Miscellaneous</div>
+                                <div class="ps-product__price">$0</div>
+                            </div>
+                            <div class="ps-checkout__row">
+                                <div class="ps-title">Subtotal</div>
+                                <div class="ps-product__price">${{total_payable}}</div>
+                            </div>
+                            <input type="hidden" id="ref_key">
+                            {% comment %} <div class="ps-checkout__row">
+                                <div class="ps-title">Shipping</div>
+                                <div class="ps-checkout__checkbox">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="ship" value="free" type="radio" id="free-ship" checked>
+                                        <label class="form-check-label" for="free-ship">Free shipping</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="ship" value="price" type="radio" id="price-ship">
+                                        <label class="form-check-label" for="price-ship">Local Pickup: <span>$10.00</span></label>
+                                    </div>
+                                </div>
+                            </div> {% endcomment %}
+                            <div class="ps-checkout__row">
+                                <div class="ps-title">Total</div>
+                                <div class="ps-product__price" id="cart_total_amount">${{total_payable}}</div>
+                            </div>
+                            <div class="ps-checkout__payment">
+                                {% comment %} <div class="payment-method">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="payment" type="radio" value="payment" id="payment" checked>
+                                        <label class="form-check-label" for="payment">Check payments</label>
+                                    </div>
+                                    <p class="ps-note">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
+                                </div>
+                                <div class="paypal-method">
+                                    <div class="form-check">
+                                        <input class="form-check-input" name="payment" type="radio" value="paypal" id="paypal">
+                                        <label class="form-check-label" for="paypal"> PayPal <a href="https://www.paypal.com/uk/webapps/mpp/paypal-popup" target="_blank">What is PayPal?</a></label>
+                                    </div>
+                                </div> {% endcomment %}
+                                <div class="check-faq">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="agree-faq" checked>
+                                        <label class="form-check-label" for="agree-faq"> I have read and agree to the website terms and conditions *</label>
+                                    </div>
+                                </div>
+                                <button class="ps-btn ps-btn--rounded ps-btn--dark" type='button' onclick="makePayment()">Place order</a>
+                            </div>
                         </div>
                     </div>
-                    <div class="form-group mb-4">
-                        <div class="custom-control custom-radio">
-                            <input type="radio" class="custom-control-input" name="payment" id="banktransfer">
-                            <label class="custom-control-label" for="banktransfer">Bank Transfer</label>
-                        </div>
-                    </div>
-                    <button class="btn btn-block btn-primary font-weight-bold py-3">Place Order</button>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>
-<!-- Checkout End -->
 {% endblock %}
+{% block js %}
+<script src="https://js.paystack.co/v1/inline.js"></script> 
+<script>
+var email = $("#email-address").val()
+var amount = {{total_payable}}
+
+function payWithPayStack(ref) {
+    let currency = "GHS";
+    let plan = ""
+    let obj = {
+        key: '{{public_key}}',
+        email: email,
+        amount:amount * 100,
+        ref:ref,
+        callback: function(response) {
+            $.ajax({
+                type:'GET',
+                url:`/payment/verify-payment/${ref}`,
+                headers:{"X-Requested-With": "XMLHttpRequest"},
+                success: (res)=>{
+                    if(res.message =='success'){
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Payment Verified',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                    else{
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'Failed',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
+                },
+                error:(err)=>{
+                    console.log(err)
+                }
+            })
+            //window.location.href = `/payment/p/${reference}`
+        }
+    }
+    if (Boolean(currency)){
+        obj.currency = currency.toUpperCase()
+    }
+
+    if (Boolean(plan)){
+        obj.plan = plan;
+    }
+
+    var handler = PaystackPop.setup(obj);
+    handler.openIframe();
+}
+function makePayment(){
+    $.ajax({
+        type:'POST',
+        url:`/payment/`,
+        data: {
+            'csrfmiddlewaretoken':'{{ csrf_token }}',
+            'amount':amount,
+            'email':email,
+        },
+        headers:{"X-Requested-With": "XMLHttpRequest"},
+        success: (res)=>{
+            if(res.message =='success'){
+                console.log("fuck")
+                payWithPayStack(res.data)
+            }
+            else{
+                console.log('failed')
+            }
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+    })  
+}
+//var paymentForm = document.getElementById('paymentForm');
+
+//paymentForm.addEventListener('submit', payWithPaystack, false);
+
+
+
+
+</script>
+{% endblock js %}

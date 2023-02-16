@@ -1,4 +1,5 @@
 from django.db import models
+from payment_app.models import Payment
 from user.models import User
 from datetime import datetime
 from django_resized import ResizedImageField
@@ -71,7 +72,8 @@ class Cart(models.Model):
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, blank=True, null=True)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(blank=True, decimal_places=2, max_digits=30, null=True)
-    added = models.BooleanField(default=True)
+    paid = models.BooleanField(default=False)
+    payment_id = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
