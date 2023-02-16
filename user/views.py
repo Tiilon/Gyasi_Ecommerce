@@ -37,12 +37,12 @@ class MainView(View):
 
 
 class AdminLoginView(View):
-    template_name = "admin/login.html"
+    template_name = "management/login.html"
 
     def get(self, request):
 
         if request.user.is_authenticated and request.user.is_active:
-            return redirect("admin_site:dashboard")
+            return redirect("management:dashboard")
         
         return render(request, self.template_name)
 
@@ -53,11 +53,11 @@ class AdminLoginView(View):
         if user:
             if user.is_active:
                 login(request, user)
-                return redirect('admin_site:dashboard')
+                return redirect('management:dashboard')
             else:
                 messages.error(request, "Your account is not active")
                 return redirect('accounts:login')
-        return redirect('admin_site:dashboard')
+        return redirect('management:dashboard')
 
 
 
@@ -166,7 +166,7 @@ def verification(request, token, user_id):
         if user.token == token:
             user.is_active = True
             user.save()
-            if user.is_admin or user.is_superuser:
+            if user.is_management or user.is_superuser:
                 messages.error(request, "You are not authourized.")
             else:
                 login(

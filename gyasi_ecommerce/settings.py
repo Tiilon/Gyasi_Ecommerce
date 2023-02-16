@@ -40,8 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'user',
     'main_site',
-    'admin_site',
+    'management',
     'payment_app',
+    
+    "django_unicorn",
 ]
 
 MIDDLEWARE = [
@@ -67,6 +69,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'main_site.context_processors.selected_categories',
                 'main_site.context_processors.all_categories',
             ],
         },

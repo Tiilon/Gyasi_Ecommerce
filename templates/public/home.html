@@ -1,784 +1,675 @@
 {% extends 'public/base.html' %}
 {% load static %}
 {% block content %}
-    <!-- Carousel Start -->
-    {% comment %} <div class="container-fluid mb-3">
-        <div class="row px-xl-5">
-            <div class="col-lg-8">
-                <div id="header-carousel" class="carousel slide carousel-fade mb-30 mb-lg-0" data-ride="carousel">
-                    <ol class="carousel-indicators">
-                        <li data-target="#header-carousel" data-slide-to="0" class="active"></li>
-                        <li data-target="#header-carousel" data-slide-to="1"></li>
-                        <li data-target="#header-carousel" data-slide-to="2"></li>
-                    </ol>
-                    <div class="carousel-inner">
-                        <div class="carousel-item position-relative active" style="height: 430px;">
-                            <img class="position-absolute w-100 h-100" src="../../media/carousel-1.jpg" style="object-fit: cover;">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Men Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+<div class="ps-home ps-home--1">
+    {% comment %} <section class="ps-section--banner">
+        <div class="ps-section__overlay">
+            <div class="ps-section__loading"></div>
+        </div>
+        <div class="owl-carousel" data-owl-auto="false" data-owl-loop="true" data-owl-speed="15000" data-owl-gap="0" data-owl-nav="true" data-owl-dots="false" data-owl-item="1" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="1" data-owl-item-lg="1" data-owl-duration="1000" data-owl-mousedrag="on">
+            <div class="ps-banner" style="background:#BABABA;">
+                <div class="ps-banner__thumnail"><img src="{% static 'public/img/banners/slider1.jpg' %} " alt="alt" />
+                </div>
+                <div class="ps-banner__content">
+                    <div class="container">
+                        <h2 class="ps-banner__title text-white">Fashion <br/>in the rhythm <br/>of salsa</h2>
+                        <div class="ps-banner__desc text-white">Create unlimited & Powerfull Sliders...</div><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">Shop now </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ps-banner" style="background:#BABABA;">
+                <div class="ps-banner__thumnail"><img src="{% static 'public/img/banners/slider2.jpg' %} " alt="alt" />
+                </div>
+                <div class="ps-banner__content">
+                    <div class="container">
+                        <h2 class="ps-banner__title text-white">The latest <br/>men's trends <br/>this season</h2>
+                        <div class="ps-banner__desc text-white">Create unlimited & Powerfull Sliders...</div><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">Shop now </a>
+                    </div>
+                </div>
+            </div>
+            <div class="ps-banner" style="background:#BABABA;">
+                <div class="ps-banner__thumnail"><img src="{% static 'public/img/banners/slider3.jpg' %} " alt="alt" />
+                </div>
+                <div class="ps-banner__content">
+                    <div class="container">
+                        <h2 class="ps-banner__title text-dark">Big patterns <br/>are back in <br/>fashion!</h2>
+                        <div class="ps-banner__desc text-dark">Create unlimited & Powerfull Sliders...</div><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">Shop now </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ps-category--icon">
+        <div class="container">
+            <h2 class="ps-category__title">Your favorite categories</h2>
+            <div class="ps-category__content">
+                <div class="ps-category__item"> <a class="ps-category__thumbnail" href="shop-list.html"><img src="{% static 'public/img/icon/shoes.svg' %} " alt></a>
+                    <h6 class="ps-category__name"><a href="shop-list.html">Shoes</a></h6>
+                </div>
+                <div class="ps-category__item"> <a class="ps-category__thumbnail" href="shop-list.html"><img src="{% static 'public/img/icon/glasses.svg' %} " alt></a>
+                    <h6 class="ps-category__name"><a href="shop-list.html">Glasses</a></h6>
+                </div>
+                <div class="ps-category__item"> <a class="ps-category__thumbnail" href="shop-list.html"><img src="{% static 'public/img/icon/shirt.svg' %} " alt></a>
+                    <h6 class="ps-category__name"><a href="shop-list.html">Shirts</a></h6>
+                </div>
+                <div class="ps-category__item"> <a class="ps-category__thumbnail" href="shop-list.html"><img src="{% static 'public/img/icon/trousers.svg' %} " alt></a>
+                    <h6 class="ps-category__name"><a href="shop-list.html">Trousers</a></h6>
+                </div>
+                <div class="ps-category__item"> <a class="ps-category__thumbnail" href="shop-list.html"><img src="{% static 'public/img/icon/bikini.svg' %} " alt></a>
+                    <h6 class="ps-category__name"><a href="shop-list.html">Swimwear</a></h6>
+                </div>
+                <div class="ps-category__item"> <a class="ps-category__thumbnail" href="shop-list.html"><img src="{% static 'public/img/icon/hat.svg' %} " alt></a>
+                    <h6 class="ps-category__name"><a href="shop-list.html">Hats</a></h6>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+    {% comment %} <section class="ps-banner--content">
+        <div class="container">
+            <div class="ps-banner" style="background:#BCBCBC;">
+                <div class="ps-banner__thumnail"><img src="{% static 'public/img/banners/banner-street.jpg' %} " alt="alt" />
+                </div>
+                <div class="ps-banner__content">
+                    <h2 class="ps-banner__title text-white">Street style <br/>has its own rules</h2>
+                    <div class="ps-banner__desc text-white">Create any content in your store</div><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">Shop now</a>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+    {% comment %} <section class="ps-category--section">
+        <div class="container">
+            <div class="ps-category__grid">
+                <div class="ps-category--item">
+                    <div class="ps-category__thumbnail"> <img src="{% static 'public/img/promotion/banner-red.jpg' %} " alt=""></div>
+                    <div class="ps-category__content">
+                        <p class="ps-category__type">Bestsellers</p>
+                        <h3 class="ps-category__name">Always trendy red</h3><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">More</a>
+                    </div>
+                </div>
+                <div class="ps-category--item">
+                    <div class="ps-category__thumbnail"> <img src="{% static 'public/img/promotion/banner-blue.jpg' %} " alt=""></div>
+                    <div class="ps-category__content">
+                        <p class="ps-category__type">New Arrival</p>
+                        <h3 class="ps-category__name">Color of the year</h3><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">More</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section> {% endcomment %}
+    {% comment %} <section class="ps-section--default ps-product--carousel">
+        <div class="container">
+            <h3 class="ps-section__title">New Arrivals</h3>
+            <div class="ps-section__carousel">
+                <div class="owl-carousel" data-owl-auto="false" data-owl-loop="false" data-owl-speed="13000" data-owl-gap="30" data-owl-nav="true" data-owl-dots="false" data-owl-item="4" data-owl-item-xs="2" data-owl-item-sm="2" data-owl-item-md="3" data-owl-item-lg="4" data-owl-item-xl="4" data-owl-duration="1000" data-owl-mousedrag="on">
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/1.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/12.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--sale">-70%</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price sale">$38.39</span><span class="ps-product__del">$53.99</span>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival1Redundefined" name="productOption" value="Red" />
+                                    <label class="custom-control-label" for="arrival1Redundefined" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival1Blackundefined" name="productOption" value="Black" />
+                                    <label class="custom-control-label" for="arrival1Blackundefined" style="--bg-color: #191919"><span style="--bg-color: #191919"></span></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item position-relative" style="height: 430px;">
-                            <img class="position-absolute w-100 h-100" src="../../media/carousel-2.jpg" style="object-fit: cover;">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Women Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/2.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/23.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Raw denim short with sequins</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$69.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/3.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/3_1.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--sold">Sold Out</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">White short checkered T-shirt & skirt</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price sale">$119.39</span><span class="ps-product__del">$110.99</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/4.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/24.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--hot">Hot</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Women's flax dress pump</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$125.00 - $129.00</span>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival3Greenundefined" name="productOption" value="Green" />
+                                    <label class="custom-control-label" for="arrival3Greenundefined" style="--bg-color: #023f6c"><span style="--bg-color: #023f6c"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival3Yellowundefined" name="productOption" value="Yellow" />
+                                    <label class="custom-control-label" for="arrival3Yellowundefined" style="--bg-color: #f4b240"><span style="--bg-color: #f4b240"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival3Redundefined" name="productOption" value="Red" />
+                                    <label class="custom-control-label" for="arrival3Redundefined" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
                                 </div>
                             </div>
                         </div>
-                        <div class="carousel-item position-relative" style="height: 430px;">
-                            <img class="position-absolute w-100 h-100" src="../../media/carousel-3.jpg" style="object-fit: cover;">
-                            <div class="carousel-caption d-flex flex-column align-items-center justify-content-center">
-                                <div class="p-3" style="max-width: 700px;">
-                                    <h1 class="display-4 text-white mb-3 animate__animated animate__fadeInDown">Kids Fashion</h1>
-                                    <p class="mx-md-5 px-5 animate__animated animate__bounceIn">Lorem rebum magna amet lorem magna erat diam stet. Sadips duo stet amet amet ndiam elitr ipsum diam</p>
-                                    <a class="btn btn-outline-light py-2 px-4 mt-3 animate__animated animate__fadeInUp" href="#">Shop Now</a>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/11.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/40.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Travel handle totte bags</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$185.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/14.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/11.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Women's jet set travel</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$185.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/7.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/16.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Dark blue classic long sleeves shirt</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$89.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/38.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/44.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--sale">-70%</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price sale">$200.00</span><span class="ps-product__del">$195.00</span>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival8Blackundefined" name="productOption" value="Black" />
+                                    <label class="custom-control-label" for="arrival8Blackundefined" style="--bg-color: #191919"><span style="--bg-color: #191919"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival8Grayundefined" name="productOption" value="Gray" />
+                                    <label class="custom-control-label" for="arrival8Grayundefined" style="--bg-color: #767676"><span style="--bg-color: #767676"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="arrival8Redundefined" name="productOption" value="Red" />
+                                    <label class="custom-control-label" for="arrival8Redundefined" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4">
-                <div class="product-offer mb-30" style="height: 200px;">
-                    <img class="img-fluid" src="../../media/offer-1.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Shop Now</a>
+        </div>
+    </section>
+    <section class="ps-video--home">
+        <div class="container">
+            <div class="ps-video__grid">
+                <div class="ps-video__content">
+                    <h2 class="ps-video__title">A team of designers <br>that make dreams<br>come true</h2>
+                    <p class="ps-video__desc">Unique clothes for everyone!</p><a class="ps-btn ps-btn--rounded ps-btn--danger" href="#">Read more</a>
+                </div>
+                <div class="ps-video__thumnail">
+                    <div style="display:none;" id="video1">
+                        <video class="lg-video-object lg-html5" controls="" preload="none">
+                            <source src="{% static 'public/img/video.mp4' %} " type="video/mp4">Your browser does not support HTML5 video.
+                        </video>
+                    </div><img class="ps-video__image" src="{% static 'public/img/5390847.jpg' %} " alt>
+                    <div class="ps-video__gallery" id="ps-video-gallery">
+                        <div class="video" data-html="#video1" data-poster="img/5390847.jpg"><a class="ps-video__play" href="#"></a></div>
                     </div>
                 </div>
-                <div class="product-offer mb-30" style="height: 200px;">
-                    <img class="img-fluid" src="../../media/offer-2.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Shop Now</a>
+            </div>
+        </div>
+    </section> {% endcomment %}
+    <section class="ps-section--default ps-product--featured">
+        <div class="container">
+            <h3 class="ps-section__title">Explore Products</h3>
+            <div class="ps-section__content">
+                <div class="ps-product__grid">
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/5.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/44.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--sale">-70%</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price sale">$200.00</span><span class="ps-product__del">$195.00</span>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured1Blackundefined" name="productOption" value="Black" />
+                                    <label class="custom-control-label" for="featured1Blackundefined" style="--bg-color: #191919"><span style="--bg-color: #191919"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured1Grayundefined" name="productOption" value="Gray" />
+                                    <label class="custom-control-label" for="featured1Grayundefined" style="--bg-color: #767676"><span style="--bg-color: #767676"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured1Redundefined" name="productOption" value="Red" />
+                                    <label class="custom-control-label" for="featured1Redundefined" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/7.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/16.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Dark blue classic long sleeves shirt</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$89.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/12.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/44.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Women's leather set</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$45.00 - $89.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/27.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/32.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--new">New</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">White short checkered T-shirt</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price sale">$200.00</span><span class="ps-product__del">$195.00</span>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured2Grayundefined" name="productOption" value="Gray" />
+                                    <label class="custom-control-label" for="featured2Grayundefined" style="--bg-color: #767676"><span style="--bg-color: #767676"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured2Redundefined" name="productOption" value="Red" />
+                                    <label class="custom-control-label" for="featured2Redundefined" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/16.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/49.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Blue classic long sleeves shirt</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$89.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/1.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/12.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--sale">-70%</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price sale">$38.39</span><span class="ps-product__del">$53.99</span>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured3Redundefined" name="productOption" value="Red" />
+                                    <label class="custom-control-label" for="featured3Redundefined" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured3Blackundefined" name="productOption" value="Black" />
+                                    <label class="custom-control-label" for="featured3Blackundefined" style="--bg-color: #191919"><span style="--bg-color: #191919"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/11.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/40.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Travel handle totte bags</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price">$185.00</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ps-product ps-product--standard">
+                        <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                <figure><img class="ps-product__image-default" src="{% static 'public/img/products/2.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/38.jpg' %} " alt="alt" />
+                                </figure>
+                            </a>
+                            <div class="ps-product__actions">
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div>
+                                <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view"><a href="#" data-toggle="modal" data-target="#popupQuickview"><i class="fa fa-search"></i></a></div>
+                            </div>
+                            <div class="ps-product__badge">
+                                <div class="ps-badge ps-badge--sale">-70%</div>
+                            </div><a class="ps-btn ps-btn--dark ps-product__cart" href="product-1.html">Select options</a>
+                        </div>
+                        <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart"><img src="{% static 'public/img/icon/cart.svg' %} " alt="" /></a><a class="ps-product__item" href="wishlist.html"><i class="fa fa-heart-o"></i></a><a class="ps-product__item rotate" href="compare.html"><i class="fa fa-align-left"></i></a></div>
+                        <div class="ps-product__content">
+                            <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                            <div class="ps-product__meta"><span class="ps-product__price sale">$200.00</span><span class="ps-product__del">$195.00</span>
+                            </div>
+                            <div class="ps-product__footer">
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured4Blackundefined" name="productOption" value="Black" />
+                                    <label class="custom-control-label" for="featured4Blackundefined" style="--bg-color: #191919"><span style="--bg-color: #191919"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured4Grayundefined" name="productOption" value="Gray" />
+                                    <label class="custom-control-label" for="featured4Grayundefined" style="--bg-color: #767676"><span style="--bg-color: #767676"></span></label>
+                                </div>
+                                <div class="custom-control custom-checkbox">
+                                    <input class="custom-control-input" type="radio" id="featured4Redundefined" name="productOption" value="Red" />
+                                    <label class="custom-control-label" for="featured4Redundefined" style="--bg-color: #D9121F"><span style="--bg-color: #D9121F"></span></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="ps-section__link"><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">Show all </a></div>
+            </div>
+        </div>
+    </section>
+    {% comment %} <div class="ps-banner ps-banner--pins" style="background:#eaeae8;">
+        <div class="ps-banner__thumnail"><img src="{% static 'public/img/banners/slider23.jpg' %} " alt="alt" />
+        </div>
+        <div class="ps-banner__content">
+            <div class="container">
+                <h2 class="ps-banner__title text-dark">Life from the <br/>comic book</h2>
+                <div class="ps-banner__desc text-dark">Retro games t-shitrs!</div><a class="ps-btn ps-btn--rounded ps-btn--danger" href="shop-list.html">Shop now </a>
+            </div>
+        </div>
+        <div class="ps-pin--item ps-pin--0">
+            <div class="ps-pin__rouded"><span class="ps-pin__text">1</span></div>
+            <div class="ps-product ps-product--pin">
+                <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                        <figure><img class="ps-product__image-default" src="{% static 'public/img/products/2.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/44.jpg' %} " alt="alt" />
+                        </figure>
+                    </a></div>
+                <div class="ps-product__content">
+                    <h5 class="ps-product__title"><a href="product-1.html">Short T-shirt with sequins.</a></h5>
+                    <div class="ps-product__meta"><span class="ps-product__price">$16.00</span>
+                    </div>
+                    <div class="ps-product__rating">
+                        <select class="ps-rating" data-read-only="true">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5" selected="selected">5</option>
+                        </select>
+                    </div><a class="ps-btn ps-btn--rounded ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
+                </div>
+            </div>
+        </div>
+        <div class="ps-pin--item ps-pin--1">
+            <div class="ps-pin__rouded"><span class="ps-pin__text">2</span></div>
+            <div class="ps-product ps-product--pin">
+                <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                        <figure><img class="ps-product__image-default" src="{% static 'public/img/products/26.jpg' %} " alt="alt" /><img class="ps-product__image-back" src="{% static 'public/img/products/32.jpg' %} " alt="alt" />
+                        </figure>
+                    </a></div>
+                <div class="ps-product__content">
+                    <h5 class="ps-product__title"><a href="product-1.html">Travel handle totte bags</a></h5>
+                    <div class="ps-product__meta"><span class="ps-product__price">$18.00</span>
+                    </div>
+                    <div class="ps-product__rating">
+                        <select class="ps-rating" data-read-only="true">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4" selected="selected">4</option>
+                            <option value="5">5</option>
+                        </select>
+                    </div><a class="ps-btn ps-btn--rounded ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a>
                 </div>
             </div>
         </div>
     </div> {% endcomment %}
-    <!-- Carousel End -->
-
-
-    <!-- Featured Start -->
-    {% comment %} <div class="container-fluid pt-5">
-        <div class="row px-xl-5 pb-3">
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-check text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Quality Product</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-shipping-fast text-primary m-0 mr-2"></h1>
-                    <h5 class="font-weight-semi-bold m-0">Free Shipping</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fas fa-exchange-alt text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">14-Day Return</h5>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-6 col-sm-12 pb-1">
-                <div class="d-flex align-items-center bg-light mb-4" style="padding: 30px;">
-                    <h1 class="fa fa-phone-volume text-primary m-0 mr-3"></h1>
-                    <h5 class="font-weight-semi-bold m-0">24/7 Support</h5>
-                </div>
-            </div>
-        </div>
-    </div> {% endcomment %}
-    <!-- Featured End -->
-
-
-    <!-- Categories Start -->
-    <div class="container-fluid pt-5">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Categories</span></h2>
-        <div class="row px-xl-5 pb-3">
-            {% for category in all_categories %}
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-1.jpg" alt="">
+    {% comment %} <section class="ps-section--default ps-section--blog">
+        <div class="container">
+            <h3 class="ps-section__title">The real stories <br>behind our brand.</h3>
+            <div class="ps-section__carousel">
+                <div class="owl-carousel" data-owl-auto="true" data-owl-loop="true" data-owl-speed="10000" data-owl-gap="30" data-owl-nav="false" data-owl-dots="false" data-owl-item="2" data-owl-item-xs="1" data-owl-item-sm="1" data-owl-item-md="2" data-owl-item-lg="2" data-owl-item-xl="2" data-owl-duration="1000" data-owl-mousedrag="on">
+                    <div class="ps-blog--latset">
+                        <div class="ps-blog__thumbnail"><a href="blog-post.html"><img src="{% static 'public/img/blogs/blog-1.jpg' %} " alt="alt" /></a>
+                            <div class="ps-blog__badge"><span class="ps-badge__item">Fashion</span><span class="ps-badge__item">Women</span>
+                            </div>
                         </div>
-                        <div class="flex-fill pl-3">
-                            <h6>{{category.name}}</h6>
-                            <small class="text-body">100 Products</small>
+                        <div class="ps-blog__content">
+                            <h3 class="ps-blog__title"><a href="blog-post.html">The best ways to change your summer wardrobe into autumn wardrobe.</a></h3>
+                            <p class="ps-blog__date">March 05,2021</p>
                         </div>
                     </div>
-                </a>
-            </div>
-            {% endfor %}
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-2.jpg" alt="">
+                    <div class="ps-blog--latset">
+                        <div class="ps-blog__thumbnail"><a href="blog-post.html"><img src="{% static 'public/img/blogs/blog-2.jpg' %} " alt="alt" /></a>
+                            <div class="ps-blog__badge"><span class="ps-badge__item">Fashion</span><span class="ps-badge__item">Women</span>
+                            </div>
                         </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
+                        <div class="ps-blog__content">
+                            <h3 class="ps-blog__title"><a href="blog-post.html">Men's fashion in leather.</a></h3>
+                            <p class="ps-blog__date">March 05,2021</p>
                         </div>
                     </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-3.jpg" alt="">
+                    <div class="ps-blog--latset">
+                        <div class="ps-blog__thumbnail"><a href="blog-post.html"><img src="{% static 'public/img/blogs/blog-3.jpg' %}" alt="alt" /></a>
+                            <div class="ps-blog__badge"><span class="ps-badge__item">Fashion</span><span class="ps-badge__item">Women</span>
+                            </div>
                         </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
+                        <div class="ps-blog__content">
+                            <h3 class="ps-blog__title"><a href="blog-post.html">The best ways to change your summer wardrobe into autumn wardrobe.</a></h3>
+                            <p class="ps-blog__date">March 05,2021</p>
                         </div>
                     </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-4.jpg" alt="">
+                    <div class="ps-blog--latset">
+                        <div class="ps-blog__thumbnail"><a href="blog-post.html"><img src="{% static 'public/img/blogs/blog-4.jpg' %}" alt="alt" /></a>
+                            <div class="ps-blog__badge"><span class="ps-badge__item">Fashion</span><span class="ps-badge__item">Women</span>
+                            </div>
                         </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-4.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-3.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-2.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-1.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-2.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-1.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-4.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <a class="text-decoration-none" href="">
-                    <div class="cat-item img-zoom d-flex align-items-center mb-4">
-                        <div class="overflow-hidden" style="width: 100px; height: 100px;">
-                            <img class="img-fluid" src="../../media/cat-3.jpg" alt="">
-                        </div>
-                        <div class="flex-fill pl-3">
-                            <h6>Category Name</h6>
-                            <small class="text-body">100 Products</small>
-                        </div>
-                    </div>
-                </a>
-            </div>
-        </div>
-    </div>
-    <!-- Categories End -->
-
-
-    <!-- Products Start -->
-    <div class="container-fluid pt-5 pb-3">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Most Recent Products</span></h2>
-        <div class="row px-xl-5">
-            {% for product in products %}
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-1.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">{{product.name}}</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-2.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-3.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-4.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-5.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-6.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-7.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-8.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
+                        <div class="ps-blog__content">
+                            <h3 class="ps-blog__title"><a href="blog-post.html">The best ways to change your summer wardrobe into autumn wardrobe.</a></h3>
+                            <p class="ps-blog__date">March 05,2021</p>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Products End -->
-
-
-    <!-- Offer Start -->
-    {% comment %} <div class="container-fluid pt-5 pb-3">
-        <div class="row px-xl-5">
-            <div class="col-md-6">
-                <div class="product-offer mb-30" style="height: 300px;">
-                    <img class="img-fluid" src="../../media/offer-1.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Shop Now</a>
-                    </div>
+    </section> {% endcomment %}
+    {% comment %} <section class="ps-section--default ps-instagram">
+        <div class="container">
+            <h3 class="ps-section__title">Express yourself with
+                <u>#yobazar</u><br>on instagram
+            </h3>
+            <div class="ps-section__content">
+                <div class="row m-0">
+                    <div class="col-6 col-md-4 col-lg-2dot4"> <a class="ps-image--transition" href="https://www.instagram.com/p/CJus2DVJSkL/" target="_blank"> <img src="{% static 'public/img/instagram/instagram1.jpg' %}" alt><span class="ps-image__overlay"><i class="fa fa-instagram"></i></span></a></div>
+                    <div class="col-6 col-md-4 col-lg-2dot4"> <a class="ps-image--transition" href="https://www.instagram.com/p/CJus0XNpzRk/" target="_blank"> <img src="{% static 'public/img/instagram/instagram2.jpg' %}" alt><span class="ps-image__overlay"><i class="fa fa-instagram"></i></span></a></div>
+                    <div class="col-6 col-md-4 col-lg-2dot4"> <a class="ps-image--transition" href="https://www.instagram.com/p/CJusypkJPuK/" target="_blank"> <img src="{% static 'public/img/instagram/instagram3.jpg' %}" alt><span class="ps-image__overlay"><i class="fa fa-instagram"></i></span></a></div>
+                    <div class="col-6 col-md-4 col-lg-2dot4"> <a class="ps-image--transition" href="https://www.instagram.com/p/CJusw1epNrr/" target="_blank"> <img src="{% static 'public/img/instagram/instagram4.jpg' %}" alt><span class="ps-image__overlay"><i class="fa fa-instagram"></i></span></a></div>
+                    <div class="col-6 col-md-4 col-lg-2dot4"> <a class="ps-image--transition" href="https://www.instagram.com/p/CJusu5ipnw5/" target="_blank"> <img src="{% static 'public/img/instagram/instagram5.jpg' %}" alt><span class="ps-image__overlay"><i class="fa fa-instagram"></i></span></a></div>
                 </div>
-            </div>
-            <div class="col-md-6">
-                <div class="product-offer mb-30" style="height: 300px;">
-                    <img class="img-fluid" src="../../media/offer-2.jpg" alt="">
-                    <div class="offer-text">
-                        <h6 class="text-white text-uppercase">Save 20%</h6>
-                        <h3 class="text-white mb-3">Special Offer</h3>
-                        <a href="" class="btn btn-primary">Shop Now</a>
-                    </div>
-                </div>
+                <div class="ps-section__link"><a href="#" target="_blank">Follow us on Instagram</a></div>
             </div>
         </div>
-    </div> {% endcomment %}
-    <!-- Offer End -->
-
-
-    <!-- Products Start -->
-    {% comment %} <div class="container-fluid pt-5 pb-3">
-        <h2 class="section-title position-relative text-uppercase mx-xl-5 mb-4"><span class="bg-secondary pr-3">Recent Products</span></h2>
-        <div class="row px-xl-5">
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-1.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-2.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-3.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-4.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-5.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-6.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-7.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star-half-alt text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-4 col-sm-6 pb-1">
-                <div class="product-item bg-light mb-4">
-                    <div class="product-img position-relative overflow-hidden">
-                        <img class="img-fluid w-100" src="../../media/product-8.jpg" alt="">
-                        <div class="product-action">
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-shopping-cart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="far fa-heart"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-sync-alt"></i></a>
-                            <a class="btn btn-outline-dark btn-square" href=""><i class="fa fa-search"></i></a>
-                        </div>
-                    </div>
-                    <div class="text-center py-4">
-                        <a class="h6 text-decoration-none text-truncate" href="">Product Name Goes Here</a>
-                        <div class="d-flex align-items-center justify-content-center mt-2">
-                            <h5>$123.00</h5><h6 class="text-muted ml-2"><del>$123.00</del></h6>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-center mb-1">
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="fa fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small class="far fa-star text-primary mr-1"></small>
-                            <small>(99)</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> {% endcomment %}
-    <!-- Products End -->
-
-
-    <!-- Vendor Start -->
-    {% comment %} <div class="container-fluid py-5">
-        <div class="row px-xl-5">
-            <div class="col">
-                <div class="owl-carousel vendor-carousel">
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-1.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-2.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-3.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-4.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-5.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-6.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-7.jpg" alt="">
-                    </div>
-                    <div class="bg-light p-4">
-                        <img src="../../media/vendor-8.jpg" alt="">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> {% endcomment %}
-    <!-- Vendor End -->
+    </section> {% endcomment %}
+</div>
 {% endblock content %}

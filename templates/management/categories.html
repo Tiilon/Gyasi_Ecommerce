@@ -1,0 +1,350 @@
+{% extends 'management/base.html' %}
+{% block content %}
+<div data-list='{"valueNames":["name","created_by"],"page":5,"pagination":true}'>
+    <div class="row justify-content-center g-0">
+        <div class="col-auto col-sm-5 mb-3">
+            <button class="btn btn-sm btn-success me-1 mb-1" type="button" type="button" data-bs-toggle="modal" data-bs-target="#new_cart_form_modal">+ New</button>
+        </div>
+        {% comment %} <div class="col-auto col-sm-5 mb-3">
+            <form>
+            <div class="input-group"><input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search..." aria-label="search" />
+                <div class="input-group-text bg-transparent"><span class="fa fa-search fs--1 text-600"></span></div>
+            </div>
+            </form>
+        </div> {% endcomment %}
+      
+    </div>
+    <div class="table-responsive scrollbar">
+      <table class="table table-bordered table-striped fs--1 mb-0" id="categories_table">
+        <thead class="bg-200 text-900">
+          <tr>
+            <th class="sort" data-sort="name">Name</th>
+            <th class="sort" data-sort="created_by">Created By</th>
+            <th class="sort" data-sort="email">Action</th>
+          </tr>
+        </thead>
+        <tbody class="list" id="cart_list">
+            {% comment %} {% for cart in categories %}
+                <tr>
+                    <td class="name">{{cart.name}}</td>
+                    <td class="email">{{cart.created_by.email}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success me-1 mb-1" type="button">Activate</button>
+                    </td>
+                
+                </tr>
+            {% endfor %} {% endcomment %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--modal for new category-->
+  <div class="modal fade" id="new_cart_form_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+      <div class="modal-content position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+            <h4 class="mb-1" id="modalExampleDemoLabel">Create Category</h4>
+          </div>
+          <div class="p-4 pb-0">
+            <form id="create-cart-form" method='post' enctype='multipart/form-data'>
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">Name:</label>
+                <input class="form-control" id="cart-name" type="text" name="cart_name"/>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">Image:</label>
+                <input class="form-control" id="cart-image" type="file" name="edit-cart-image"/>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" id="new_cart" type="submit" data-bs-dismiss="modal">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--modal to edit category-->
+  <div class="modal fade" id="edit_cart_form_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+      <div class="modal-content position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+            <h4 class="mb-1" id="modalExampleDemoLabel1">Edit Category</h4>
+          </div>
+          <div class="p-4 pb-0">
+            <form id="edit-cart-form" method='post' enctype='multipart/form-data'>
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">Name:</label>
+                <input class="form-control" id="cart-edit-name" type="text" name="edit-cart-name"/>
+              </div>
+              <div class="mb-3" id="cart-edit-image-src">
+                
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">New Image:</label>
+                <input class="form-control" id="cart-edit-image" type="file" name="edit-cart-image"/>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" id="update_cart" type="submit" data-bs-dismiss="modal">Edit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block js %}
+<script>
+    function getCategories() {
+      const cart_list = document.getElementById('cart_list')
+      $.ajax({
+        type: "GET",
+        url:'{% url 'management:all_categories' %}',
+        headers:{"X-Requested-With": "XMLHttpRequest"},
+        success: (res)=>{
+            if(res.message =='success'){
+                const data = res.data;
+
+                if(Array.isArray(data)){
+                cart_list.innerHTML =``
+
+                data.forEach(cart=>{
+                    
+                    cart_list.innerHTML += 
+                    `
+                    <tr>
+                        <td class="name">${cart.name}</td>
+                        <td class="created_by">${cart.created_by}</td>
+                        <td>
+                            <button class="btn btn-sm btn-${cart.cart_class} me-1 mb-1" onclick="changeCartStatus(${parseInt(cart.id)})" type="button">${cart.cart_txt}</button>
+                            <button title='Delete' class="btn btn-sm btn-danger me-1 mb-1" onclick="deleteCart(${parseInt(cart.id)})" type="button"><i class="fas fa-trash-alt"></i></button>
+                            <a href="/management/product-list/${cart.id}" class="btn btn-sm btn-primary me-1 mb-1" type="button"><i title='View Products' class="far fa-list-alt"></i></a>
+                            <button class="btn btn-sm btn-info me-1 mb-1" onclick="appendCartDetails(${parseInt(cart.id)})" type="button" data-bs-toggle="modal" data-bs-target="#edit_cart_form_modal"><i class="fas fa-pen"></i></button>
+                        </td>
+                    </tr>
+                    `
+                })
+                $('#categories_table').DataTable();
+                }else{
+                }
+            } 
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+      })
+    }
+    
+    $(document).ready(function () {
+      getCategories()
+
+      $('#create-cart-form').submit(function (e){
+        e.preventDefault();
+          var formData = new FormData(this);
+          console.log(formData)
+          $.ajax({
+              type:'POST',
+              url:'{% url 'management:category' %}',
+              data: formData,
+              dateType: "json",
+              processData: false,
+              contentType: false,
+              success: (res)=>{
+                  if(res.message =='success'){
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Created',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                      getCategories()
+                  }
+                  else{
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'error',
+                          title: 'Failed',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                  }
+                  
+              },
+              error:(err)=>{
+                  console.log(err)
+              }
+          })
+      })
+
+      $('#edit-cart-form').submit(function (e){
+        e.preventDefault();
+        var formData = new FormData(this);
+        const update_cart_id = $("#cart-edit-name").attr("data-href")
+
+        $.ajax({
+          type:'POST',
+          url:`/management/update-cart-details/${parseInt(update_cart_id)}`,
+          data: formData,
+          dateType: "json",
+          processData: false,
+          contentType: false,
+          success: (res)=>{
+              if(res.message =='success'){
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Updated',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+                  getCategories()
+              }else{
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'Failed',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+              }  
+          },
+          error:(err)=>{
+              console.log(err)
+          }
+      })
+        
+      })
+    })
+
+    function appendCartDetails(cart_id){
+      $.ajax({
+        type:'GET',
+        url:`/management/get-cart-details/${parseInt(cart_id)}`,
+        headers:{"X-Requested-With": "XMLHttpRequest"},
+        success: (res)=>{
+            if(res.message =='success'){
+                $("#cart-edit-name").val(res.details.name);
+                $("#cart-edit-name").attr("data-href", cart_id)
+                if(res.details.image){
+                  $("#cart-edit-image-src").removeClass("display-none")
+                  $("#cart-edit-image-src").html(`
+                    <label class="col-form-label" for="recipient-name">Current Image</label>
+                    <img class="form-control" src=${res.details.image}/>
+                  `)
+                }
+            }
+            else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Unable to fetch details',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+      })
+    }
+
+    function changeCartStatus(cart_id){
+      url = `/management/change-cart-status/${cart_id}`
+      $.ajax({
+          type:'GET',
+          url:url,
+          headers:{"X-Requested-With": "XMLHttpRequest"},
+          success: (res)=>{
+              if(res.message =='success'){
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'success',
+                      title: 'Updated',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+                  getCategories()
+
+              }
+              else{
+                  Swal.fire({
+                      position: 'top-end',
+                      icon: 'error',
+                      title: 'Failed',
+                      showConfirmButton: false,
+                      timer: 1500
+                  })
+              }
+              
+          },
+          error:(err)=>{
+              console.log(err)
+          }
+      })
+
+    }
+
+    function deleteCart(cart_id){
+      url = `/management/delete/${cart_id}`
+      Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this! This will also delete all products associated with it",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          $.ajax({
+              type:'GET',
+              url:url,
+              headers:{"X-Requested-With": "XMLHttpRequest"},
+              success: (res)=>{
+                  if(res.message =='success'){
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'success',
+                          title: 'Deleted',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                      getCategories()
+                  }
+                  else{
+                      Swal.fire({
+                          position: 'top-end',
+                          icon: 'error',
+                          title: 'Failed',
+                          showConfirmButton: false,
+                          timer: 1500
+                      })
+                  }
+                  
+              },
+              error:(err)=>{
+                  console.log(err)
+              }
+          })
+        }
+      })
+
+    }
+</script>
+{% endblock js %}

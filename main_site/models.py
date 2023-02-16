@@ -65,18 +65,13 @@ class ProductImageModel(models.Model):
     )
     status = models.BooleanField(default=True)
     
-    
+
 class Cart(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(default=datetime.now)
-
-
-class CartItem(models.Model):
-    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE)
+    product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, blank=True, null=True)
     quantity = models.IntegerField(default=1)
-    price = models.FloatField(blank=True)
-    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
-    status = models.BooleanField(default=True)
+    price = models.DecimalField(blank=True, decimal_places=2, max_digits=30, null=True)
+    added = models.BooleanField(default=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
