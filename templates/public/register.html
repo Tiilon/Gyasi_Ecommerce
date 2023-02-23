@@ -1,0 +1,41 @@
+{% extends 'public/base.html' %}
+{% block content %}
+<div class="ps-account">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6" id="register_form_view">
+                <form action="{% url 'accounts:user_register' %}" method="post">
+                    {% csrf_token %}
+                    <div class="ps-form--review">
+                        <h2 class="ps-form__title">Register</h2>
+                        {% if messages %}
+                            {% for message in messages %}
+                                <label class="ps-form__label text-danger">{{message}} *</label>
+                            {% endfor %}
+                        {% endif %}
+                        <div class="ps-form__group">
+                            <label class="ps-form__label">Username *</label>
+                            <input class="form-control ps-form__input" type="email" name="Username" required>
+                        </div>
+                        <div class="ps-form__group">
+                            <label class="ps-form__label">Email address *</label>
+                            <input class="form-control ps-form__input" type="email" name="email" required>
+                        </div>
+                        <div class="ps-form__group">
+                            <label class="ps-form__label">Password *</label>
+                            <div class="input-group">
+                                <input class="form-control ps-form__input" type="password" name="password" required>
+                                <div class="input-group-append"><a class="fa fa-eye-slash toogle-password" href="javascript: vois(0);"></a></div>
+                            </div>
+                            <p class="ps-form__text">Hint: The password should be at least twelve characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).</p>
+                        </div>
+                        <div class="ps-form__submit">
+                            <button class="ps-btn ps-btn--rounded ps-btn--danger" type="submit">Register</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

@@ -9,6 +9,7 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
+
 import os
 from pathlib import Path
 from decouple import config
@@ -26,13 +27,16 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
+DEFAULT_DOMAIN = f'http://{ALLOWED_HOSTS[0]}:8000/'
 
 
 # Application definition
 
 INSTALLED_APPS = [
-    'django.contrib.admin',
+    'material',
+    'material.admin',
+    # 'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -42,7 +46,7 @@ INSTALLED_APPS = [
     'main_site',
     'management',
     'payment_app',
-    
+
     "django_unicorn",
 ]
 
@@ -173,8 +177,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 # EMAIL_HOST_USER = 'success@notionafrica.org'
-EMAIL_HOST_USER = 'notionafrica@gmail.com'
-EMAIL_HOST_PASSWORD = 'lwmclinbudjeclnr'
+EMAIL_HOST_USER = 'tiilon42@gmail.com'
+EMAIL_HOST_PASSWORD = 'pjhmgexqapqpbplo'
 EMAIL_USE_TLS = True
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
 DJANGORESIZED_DEFAULT_QUALITY = 75
@@ -185,6 +189,8 @@ DJANGORESIZED_DEFAULT_NORMALIZE_ROTATION = True
 
 PAYSTACK_PUBLIC_KEY=config('PAYSTACK_PUBLIC_KEY')
 PAYSTACK_SECRET_KEY=config('PAYSTACK_SECRET_KEY')
+TWILIO_AUTH_TOKEN=config('TWILIO_AUTH_TOKEN')
+TWILIO_ACCOUNT_SID=config('TWILIO_ACCOUNT_SID')
 
 # django_heroku.settings(locals())
 LANGUAGE_CODE = 'en'

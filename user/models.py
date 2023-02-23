@@ -1,9 +1,13 @@
 from django.db import models
-from django.conf import settings
+import secrets
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import PermissionsMixin
 from django_resized import ResizedImageField
+from base.models import *
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+from base.utils import send_account_activation_email
 
 # from allauth.account.signals import user_signed_up
 
@@ -40,13 +44,9 @@ class User(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(max_length=255, unique=True)
     username = models.CharField(max_length=255, null=True, blank=True, unique=True)
     is_active = models.BooleanField(default=True)
-    is_validated = models.BooleanField(
-        default=False
-    )  # to check if user has confirmed with email
     is_admin = models.BooleanField(default=False)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
-    token = models.CharField(max_length=300, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -77,12 +77,10 @@ class User(AbstractBaseUser, PermissionsMixin):
 
     @property
     def get_status(self):
-        if self.is_active:
-            return "Deactivate"
-        return "Activate"
+        return "Deactivate" if self.is_active else "Activate"
 
 
-class UserProfile(models.Model):
+class UserProfile(BaseModel):
     user = models.OneToOneField(
         User,
         related_name="user_profile",
@@ -93,11 +91,14 @@ class UserProfile(models.Model):
     first_name = models.CharField(max_length=255, null=True, blank=True)
     last_name = models.CharField(max_length=255, null=True, blank=True)
     other_name = models.CharField(max_length=255, null=True, blank=True)
-    image = ResizedImageField(
+    profile_image = ResizedImageField(
         size=[400, 400], upload_to="user/display_image", blank=True, null=True
     )
     # bio_file = models.FileField(upload_to='user/bio', blank=True, null=True)
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    otp = models.CharField(max_length=10, null=True, blank=True)
+    email_token = models.CharField(max_length=300, null=True, blank=True)
+    is_email_verified = models.BooleanField(default=False)
     gender = models.CharField(max_length=10, null=True, blank=True)
     address = models.TextField(null=True, blank=True)
     # profession = models.CharField(max_length=255,null=True, blank=True)
@@ -114,8 +115,6 @@ class UserProfile(models.Model):
     slug = models.SlugField(blank=True, null=True)
     # invited_by = models.ForeignKey('self', related_name='invited_users', on_delete=models.CASCADE, null=True,blank=True)
     date_of_birth = models.DateTimeField(null=True, blank=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     # Metadata
     class Meta:
@@ -124,3 +123,16 @@ class UserProfile(models.Model):
     # Methods
     def __str__(self):
         return f"{self.user}"
+
+
+@receiver(post_save , sender = User)
+def send_email_token(sender , instance , created , **kwargs):
+    try:
+        if created:
+            email_token = str(secrets.token_hex(16))
+            UserProfile.objects.create(user = instance , email_token = email_token)
+            email = instance.email
+            send_account_activation_email(email , email_token)
+
+    except Exception as e:
+        print(e)

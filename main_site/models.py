@@ -3,19 +3,17 @@ from payment_app.models import Payment
 from user.models import User
 from datetime import datetime
 from django_resized import ResizedImageField
+from base.models import *
 
 
-class ProductCategoryModel(models.Model):
+class ProductCategoryModel(BaseModel):
     name = models.CharField(max_length=250, blank=True, null=True)
-    status = models.BooleanField(default=True)
     cart_sm_image = ResizedImageField(
         size=[150, 150], upload_to="user/cart_sm_image", blank=True, null=True
     )
     created_by = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.CASCADE
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
@@ -28,7 +26,7 @@ class ProductCategoryModel(models.Model):
         }
 
 
-class ProductModel(models.Model):
+class ProductModel(BaseModel):
     category = models.ForeignKey(
         ProductCategoryModel,
         related_name="products",
@@ -38,18 +36,15 @@ class ProductModel(models.Model):
     )
     name = models.CharField(max_length=250, blank=True, null=True)
     description = models.TextField(blank=True, null=True)
-    status = models.BooleanField(default=True)
     ticket_price = models.IntegerField(default=0)
     created_by = models.ForeignKey(
         User, blank=True, null=True, on_delete=models.CASCADE
     )
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return self.name
 
-class ProductImageModel(models.Model):
+class ProductImageModel(BaseModel):
     product = models.ForeignKey(
         ProductModel,
         related_name="images",
@@ -64,18 +59,14 @@ class ProductImageModel(models.Model):
     product_admin_size = ResizedImageField(
         size=[1098, 717], upload_to="images/resized/product_image", blank=True, null=True
     )
-    status = models.BooleanField(default=True)
     
 
-class Cart(models.Model):
+class Cart(BaseModel):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     product = models.ForeignKey(ProductModel, on_delete=models.CASCADE, blank=True, null=True)
     quantity = models.IntegerField(default=1)
     price = models.DecimalField(blank=True, decimal_places=2, max_digits=30, null=True)
-    paid = models.BooleanField(default=False)
     payment_id = models.ForeignKey(Payment, on_delete=models.CASCADE, blank=True, null=True)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.product} - {self.quantity}"
