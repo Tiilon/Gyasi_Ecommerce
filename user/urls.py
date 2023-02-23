@@ -5,8 +5,11 @@ from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, 
 app_name = 'accounts'
 
 urlpatterns = [
-    path('login', AdminLoginView.as_view(), name='login'),
+    path('login', LoginView.as_view(), name='login'),
+    path('admin-login', AdminLoginView.as_view(), name='admin_login'),
+    path('register', RegisterUserView.as_view(), name='user_register'),
     path('logout', LogoutView.as_view(), name='logout'),
+    path('activate/<token>', verification, name='activate'),
     # path('signup', CreateUserView.as_view(), name='signup-user'),
     # path('signup-invite/<str:slug>/', CreateUserView.as_view(), name='signup-user-invite'),
     # path('verify/<str:token>/<int:user_id>/', verification, name='auth_userx'),

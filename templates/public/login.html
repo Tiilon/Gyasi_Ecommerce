@@ -1,0 +1,41 @@
+{% extends 'public/base.html' %}
+{% block content %}
+<div class="ps-account">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 col-md-6" id="login_form_view">
+                <form action="{% url 'accounts:login' %}" method="post">
+                    {% csrf_token %}
+                    <div class="ps-form--review">
+                        <h2 class="ps-form__title">Login</h2>
+                        {% if messages %}
+                        {% for message in messages %}
+                            <label class="ps-form__label text-danger">{{message}} *</label>
+                        {% endfor %}
+                        {% endif %}
+                        <div class="ps-form__group">
+                            <label class="ps-form__label">Username or email address *</label>
+                            <input class="form-control ps-form__input" type="email" name="email">
+                        </div>
+                        <div class="ps-form__group">
+                            <label class="ps-form__label">Password *</label>
+                            <div class="input-group">
+                                <input class="form-control ps-form__input" type="password" name="password">
+                                <div class="input-group-append"><a class="fa fa-eye-slash toogle-password" href="javascript: vois(0);"></a></div>
+                            </div>
+                        </div>
+                        <div class="ps-form__submit">
+                            <button class="ps-btn ps-btn--rounded ps-btn--dark" type="submit">Log in</button>
+                            {% comment %} <div class="form-check">
+                                <input class="form-check-input" type="checkbox" id="remember">
+                                <label class="form-check-label" for="remember">Remember me</label>
+                            </div> {% endcomment %}
+                        </div>
+                        {% comment %} <a class="ps-account__link" href="lost-password.html">Lost your password?</a> {% endcomment %}
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

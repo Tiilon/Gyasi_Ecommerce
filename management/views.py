@@ -27,14 +27,12 @@ class CategoryView(LoginRequiredMixin,View):
     def post(self, request):
         name = request.POST.get('cart_name')
         image = request.FILES.get('edit-cart-image')
-        message = ''
         new_cart = ProductCategoryModel.objects.create(
             name = name,
             cart_sm_image = image,
             created_by=request.user
         )
-        if new_cart:
-            message = "success"
+        message = "success" if new_cart else ''
         return JsonResponse({'message': message})
     
 @login_required
@@ -56,16 +54,9 @@ def get_categories(request):
 @login_required
 def change_cart_status(request, cart_id):
     category = ProductCategoryModel.objects.get(id=cart_id)
-    if category.status == True:
-        category.status = False
-        category.save()
-        print(category.status)
-        return JsonResponse({'message': 'success'})
-    else:
-        category.status = True
-        category.save()
-        return JsonResponse({'message': 'success'})
-    return JsonResponse({'message': 'failed'})
+    category.status = category.status != True
+    category.save()
+    return JsonResponse({'message': 'success'})
 
 @login_required
 def get_cart_details(request, cart_id):
@@ -85,7 +76,7 @@ def update_cart(request, cart_id):
     image = request.FILES.get('edit-cart-image')
     old_image = cart.cart_sm_image
     cart.name = name
-    cart.cart_sm_image = image if image else old_image
+    cart.cart_sm_image = image or old_image
     cart.save()
     return JsonResponse({'message': 'success'})
     

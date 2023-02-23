@@ -1,3 +1,4 @@
+import contextlib
 from django.shortcuts import redirect, render, get_object_or_404
 from django.views import View
 from django.http import JsonResponse
@@ -7,6 +8,7 @@ from django.views.generic.list import ListView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import F
 from django.conf import settings
+from django.core.mail import send_mail
 
 class AboutUs(View):
     def get(self, request):
@@ -17,26 +19,23 @@ class AboutUs(View):
 
 # Api to search for image
 def search_product(request):
-    if request.headers.get('X-Requested-With') == 'XMLHttpRequest':
-        products=[]
-        input_product = request.POST.get('product')
-        try:
-            products = ProductModel.objects.filter(name__icontains=input_product)
-        except ProductModel.DoesNotExist:
-            pass
-        
-        if len(input_product) > 0 and len(products) > 0:
-            data = []
-            for b in products:
-                item = {
-                    'name': b.name,
-                }
-                data.append(item)
-            res = data
-        else:
-            res = "No Suggestions keyword..."
-        return JsonResponse({'data': res})
-    return JsonResponse({'data': "Wrong request type"})
+    if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
+        return JsonResponse({'data': "Wrong request type"})
+    products=[]
+    input_product = request.POST.get('product')
+    with contextlib.suppress(ProductModel.DoesNotExist):
+        products = ProductModel.objects.filter(name__icontains=input_product)
+    if len(input_product) > 0 and len(products) > 0:
+        data = []
+        for b in products:
+            item = {
+                'name': b.name,
+            }
+            data.append(item)
+        res = data
+    else:
+        res = "No Suggestions keyword..."
+    return JsonResponse({'data': res})
 
 class ProductCategoryView(View):
     def get(self, request, cart_id):
@@ -51,13 +50,16 @@ class ProductCategoryView(View):
         ProductCategoryModel.objects.create(name=name, created_by=request.user)
         return JsonResponse({"message": "success"})
     
-class ProductView(LoginRequiredMixin,ListView):
+class ProductView(ListView):
     model = ProductModel
     paginate_by = 12 # number of posts will load
     context_object_name = 'products'
     template_name = "public/items.html"
 
     ordering = ['-created_at']
+    
+    # def get(self, *args, **kwargs):
+    #     send_mail('Testing','This is to test mail', 'tiilon42@gmail.com',['rigaji3511@mirtox.com'],fail_silently=False)
     
     def get_context_data(self,**kwargs):
         context = super(ProductView,self).get_context_data(**kwargs)
@@ -120,7 +122,7 @@ def get_product_details(request, product_id):
 class CartView(View):
     def get(self, request):
         template_name = "public/cart.html"
-        cart_items = Cart.objects.filter(user = request.user)
+        cart_items = Cart.objects.filter(user = request.user) 
         cart_list = []
         total_payable = 0
         for item in cart_items:
@@ -149,7 +151,7 @@ def delete_cart(request, cart_id):
     return JsonResponse({"message": "success"})
     
 def get_cart_items(request):
-    cart_items = Cart.objects.filter(user = request.user)
+    cart_items = Cart.objects.filter(user__id = request.user.id) or []
     cart_list = []
     total_payable = 0
     for item in cart_items:
