@@ -103,8 +103,61 @@ class ProductView(ListView):
         )
         return JsonResponse({"message": "success"})
 
-
-@login_required
+def get_product_by_status(request, status, cart_id=None):
+    product_list = []
+    products = []
+    
+    if status == "all":
+        if cart_id:
+            cart = ProductCategoryModel.objects.get(id=cart_id)
+            products = ProductModel.objects.filter(category=cart)
+        else:
+            products = ProductModel.objects.all()
+    
+    if status == "active":
+        if cart_id:
+            cart = ProductCategoryModel.objects.get(id=cart_id)
+            products = ProductModel.objects.filter(category = cart,status=True)
+        else:
+            products = ProductModel.objects.filter(status=True)
+            
+    if status == "inactive":
+        if cart_id:
+            cart = ProductCategoryModel.objects.get(id=cart_id)
+            products = ProductModel.objects.filter(category = cart,status=False)
+        else:
+            products = ProductModel.objects.filter(status=False)
+            
+    if status == "lowest":
+        if cart_id:
+            cart = ProductCategoryModel.objects.get(id=cart_id)
+            products = ProductModel.objects.filter(category=cart).order_by("ticket_price")
+        else:
+            products = ProductModel.objects.all().order_by("ticket_price")
+    
+    if status == "highest":
+        if cart_id:
+            cart = ProductCategoryModel.objects.get(id=cart_id)
+            products = ProductModel.objects.filter(category=cart).order_by("-ticket_price")
+        else:
+            products = ProductModel.objects.all().order_by("-ticket_price")
+       
+    for p in products:
+        images = ProductImageModel.objects.filter(product=p)
+        details={
+            'id': p.id, #pyright: ignore
+            'cart_id': p.category.id, #pyright: ignore
+            'name': p.name,
+            'category': p.category.name,# pyright: ignore
+            'image': images[0].image.url if images else '',
+            'images': [{'id': image.id, 'url': image.image.url} for image in images],# pyright: ignore
+            'ticket_price': p.ticket_price,
+            'status': p.status
+        }
+        product_list.append(details)
+    return JsonResponse({"message": "success", "data": product_list})
+        
+# @login_required
 def get_product_details(request, product_id):
     product = ProductModel.objects.get(id=product_id)
     images = ProductImageModel.objects.filter(product=product)

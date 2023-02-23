@@ -354,8 +354,10 @@
                                 {% endif %}
                             </div>
                         </li>
-                        <li class="ps-header__item"><a class="ps-header__link" href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %} " alt=""><span class="badge">3</span></a></li>
+                        {% comment %} <li class="ps-header__item"><a class="ps-header__link" href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %} " alt=""><span class="badge">3</span></a></li> {% endcomment %}
+                        {% if request.user.is_authenticated %}
                         <li class="ps-header__item "><a class="ps-header__link" href="{% url 'main_site:cart' %}"><img src="{% static 'public/img/icon/cart.svg' %} " alt=""><span class="badge" id="cart_number"></span></a>
+                        {% endif %}
                             <div class="ps-cart--mini">
                                 <div class="ps-cart__content">
                                     <ul class="ps-cart__items" id="cart_item_list">
@@ -826,10 +828,14 @@
     </div>
     <div class="ps-navigation--footer">
         <div class="ps-nav__item"><a href="#" id="open-menu"><img src="{% static 'public/img/icon/menu.svg' %} " alt=""></a><a href="#" id="close-menu"><img src="{% static 'public/img/icon/close-red' %} .svg" alt=""></a></div>
-        <div class="ps-nav__item"><a href="index.html"><img src="{% static 'public/img/icon/home.svg' %}" alt=""></a></div>
-        <div class="ps-nav__item"><a href="my-account.html"><img src="{% static 'public/img/icon/user.svg' %}" alt=""></a></div>
-        <div class="ps-nav__item"><a href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %}" alt=""><span class="badge">3</span></a></div>
-        <div class="ps-nav__item"><a href="shopping-cart.html"><img src="{% static 'public/img/icon/cart.svg' %}" alt=""><span class="badge">2</span></a></div>
+        <div class="ps-nav__item"><a href="/"><img src="{% static 'public/img/icon/home.svg' %}" alt=""></a></div>
+        {% if not request.user.is_authenticated %}
+        <div class="ps-nav__item"><a href="{% url 'accounts:login' %}"><img src="{% static 'public/img/icon/user.svg' %}" alt=""></a></div>
+        {% endif %}
+        {% comment %} <div class="ps-nav__item"><a href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %}" alt=""><span class="badge">3</span></a></div> {% endcomment %}
+        {% if request.user.is_authenticated %}
+        <div class="ps-nav__item"><a href="{% url 'main_site:cart' %}"><img src="{% static 'public/img/icon/cart.svg' %}" alt=""><span class="badge">2</span></a></div>
+        {% endif %}
     </div>
     <div class="ps-menu--slidebar">
         <div class="ps-menu__content">

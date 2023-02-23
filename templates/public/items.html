@@ -11,6 +11,7 @@
         <div class="row">
             <div class="col-12 col-lg-3">
                 <h3 class="ps-shop__name">{% if category %}{{category}}{% else %}Browse Items{% endif %} </h3>
+                <input type="hidden" value="{% if category %}{{cart_id}}{% endif %}" id="cart_id_value">
             </div>
             <div class="col-12 col-lg-9">
                 <div class="ps-wrapper--mobile">
@@ -18,28 +19,31 @@
                         <img class="icon-funnel" src="{% static 'public/img/icon/filter.svg' %}" alt="">
                         <img class="icon-cross" src="{% static 'public/img/icon/close-red' %}.svg" alt="">Filters
                     </a>
-                    <a class="ps-wrapper__action" href="#">
+                    {% comment %} <a class="ps-wrapper__action" href="#">
                         <img class="icon-sort-alpha-asc" src="{% static 'public/img/icon/down-arrow' %}.svg" alt="">Sory by name: A-Z
-                    </a>
+                    </a> {% endcomment %}
                 </div>
                 <div class="ps-wrapper" style="display: none;"><a class="ps-wrapper__filter shop-filter" href="#"><img class="icon-funnel" src="{% static 'public/img/icon/filter.svg' %}" alt=""><img class="icon-cross" src="{% static 'public/img/icon/close-red' %}.svg" alt="">Filters</a>
                     {% comment %} <div class="ps-wrapper__type"> <a href="shop-list.html"><img src="{% static 'public/img/icon/bars.svg' %}" alt></a><a href="shop-promo.html"><img src="{% static 'public/img/icon/gird2.svg' %}" alt></a><a href="shop-slidebar.html"><img src="{% static 'public/img/icon/gird3.svg' %}" alt></a><a class="active" href="shop-grid.html"><img src="{% static 'public/img/icon/gird4.svg' %}" alt></a></div> {% endcomment %}
-                    <div class="ps-wrapper__onsale">
+                    {% comment %} <div class="ps-wrapper__onsale">
                         <form>
                             <div class="custom-control custom-checkbox">
                                 <input class="custom-control-input" type="checkbox" id="onSaleProduct">
                                 <label class="custom-control-label" for="onSaleProduct">Show only active items</label>
                             </div>
                         </form>
-                    </div>
+                    </div> {% endcomment %}
                     <div class="ps-wrapper__sort">
-                        <form><span>Sort by</span>
-                            <select class="form-select">
-                                <option selected value="Popularity">Popularity</option>
-                                <option value="Latest">Latest</option>
-                                <option value="Average rating">Average rating</option>
-                                <option value="Price: low to high">Price: low to high</option>
-                                <option value="Price: high to low">Price: high to low</option>
+                        <form>
+                            <span>Sort by</span>
+                            <select class="form-select" id="filter_products">
+                                <option selected value="all">All</option>
+                                <option value="active">Active</option>
+                                <option value="inactive">Inactive</option>
+                                <option value="lowest">Lowest</option>
+                                <option value="highest">Highest</option>
+                                {% comment %} <option value="Price: low to high">Price: low to high</option>
+                                <option value="Price: high to low">Price: high to low</option> {% endcomment %}
                             </select>
                         </form>
                     </div>
@@ -62,8 +66,13 @@
                     <div class="ps-widget__block">
                         <div class="ps-widget__content">
                             <ul class="menu--mobile">
-                                <li><a href="#">Jeans</a></li>
-                                <li><a href="#">Underwear</a><span class="sub-toggle"><i class="fa fa-chevron-down"></i></span>
+                                <li><a href="#" onclick="getActiveProducts('all')">All</a></li>
+                                <li><a href="#" onclick="getActiveProducts('active')">Active</a></li>
+                                <li><a href="#" onclick="getActiveProducts('inactive')">Inactive</a></li>
+                                <li><a href="#" onclick="getActiveProducts('lowest')">Lowest</a></li>
+                                <li><a href="#" onclick="getActiveProducts('highest')">Highest</a></li>
+                                {% comment %} <li>
+                                    <a href="#">Underwear</a><span class="sub-toggle"><i class="fa fa-chevron-down"></i></span>
                                     <ul class="sub-menu">
                                         <li><a href="#">Bikini</a></li>
                                         <li><a href="#">Casual</a></li>
@@ -102,7 +111,7 @@
                                         <li><a href="#">Tops</a></li>
                                         <li><a href="#">Trousers</a></li>
                                     </ul>
-                                </li>
+                                </li> {% endcomment %}
                             </ul>
                         </div>
                     </div>
@@ -277,7 +286,7 @@
                 </div>
             </div>
             <div class="ps-shop__product">
-                <div class="row infinite-container-products">
+                <div class="row infinite-container-products" id="ajax_products">
                     {% for product in products %}
                     <div class="col-8 col-md-4 col-lg-3 infinite-item" style="margin-left:60px;">
                         <div class="ps-product ps-product--standard">
@@ -296,15 +305,21 @@
                                     </div>
                                 </div>
                                 <div class="ps-product__badge">
+                                    {% if product.status %}
+                                    <div class="ps-badge ps-badge--sale">Available</div>
+                                    {% else %}
                                     <div class="ps-badge ps-badge--sold">Sold Out</div>
+                                    {% endif %}
                                 </div>
                                 {% comment %} <a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a> {% endcomment %}
                             </div>
-                            <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart">
-                                <img src="{% static 'public/img/icon/cart.svg' %}" alt="" /></a>
-                                <a class="ps-product__item" href="wishlist.html">
+                            <div class="ps-product__mobile">
+                                {% comment %} <a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart">
+                                <img src="{% static 'public/img/icon/cart.svg' %}" alt="" />
+                                </a> {% endcomment %}
+                                {% comment %} <a class="ps-product__item" href="wishlist.html">
                                     <i class="fa fa-heart-o"></i>
-                                </a>
+                                </a> {% endcomment %}
                                 <a class="ps-product__item "  data-toggle="modal" data-target=".popupQuickviewz" onclick="getProductDetails({{product.id}})">
                                     <i class="fa fa-search"></i>
                                 </a>
@@ -373,10 +388,14 @@
                                                 <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><img src="{% static 'public/img/icon/minus.svg'%}" alt="" /></button>
                                                 <input class="quantity" min="0" name="quantity" value="1" type="number" id="cart_product_quantity"/>
                                                 <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><img src="{% static 'public/img/icon/plus.svg'%}" alt="" /></button>
-                                            </div><br> 
+                                            </div><br>
+                                            {% if request.user.is_authenticated %}
                                             <a class="ps-btn ps-btn--rounded ps-btn--dark" data-target="#popupAddcartV2" style="margin-left:0px;width:120px;" id="addToCart"> 
                                                 <img src="{% static 'public/img/icon/cart.svg'%}" alt="" />Add
                                             </a>
+                                            {% else %}
+                                            Login to buy ticket
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -445,6 +464,84 @@
           }
         })
     }
+
+    function getActiveProducts(status) {
+        const ajax_products = document.getElementById('ajax_products')
+        var cart_id = $("#cart_id_value").val()
+        var urlx = `/get-active-status/${status}/${cart_id}`
+        $.ajax({
+            type: "GET",
+            url:urlx,
+            headers:{"X-Requested-With": "XMLHttpRequest"},
+            success: (res)=>{
+                if(res.message =='success'){
+                    ajax_products.innerHTML = ``
+                    const data = res.data;
+                    console.log(data);
+                    if(Array.isArray(data)){
+                    data.forEach(function callback(product, index) {
+                        if(product.status){
+                            html = '<div class="ps-badge ps-badge--sale">Available</div>'
+                        }else{
+                            html = '<div class="ps-badge ps-badge--sold">Sold Out</div>'
+                        }
+                        ajax_products.innerHTML += 
+                              `
+                              <div class="col-8 col-md-4 col-lg-3 infinite-item" style="margin-left:60px;">
+                                <div class="ps-product ps-product--standard">
+                                    <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                            <figure><img class="ps-product__image-default" src="${product.image}" alt="alt" style="height:10cm;"/>
+                                                <img class="ps-product__image-back" src="${product.image}" alt="alt" />
+                                            </figure>
+                                        </a>
+                                        <div class="ps-product__actions">
+                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                            {% comment %} <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div> {% endcomment %}
+                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view" onclick="getProductDetails(${product.id})">
+                                                <a href="#" data-toggle="modal" data-target=".popupQuickviewz">
+                                                    <i class="fa fa-search"></i>
+                                                </a>
+                                            </div>
+                                        </div>
+                                        <div class="ps-product__badge">
+                                            ${html}
+                                        </div>
+                                        {% comment %} <a class="ps-btn ps-btn--dark ps-product__cart" href="#" data-toggle="modal" data-target="#popupAddcart">Add to cart</a> {% endcomment %}
+                                    </div>
+                                    <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart">
+                                        <img src="{% static 'public/img/icon/cart.svg' %}" alt="" /></a>
+                                        <a class="ps-product__item" href="wishlist.html">
+                                            <i class="fa fa-heart-o"></i>
+                                        </a>
+                                        <a class="ps-product__item "  data-toggle="modal" data-target=".popupQuickviewz" onclick="getProductDetails(${product.id})">
+                                            <i class="fa fa-search"></i>
+                                        </a>
+                                    </div>
+                                    <div class="ps-product__content">
+                                        <h5 class="ps-product__title"><a href="product-1.html">${product.name}</a></h5>
+                                        <div class="ps-product__meta"><span class="ps-product__price sale">${product.ticket_price}</span><span class="ps-product__del"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                              `;
+                    });
+                    }else{
+                    }
+                } 
+            },
+            error:(err)=>{
+                console.log(err)
+            }
+          })
+    }
+
+     	
+
+$("#filter_products").change(function(e) {
+    getActiveProducts(e.target.value)
+  });
+
 </script>
 {% endblock script %}
 {% endblock content %}
