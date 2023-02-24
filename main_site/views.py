@@ -223,7 +223,6 @@ def add_cart_item(request, product_id):
     item, created = Cart.objects.get_or_create(user=request.user, product_id=product_id)
     quantity = request.POST.get('quantity')
     price = request.POST.get('price')
-    
     item.quantity = quantity
     item.price = price 
     item.save()

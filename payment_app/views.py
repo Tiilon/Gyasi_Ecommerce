@@ -1,6 +1,8 @@
+import random
 from django.shortcuts import get_object_or_404, redirect, render
+from base.utils import send_winner_email
 
-from main_site.models import Cart
+from main_site.models import Cart, TicketModel
 from .forms import PaymentForm
 from django.conf import settings
 from .models import Payment
@@ -29,14 +31,29 @@ def initiate_payment(request):
 
 def verify_payment(request, ref):
     payment = get_object_or_404(Payment, reference=ref)
-    verified = payment.verify_payment()
-    if verified:
-        cart_items = Cart.objects.filter(user=request.user)
-        for item in cart_items:
-            if not item.paid:
-                item.paid = True
-                item.payment_id = payment.id #pyright:ignore
-                item.save()
-        return JsonResponse({"message": "success"})
-    else:
+    if not (verified := payment.verify_payment()):
         return JsonResponse({"message": "failed"})
+    cart_items = Cart.objects.filter(user=request.user, paid=False)
+    for item in cart_items:
+        for i in range(item.quantity):
+            new_ticket = TicketModel.objects.create(
+                user = item.user,
+                product = item.product,
+            )
+            number_of_tickets = item.product.number_of_tickets() #pyright:ignore
+            product_tickets = item.product.product_tickets.filter(status=False).order_by("created_at")[:10] #pyright:ignore
+            if product_tickets.count() == number_of_tickets:
+                ticket_ids = [ticket.uid for ticket in product_tickets]
+                selected_id = random.choice(ticket_ids)
+                selected_ticket = TicketModel.objects.get(uid=selected_id)
+                email = selected_ticket.user.email
+                product = selected_ticket.product.name #pyright:ignore
+                send_winner_email(email, product)
+                for i in product_tickets:
+                    i.status = True
+                    i.save()
+        if not item.paid:
+            item.paid = True
+            item.payment_id = payment #pyright:ignore
+            item.save()
+    return JsonResponse({"message": "success"})
