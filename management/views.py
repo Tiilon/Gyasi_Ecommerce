@@ -127,13 +127,16 @@ def create_product(request):
         category = ProductCategoryModel.objects.get(id=request.POST.get('cart_id'))
         name= request.POST.get('name')
         ticket_price = request.POST.get('ticket_price')
+        actual_price = request.POST.get('actual_price')
         description = request.POST.get('p_description')
         
         new_product = ProductModel.objects.create(
             category=category,
             name=name,
             ticket_price=ticket_price,
+            actual_price=actual_price,
             description=description,
+            status = True
         )
         
         for image in images:
