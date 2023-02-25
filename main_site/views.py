@@ -17,25 +17,31 @@ class AboutUs(View):
         return render(request, template_name, context)
 
 
-# Api to search for image
 def search_product(request):
+    if request.method != 'POST':
+        return
     if request.headers.get('X-Requested-With') != 'XMLHttpRequest':
         return JsonResponse({'data': "Wrong request type"})
     products=[]
-    input_product = request.POST.get('product')
+    input_product = request.POST.get('name')
     with contextlib.suppress(ProductModel.DoesNotExist):
         products = ProductModel.objects.filter(name__icontains=input_product)
     if len(input_product) > 0 and len(products) > 0:
         data = []
         for b in products:
+            image = ProductImageModel.objects.filter(product=b).first() #type:ignore
             item = {
                 'name': b.name,
+                'price': b.ticket_price,
+                'status': 'Available' if b.status else 'Unavailable',
+                'image': image.image.url, #type:ignore
             }
             data.append(item)
         res = data
     else:
         res = "No Suggestions keyword..."
     return JsonResponse({'data': res})
+
 
 class ProductCategoryView(View):
     def get(self, request, cart_id):
@@ -44,11 +50,6 @@ class ProductCategoryView(View):
         context = {"category": category}
 
         return render(request, template_name, context)
-
-    def post(self, request):
-        name = request.POST.get("name")
-        ProductCategoryModel.objects.create(name=name, created_by=request.user)
-        return JsonResponse({"message": "success"})
     
 class ProductView(ListView):
     model = ProductModel
@@ -69,6 +70,9 @@ class ProductView(ListView):
             category = ProductCategoryModel.objects.get(id=self.kwargs.get('cart_id'))
             products = ProductModel.objects.filter(category=category).order_by('-created_at')
             context['category']=category
+        elif self.kwargs.get('meta'):
+            products = ProductModel.objects.filter(name__icontains=self.kwargs.get('meta'))
+            context['meta']=self.kwargs.get('meta')
         else:
             products = ProductModel.objects.all().order_by('-created_at')
         for p in products:
@@ -103,7 +107,7 @@ class ProductView(ListView):
         )
         return JsonResponse({"message": "success"})
 
-def get_product_by_status(request, status, cart_id=None):
+def get_product_by_filter(request, status, cart_id=None):
     product_list = []
     products = []
     
@@ -175,7 +179,7 @@ def get_product_details(request, product_id):
 class CartView(View):
     def get(self, request):
         template_name = "public/cart.html"
-        cart_items = Cart.objects.filter(user = request.user) 
+        cart_items = Cart.objects.filter(user = request.user, status=True) 
         cart_list = []
         total_payable = 0
         for item in cart_items:
@@ -198,13 +202,27 @@ class CartView(View):
         }
         return render(request, template_name, context)
 
+class ProductDetailView(View):
+    template = "public/details.html"
+    def get(self, request, product_id):
+        product = ProductModel.objects.get(id=product_id)
+        images = ProductImageModel.objects.filter(product=product)
+        image = images.first()
+        context = {
+            'product':product,
+            'images':images,
+            'image':image
+        }
+        return render(request, self.template, context)
+
+
 def delete_cart(request, cart_id):
     cart_item = Cart.objects.get(id=cart_id)
     cart_item.delete()
     return JsonResponse({"message": "success"})
     
 def get_cart_items(request):
-    cart_items = Cart.objects.filter(user__id = request.user.id) or []
+    cart_items = Cart.objects.filter(user__id = request.user.id, status=True) or []
     cart_list = []
     total_payable = 0
     for item in cart_items:
@@ -223,6 +241,8 @@ def add_cart_item(request, product_id):
     item, created = Cart.objects.get_or_create(user=request.user, product_id=product_id)
     quantity = request.POST.get('quantity')
     price = request.POST.get('price')
+    if created:
+        item.status=True
     item.quantity = quantity
     item.price = price 
     item.save()
@@ -233,7 +253,8 @@ def add_cart_item(request, product_id):
 class CheckOutView(View):
     def get(self, request):
         template_name = "public/checkout.html"
-        cart_items = Cart.objects.filter(user = request.user)
+        cart_items = Cart.objects.filter(user = request.user, status=True)
+        print(cart_items)
         cart_list = []
         total_payable = 0
         for item in cart_items:

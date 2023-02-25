@@ -2,7 +2,6 @@ from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
 from main_site.models import ProductCategoryModel,ProductModel,ProductImageModel
-from utils import tokenizer
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin

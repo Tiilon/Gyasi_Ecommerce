@@ -1,4 +1,5 @@
 from django.db import models
+from base.utils import send_winner_email
 from payment_app.models import Payment
 from user.models import User
 from datetime import datetime
@@ -6,6 +7,7 @@ from django_resized import ResizedImageField
 from base.models import *
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+import random
 
 
 class ProductCategoryModel(BaseModel):
@@ -86,3 +88,22 @@ class TicketModel(BaseModel):
     def __str__(self):
         return self.user.email
     
+@receiver(post_save , sender = TicketModel)
+def get_winning_ticket(sender , instance , created , **kwargs):
+    try:
+        if created:
+            number_of_tickets = instance.product.number_of_tickets() #pyright:ignore
+            product_tickets = instance.product.product_tickets.filter(status=False).order_by("created_at")[:10] #pyright:ignore
+            if product_tickets.count() == number_of_tickets:
+                ticket_ids = [ticket.uid for ticket in product_tickets]
+                selected_id = random.choice(ticket_ids)
+                selected_ticket = TicketModel.objects.get(uid=selected_id)
+                email = selected_ticket.user.email
+                product = selected_ticket.product.name #pyright:ignore
+                send_winner_email(email, product)
+                for i in product_tickets:
+                    i.status = True
+                    i.save()
+
+    except Exception as e:
+        print(e)
