@@ -15,7 +15,7 @@
     <meta name="author" content="">
     <meta name="keywords" content="">
     <meta name="description" content="">
-    <title>NoName</title>
+    <title>Raffle Site</title>
     <link rel="stylesheet" href="{% static 'public/plugins/font-awesome/css/font-awesome.min.css' %} ">
     <link rel="preconnect" href="https://fonts.gstatic.com/">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:400,500,600,700&amp;display=swap&amp;ver=1621600324">
@@ -58,7 +58,7 @@
                                             <h4>{{cart.name}}</h4>
                                             <ul class="sub-menu--mega sub-column--2">
                                                 {% for product in cart.products %}
-                                                <li><a href="#">{{product.name}}</a></li>
+                                                    <li><a href="#">{{product.name}}</a></li>
                                                 {% endfor %}
                                                 {% comment %} <li><a href="#">Suits</a></li>
                                                 <li><a href="#">Jeans</a></li>
@@ -311,7 +311,7 @@
                                 </div>
                             </div>
                         </li> {% endcomment %}
-                        <li class="has-mega-menu"><a href="{% url 'main_site:items' %}">Explore Products</a></li>
+                        {% comment %} <li class="has-mega-menu"><a href="{% url 'main_site:items' %}">Explore Products</a></li> {% endcomment %}
                         <li class="has-mega-menu"><a href="contact-us-v1.html">Contact</a></li>
                     </ul>
                 </div>
@@ -356,7 +356,11 @@
                         </li>
                         {% comment %} <li class="ps-header__item"><a class="ps-header__link" href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %} " alt=""><span class="badge">3</span></a></li> {% endcomment %}
                         {% if request.user.is_authenticated %}
-                        <li class="ps-header__item "><a class="ps-header__link" href="{% url 'main_site:cart' %}"><img src="{% static 'public/img/icon/cart.svg' %} " alt=""><span class="badge" id="cart_number"></span></a>
+                        <li class="ps-header__item ">
+                            <a class="ps-header__link" href="{% url 'main_site:cart' %}">
+                                <img src="{% static 'public/img/icon/cart.svg' %} " alt="">
+                                <span class="badge cart_number"></span>
+                            </a>
                         {% endif %}
                             <div class="ps-cart--mini">
                                 <div class="ps-cart__content">
@@ -765,13 +769,13 @@
             <form action="https://nouthemes.net/html/yobazar/do_action" method="post">
                 <div class="ps-search-table">
                     <div class="input-group">
-                        <input class="form-control ps-input" type="text" placeholder="Search">
-                        <div class="input-group-append"><a href="#"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></div>
+                        <input class="form-control ps-input" type="text" placeholder="Search" id="mob_product_search">
+                        <div class="input-group-append"><a href="#" id="search_product_button_web"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></div>
                     </div>
                 </div>
             </form>
-            <div class="ps-search__result">
-                <div class="ps-product ps-product--horizontal">
+            <div class="ps-search__result" id="search_results">
+                {% comment %} <div class="ps-product ps-product--horizontal">
                     <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
                             <figure><img src="{% static 'public/img/products/26.jpg' %} " alt="alt" /></figure>
                         </a></div>
@@ -821,7 +825,7 @@
                         <div class="ps-product__meta"><span class="ps-product__price sale">$20.00</span><span class="ps-product__del">$26.00</span>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
                 <div class="ps-search__more"> <a href="shop-result.html">View all 8 results</a></div>
             </div>
         </div>
@@ -834,7 +838,7 @@
         {% endif %}
         {% comment %} <div class="ps-nav__item"><a href="wishlist.html"><img src="{% static 'public/img/icon/heart.svg' %}" alt=""><span class="badge">3</span></a></div> {% endcomment %}
         {% if request.user.is_authenticated %}
-        <div class="ps-nav__item"><a href="{% url 'main_site:cart' %}"><img src="{% static 'public/img/icon/cart.svg' %}" alt=""><span class="badge">2</span></a></div>
+        <div class="ps-nav__item"><a href="{% url 'main_site:cart' %}"><img src="{% static 'public/img/icon/cart.svg' %}" alt=""><span class="badge cart_number"></span></a></div>
         {% endif %}
     </div>
     <div class="ps-menu--slidebar">
@@ -908,7 +912,14 @@
                         </div>
                     </div>
                 </li>
-                <li class="has-mega-menu"><a href="#">Explore Categories</a></li>
+                {% comment %} <li class="has-mega-menu"><a href="#">Explore Categories</a></li> {% endcomment %}
+                <li class="has-mega-menu"><a href="contact-us-v1.html">Contact</a></li>
+                {% if request.user.is_authenticated %}
+                <li class="has-mega-menu"><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                {% else %}
+                <li class="has-mega-menu"><a href="{% url 'accounts:login' %}">Login</a></li>
+                <li class="has-mega-menu"><a href="{% url 'accounts:user_register' %}">Register</a></li>
+                {% endif %}
                 {% comment %} <li class="has-mega-menu"><a href="#">Men</a><a class="sub-toggle" href="#"><i class="fa fa-chevron-right"></i></a>
                     <div class="mega-mobile">
                         <div class="mega-mobile__header">
@@ -1050,8 +1061,6 @@
                 </li> 
                 <li class="has-mega-menu"><a href="blog-layout1.html">Blog</a>
                 </li>{% endcomment %}
-                <li class="has-mega-menu"><a href="contact-us-v1.html">Contact</a>
-                </li>
             </ul>
         </div>
         <div class="ps-menu__footer">
@@ -1059,8 +1068,8 @@
                 <form action="https://nouthemes.net/html/yobazar/do_action" method="post">
                     <div class="ps-search-table">
                         <div class="input-group">
-                            <input class="form-control ps-input" type="text" placeholder="Search">
-                            <div class="input-group-append"><a href="#"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></div>
+                            <input class="form-control ps-input" type="text" placeholder="Search" id="web_product_search">
+                            <div class="input-group-append"><a href="" id="search_product_button"><img src="{% static 'public/img/icon/search.svg' %} " alt=""></a></div>
                         </div>
                     </div>
                 </form>
@@ -1382,9 +1391,74 @@
     <script src="{% static 'public/js/main.js' %} "></script>
     {% block js %}{% endblock js %}
     <script>
+        const searchButton = document.getElementById('search_product_button')
+        const searchButtonWeb = document.getElementById('search_product_button_web')
+        const searchInputMob = document.getElementById('mob_product_search')
+        const searchInput = document.getElementById('web_product_search')
+        const searchResults = document.getElementById('search_results')
+        const searchBtn = document.getElementById('map-btn')
+        const sendSearchProduct = (name) =>{
+            const url = "{% url 'main_site:product_search' %}"
+            $.ajax({
+                type:'POST',
+                url:url,
+                data: {
+                    'csrfmiddlewaretoken':'{{ csrf_token }}',
+                    'name':name,
+                },
+                headers:{"X-Requested-With": "XMLHttpRequest"},
+                success: (res)=>{
+                    const data = res.data
+                    if(Array.isArray(data)){
+                        searchResults.innerHTML = ``
+                        data.forEach(product=>{
+                            let status = ``
+                            if(product.status){
+                                status = 'success'
+                            }else{
+                                status = 'danger'
+                            }
+                            searchResults.innerHTML += 
+                            `
+                            <div class="ps-product ps-product--horizontal">
+                                <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                                        <figure><img src="${product.image}" alt="alt" /></figure>
+                                    </a></div>
+                                <div class="ps-product__content">
+                                    <h5 class="ps-product__title"><a href="product-1.html">${product.name}</a></h5>
+                                    <div class="">
+                                        <ul class="ps-product__list" style="">
+                                            <li class="text-${status}">${product.status}</li>
+                                        </ul>
+                                    </div>
+                                    <div class="ps-product__meta mt-3"><span class="ps-product__price">GHC ${product.price}.00</span>
+                                    </div>
+                                </div>
+                            </div>
+                            `
+                        })
+                    }
+                },
+                error:(err)=>{
+                    console.log(err)
+                }
+            })
+        }
+
+        $("#web_product_search").keyup(function() {
+            const meta = $(this).val()
+            const url = `/product-search/${meta}`
+            $("#search_product_button").attr("href",`${url}`);
+            $("#search_product_button_web").attr("href",`${url}`);
+        });
+
+        searchInputMob.addEventListener("keyup", e=>{
+            sendSearchProduct(e.target.value)
+        });
+
         function getCartItems() {
             const cart_item_list = document.getElementById('cart_item_list')
-            const cart_number = document.getElementById('cart_number')
+            const cart_numbers = document.getElementsByClassName('cart_number')
             const cart_sub_total = document.getElementById('cart_sub_total')
             $.ajax({
               type: "GET",
@@ -1393,7 +1467,9 @@
               success: (res)=>{
                   if(res.message =='success'){
                     cart_item_list.innerHTML = ""
-                    cart_number.innerHTML = res.cart_number
+                    for (let i = 0; i < cart_numbers.length; i++) {
+                        cart_numbers[i].innerHTML = res.cart_number;
+                    }
                     cart_sub_total.innerHTML = res.total_payable
                       const data = res.data;
                       if(Array.isArray(data)){

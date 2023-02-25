@@ -33,6 +33,4 @@ class Payment(models.Model):
             if result['amount'] / 100 == self.amount:
                 self.verified = True
             self.save()
-            if self.verified:
-                return True
-            return False
+            return bool(self.verified)

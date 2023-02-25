@@ -5,15 +5,16 @@
     {% comment %} <div class="ps-shop__banner"><img src="{% static 'public/img/banners/banner-category' %}.jpg" alt=""></div> {% endcomment %}
     <div class="container">
         <ul class="ps-breadcrumb">
-            <li class="ps-breadcrumb__item"><a href="/">Home</a></li>
-            <li class="ps-breadcrumb__item"><a class="active" aria-current="page" href="#">{% if category %}{{category}}{% else %}Browse Items{% endif %}</a></li>
+            {% comment %} <li class="ps-breadcrumb__item"><a href="/">Home</a></li> {% endcomment %}
+            <li class="ps-breadcrumb__item"><a class="active" aria-current="page" href="#">{% if category %}{{category}}{% else %}Home{% endif %}</a></li>
         </ul>
         <div class="row">
             <div class="col-12 col-lg-3">
-                <h3 class="ps-shop__name">{% if category %}{{category}}{% else %}Browse Items{% endif %} </h3>
+                <h3 class="ps-shop__name">{% if category %}{{category}} {% elif meta %} Search Results For "{{meta}}" {% else %}Browse Items{% endif %} </h3>
                 <input type="hidden" value="{% if category %}{{cart_id}}{% endif %}" id="cart_id_value">
             </div>
             <div class="col-12 col-lg-9">
+                {% if not meta and not category %}
                 <div class="ps-wrapper--mobile">
                     <a class="ps-wrapper__action filter shop-filter" href="#">
                         <img class="icon-funnel" src="{% static 'public/img/icon/filter.svg' %}" alt="">
@@ -23,6 +24,7 @@
                         <img class="icon-sort-alpha-asc" src="{% static 'public/img/icon/down-arrow' %}.svg" alt="">Sory by name: A-Z
                     </a> {% endcomment %}
                 </div>
+                {% endif %}
                 <div class="ps-wrapper" style="display: none;"><a class="ps-wrapper__filter shop-filter" href="#"><img class="icon-funnel" src="{% static 'public/img/icon/filter.svg' %}" alt=""><img class="icon-cross" src="{% static 'public/img/icon/close-red' %}.svg" alt="">Filters</a>
                     {% comment %} <div class="ps-wrapper__type"> <a href="shop-list.html"><img src="{% static 'public/img/icon/bars.svg' %}" alt></a><a href="shop-promo.html"><img src="{% static 'public/img/icon/gird2.svg' %}" alt></a><a href="shop-slidebar.html"><img src="{% static 'public/img/icon/gird3.svg' %}" alt></a><a class="active" href="shop-grid.html"><img src="{% static 'public/img/icon/gird4.svg' %}" alt></a></div> {% endcomment %}
                     {% comment %} <div class="ps-wrapper__onsale">
@@ -290,7 +292,7 @@
                     {% for product in products %}
                     <div class="col-8 col-md-4 col-lg-3 infinite-item" style="margin-left:60px;">
                         <div class="ps-product ps-product--standard">
-                            <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
+                            <div class="ps-product__thumbnail"><a class="ps-product__image" href="{% url 'main_site:product_detail' product.id %}">
                                     <figure><img class="ps-product__image-default" src="{{product.image}}" alt="alt" style="height:10cm;"/>
                                         <img class="ps-product__image-back" src="{{product.image}}" alt="alt" />
                                     </figure>
@@ -459,7 +461,7 @@
                   }
               } 
           },
-          error:(err)=>{
+          error:(err)=>{ajax_products
               console.log(err)
           }
         })

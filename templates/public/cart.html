@@ -5,7 +5,7 @@
 <div class="ps-shopping">
     <div class="container">
         <ul class="ps-breadcrumb">
-            <li class="ps-breadcrumb__item"><a href="index.html">Home</a></li>
+            <li class="ps-breadcrumb__item"><a href="/">Home</a></li>
             <li class="ps-breadcrumb__item"><a class="active" aria-current="page" href="#">Shopping cart</a></li>
         </ul>
         <h3 class="ps-shopping__title" id="cart_items_number">Shopping cart<span class="badge">{{cart_count}}</span></h3>
@@ -143,7 +143,11 @@
                             <div class="ps-shopping__label">Total</div>
                             <div class="ps-shopping__total">${{total_payable}}</div>
                         </div>
+                        {% if cart_items %}
                         <div class="ps-shopping__checkout"><a class="ps-btn ps-btn--rounded ps-btn--dark" href="{% url 'main_site:checkout' %}">Proceed to checkout</a></div>
+                        {% else %}
+                        No items in cart for checkout.
+                        {% endif %}
                     </div>
                 </div>
             </div>
