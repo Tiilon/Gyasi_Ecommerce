@@ -84,6 +84,7 @@ class Cart(BaseModel):
 class TicketModel(BaseModel):
     user = models.ForeignKey(User, related_name="user_tickets",on_delete=models.CASCADE)
     product = models.ForeignKey(ProductModel, related_name="product_tickets", on_delete=models.CASCADE, blank=True, null=True)
+    is_winner = models.BooleanField(default=False)
     
     def __str__(self):
         return self.user.email
@@ -101,6 +102,8 @@ def get_winning_ticket(sender , instance , created , **kwargs):
                 email = selected_ticket.user.email
                 product = selected_ticket.product.name #pyright:ignore
                 send_winner_email(email, product)
+                selected_ticket.is_winner = True
+                selected_ticket.save()
                 for i in product_tickets:
                     i.status = True
                     i.save()
