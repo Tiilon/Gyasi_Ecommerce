@@ -46,7 +46,7 @@ def search_product(request):
 class ProductCategoryView(View):
     def get(self, request, cart_id):
         template_name = "public/category.html"
-        category = ProductCategoryModel.objects.get(id=cart_id)
+        category = ProductCategoryModel.objects.get(uid=cart_id)
         context = {"category": category}
 
         return render(request, template_name, context)
@@ -67,7 +67,7 @@ class ProductView(ListView):
         product_list = []
         products = None
         if self.kwargs.get('cart_id'):
-            category = ProductCategoryModel.objects.get(id=self.kwargs.get('cart_id'))
+            category = ProductCategoryModel.objects.get(uid=self.kwargs.get('cart_id'))
             products = ProductModel.objects.filter(category=category).order_by('-created_at')
             context['category']=category
         elif self.kwargs.get('meta'):
@@ -78,12 +78,12 @@ class ProductView(ListView):
         for p in products:
             images = ProductImageModel.objects.filter(product=p)
             details={
-                'id': p.id, #pyright: ignore
-                'cart_id': p.category.id, #pyright: ignore
+                'id': p.uid, #pyright: ignore
+                'cart_id': p.category.uid, #pyright: ignore
                 'name': p.name,
                 'category': p.category.name,# pyright: ignore
                 'image': images[0].image.url if images else '',
-                'images': [{'id': image.id, 'url': image.image.url} for image in images],# pyright: ignore
+                'images': [{'id': image.uid, 'url': image.image.url} for image in images],# pyright: ignore
                 'ticket_price': p.ticket_price,
                 'status': p.status
             }
@@ -113,35 +113,35 @@ def get_product_by_filter(request, status, cart_id=None):
     
     if status == "all":
         if cart_id:
-            cart = ProductCategoryModel.objects.get(id=cart_id)
+            cart = ProductCategoryModel.objects.get(uid=cart_id)
             products = ProductModel.objects.filter(category=cart)
         else:
             products = ProductModel.objects.all()
     
     if status == "active":
         if cart_id:
-            cart = ProductCategoryModel.objects.get(id=cart_id)
+            cart = ProductCategoryModel.objects.get(uid=cart_id)
             products = ProductModel.objects.filter(category = cart,status=True)
         else:
             products = ProductModel.objects.filter(status=True)
             
     if status == "inactive":
         if cart_id:
-            cart = ProductCategoryModel.objects.get(id=cart_id)
+            cart = ProductCategoryModel.objects.get(uid=cart_id)
             products = ProductModel.objects.filter(category = cart,status=False)
         else:
             products = ProductModel.objects.filter(status=False)
             
     if status == "lowest":
         if cart_id:
-            cart = ProductCategoryModel.objects.get(id=cart_id)
+            cart = ProductCategoryModel.objects.get(uid=cart_id)
             products = ProductModel.objects.filter(category=cart).order_by("ticket_price")
         else:
             products = ProductModel.objects.all().order_by("ticket_price")
     
     if status == "highest":
         if cart_id:
-            cart = ProductCategoryModel.objects.get(id=cart_id)
+            cart = ProductCategoryModel.objects.get(uid=cart_id)
             products = ProductModel.objects.filter(category=cart).order_by("-ticket_price")
         else:
             products = ProductModel.objects.all().order_by("-ticket_price")
@@ -149,12 +149,12 @@ def get_product_by_filter(request, status, cart_id=None):
     for p in products:
         images = ProductImageModel.objects.filter(product=p)
         details={
-            'id': p.id, #pyright: ignore
-            'cart_id': p.category.id, #pyright: ignore
+            'id': p.uid, #pyright: ignore
+            'cart_id': p.category.uid, #pyright: ignore
             'name': p.name,
             'category': p.category.name,# pyright: ignore
             'image': images[0].image.url if images else '',
-            'images': [{'id': image.id, 'url': image.image.url} for image in images],# pyright: ignore
+            'images': [{'id': image.uid, 'url': image.image.url} for image in images],# pyright: ignore
             'ticket_price': p.ticket_price,
             'status': p.status
         }
@@ -163,16 +163,16 @@ def get_product_by_filter(request, status, cart_id=None):
         
 # @login_required
 def get_product_details(request, product_id):
-    product = ProductModel.objects.get(id=product_id)
+    product = ProductModel.objects.get(uid=product_id)
     images = ProductImageModel.objects.filter(product=product)
     context = {
-        'id': product.id, #pyright:ignore
+        'id': product.uid, #pyright:ignore
         'name': product.name,
         'status': product.status,
         'description': product.description,
         'category': product.category.name, #pyright: ignore
         'ticket_price': product.ticket_price,
-        'images': [{'id':image.id,'url':image.image.url} for image in images] #pyright: ignore
+        'images': [{'id':image.uid,'url':image.image.url} for image in images] #pyright: ignore
     }
     return JsonResponse({"message": "success", "data": context})
     
@@ -186,7 +186,7 @@ class CartView(View):
             p_image = ProductImageModel.objects.filter(product=item.product)
             image = p_image[0].image.url
             details={
-                "id": item.id, #pyright: ignore
+                "id": item.uid, #pyright: ignore
                 "product": item.product.name, #pyright: ignore
                 "ticket": item.product.ticket_price, #pyright: ignore
                 "quantity": item.quantity,
@@ -205,19 +205,29 @@ class CartView(View):
 class ProductDetailView(View):
     template = "public/details.html"
     def get(self, request, product_id):
-        product = ProductModel.objects.get(id=product_id)
+        product = ProductModel.objects.get(uid=product_id)
         images = ProductImageModel.objects.filter(product=product)
         image = images.first()
+        rest_of_images = images[1:]
+        product_in_cart=None
+        with contextlib.suppress(Cart.DoesNotExist):
+            product_in_cart = Cart.objects.get(product=product, status=True)
         context = {
-            'product':product,
-            'images':images,
-            'image':image
+            'id': product.uid, #pyright:ignore
+            'name': product.name,
+            'status': 'Available' if product.status else "Unavalible",
+            'description': product.description,
+            'category': product.category.name, #pyright: ignore
+            'ticket_price': product.ticket_price,
+            'image': image.image.url, #pyright:ignore
+            'images': [{'id':image.uid,'url':image.image.url} for image in rest_of_images], #pyright: ignore
+            'quantity': product_in_cart.quantity if product_in_cart else 1, #type:ignore
         }
         return render(request, self.template, context)
 
 
 def delete_cart(request, cart_id):
-    cart_item = Cart.objects.get(id=cart_id)
+    cart_item = Cart.objects.get(uid=cart_id)
     cart_item.delete()
     return JsonResponse({"message": "success"})
     
@@ -238,15 +248,18 @@ def get_cart_items(request):
 
 
 def add_cart_item(request, product_id):
-    item, created = Cart.objects.get_or_create(user=request.user, product_id=product_id)
-    quantity = request.POST.get('quantity')
-    price = request.POST.get('price')
-    if created:
-        item.status=True
-    item.quantity = quantity
-    item.price = price 
-    item.save()
-    
+    try:
+        product = ProductModel.objects.get(uid=product_id)
+        item, created = Cart.objects.get_or_create(user=request.user, product=product, status=True)
+        quantity = request.POST.get('quantity')
+        price = request.POST.get('price')
+        if created:
+            item.status=True
+        item.quantity = quantity
+        item.price = price 
+        item.save()
+    except ProductModel.DoesNotExist as e:
+        return JsonResponse({"message": "No product was added to cart"})
     return JsonResponse({"message": "success"})
     
 
@@ -261,7 +274,7 @@ class CheckOutView(View):
             p_image = ProductImageModel.objects.filter(product=item.product)
             image = p_image[0].image.url
             details={
-                "id": item.id, #pyright: ignore
+                "id": item.uid, #pyright: ignore
                 "product": item.product.name, #pyright: ignore
                 "ticket": item.product.ticket_price, #pyright: ignore
                 "quantity": item.quantity,

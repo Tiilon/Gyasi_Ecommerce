@@ -1,8 +1,6 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
-
-
 <!-- Mirrored from nouthemes.net/html/yobazar/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 08 Feb 2023 08:08:03 GMT -->
 <head>
     <meta charset="utf-8">
@@ -58,7 +56,7 @@
                                             <h4>{{cart.name}}</h4>
                                             <ul class="sub-menu--mega sub-column--2">
                                                 {% for product in cart.products %}
-                                                    <li><a href="#">{{product.name}}</a></li>
+                                                    <li><a href="{% url 'main_site:product_detail' product.id %}">{{product.name}}</a></li>
                                                 {% endfor %}
                                                 {% comment %} <li><a href="#">Suits</a></li>
                                                 <li><a href="#">Jeans</a></li>

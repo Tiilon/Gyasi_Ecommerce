@@ -8,7 +8,7 @@ def selected_categories(request):
         products = ProductModel.objects.filter(category=cart)[:11]
         cart_details = {
             'name': cart.name,
-            'products': [{'name':product.name, 'id':product.id} for product in products] #pyright:ignore
+            'products': [{'name':product.name, 'id':product.uid} for product in products] #pyright:ignore
         }
         cart_list.append(cart_details)
     return {'all_categories': cart_list}
@@ -19,9 +19,9 @@ def all_categories(request):
     for cart in all_categories:
         products = ProductModel.objects.filter(category=cart)
         cart_details = {
-            'id': cart.id,#pyright:ignore
+            'id': cart.uid,#pyright:ignore
             'name': cart.name,
-            'products': [{'name':product.name, 'id':product.id} for product in products] #pyright:ignore
+            'products': [{'name':product.name, 'id':product.uid} for product in products] #pyright:ignore
         }
         cart_list.append(cart_details)
     return {'total_categories': cart_list}
