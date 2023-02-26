@@ -298,10 +298,10 @@
                                     </figure>
                                 </a>
                                 <div class="ps-product__actions">
-                                    <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
+                                    {% comment %} <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div> {% endcomment %}
                                     {% comment %} <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div> {% endcomment %}
-                                    <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view" onclick="getProductDetails({{product.id}})">
-                                        <a href="#" data-toggle="modal" data-target=".popupQuickviewz">
+                                    <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view">
+                                        <a href="#" data-toggle="modal" data-target=".popupQuickviewz" id="web_view_modal_details" data-href="{{product.id}}">
                                             <i class="fa fa-search"></i>
                                         </a>
                                     </div>
@@ -322,12 +322,12 @@
                                 {% comment %} <a class="ps-product__item" href="wishlist.html">
                                     <i class="fa fa-heart-o"></i>
                                 </a> {% endcomment %}
-                                <a class="ps-product__item "  data-toggle="modal" data-target=".popupQuickviewz" onclick="getProductDetails({{product.id}})">
+                                <a class="ps-product__item"  data-toggle="modal" data-target=".popupQuickviewz" id="mob_view_modal_details" data-href="{{product.id}}">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </div>
                             <div class="ps-product__content">
-                                <h5 class="ps-product__title"><a href="product-1.html">{{product.name}}</a></h5>
+                                <h5 class="ps-product__title"><a href="{% url 'main_site:product_detail' product.id %}">{{product.name}}</a></h5>
                                 <div class="ps-product__meta"><span class="ps-product__price sale">${{product.ticket_price}}</span><span class="ps-product__del"></span>
                                 </div>
                             </div>
@@ -349,7 +349,7 @@
         </div>
     </div>
 </div>
-<div class="modal fade popupQuickviewz" id="popupQuickviewzz" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
+<div class="modal fade popupQuickviewz" id="" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-dialog-centered ps-quickview">
         <div class="modal-content">
             <div class="modal-body">
@@ -461,16 +461,17 @@
                   }
               } 
           },
-          error:(err)=>{ajax_products
-              console.log(err)
+          error:(err)=>{
+            console.log(err)
           }
         })
     }
-
+    
     function getActiveProducts(status) {
         const ajax_products = document.getElementById('ajax_products')
         var cart_id = $("#cart_id_value").val()
         var urlx = `/get-active-status/${status}/${cart_id}`
+        var html = ''
         $.ajax({
             type: "GET",
             url:urlx,
@@ -479,7 +480,6 @@
                 if(res.message =='success'){
                     ajax_products.innerHTML = ``
                     const data = res.data;
-                    console.log(data);
                     if(Array.isArray(data)){
                     data.forEach(function callback(product, index) {
                         if(product.status){
@@ -497,7 +497,6 @@
                                             </figure>
                                         </a>
                                         <div class="ps-product__actions">
-                                            <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div>
                                             {% comment %} <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div> {% endcomment %}
                                             <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view" onclick="getProductDetails(${product.id})">
                                                 <a href="#" data-toggle="modal" data-target=".popupQuickviewz">
@@ -512,9 +511,6 @@
                                     </div>
                                     <div class="ps-product__mobile"><a class="ps-product__item" href="#" data-toggle="modal" data-target="#popupAddcart">
                                         <img src="{% static 'public/img/icon/cart.svg' %}" alt="" /></a>
-                                        <a class="ps-product__item" href="wishlist.html">
-                                            <i class="fa fa-heart-o"></i>
-                                        </a>
                                         <a class="ps-product__item "  data-toggle="modal" data-target=".popupQuickviewz" onclick="getProductDetails(${product.id})">
                                             <i class="fa fa-search"></i>
                                         </a>
@@ -538,11 +534,17 @@
           })
     }
 
-     	
+    $("#web_view_modal_details").click(function(e) {
+        getProductDetails($(this).attr('data-href'))
+    });
 
-$("#filter_products").change(function(e) {
-    getActiveProducts(e.target.value)
-  });
+    $("#mob_view_modal_details").click(function(e) {
+        getProductDetails($(this).attr('data-href'))
+    });
+
+    $("#filter_products").change(function(e) {
+        getActiveProducts(e.target.value)
+    });
 
 </script>
 {% endblock script %}
