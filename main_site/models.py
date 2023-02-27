@@ -9,6 +9,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 import random
 
+#To use celery in sending email
+# from main_site.tasks import send_winner_email
+
 
 class ProductCategoryModel(BaseModel):
     name = models.CharField(max_length=250, blank=True, null=True)

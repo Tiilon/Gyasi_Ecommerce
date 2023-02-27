@@ -4,6 +4,9 @@ from main_site.models import Cart, TicketModel
 from .models import Payment
 from django.http import JsonResponse
 
+#To use celery in sending email
+# from main_site.tasks import send_payment_receipt
+
 def initiate_payment(request):
     if request.method == "POST":
         amount = request.POST.get('amount')
