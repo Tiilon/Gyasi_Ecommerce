@@ -183,8 +183,8 @@ DEFAULT_FROM_EMAIL = 'tiilon42@gmail.com'
 
 #Redis Config
 CELERY_BROKER_URL = 'redis://default:GKT6nr4vqec4xEo5eymC@containers-us-west-37.railway.app:6324'
-CELERY_ACCEPT_CONTENT = ['json']
-CELERY_TASK_SERIALIZER = 'json'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
 
 
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
