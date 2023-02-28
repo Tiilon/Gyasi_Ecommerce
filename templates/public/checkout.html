@@ -247,19 +247,28 @@ function payWithPayStack(ref) {
         amount:amount * 100,
         ref:ref,
         callback: function(response) {
+            Swal.fire({
+                title: "Verifying payment...",
+                html: "Please wait a moment"
+              })
+            Swal.showLoading()
             $.ajax({
                 type:'GET',
                 url:`/payment/verify-payment/${ref}`,
                 headers:{"X-Requested-With": "XMLHttpRequest"},
                 success: (res)=>{
                     if(res.message =='success'){
+                        Swal.hideLoading()
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',
                             title: 'Payment Verified',
                             showConfirmButton: false,
-                            timer: 1500
+                            timer: 15000
                         })
+                        setTimeout(function(){
+                            window.location.replace("/");
+                        }, 2000);
                     }
                     else{
                         Swal.fire({
@@ -275,7 +284,7 @@ function payWithPayStack(ref) {
                     console.log(err)
                 }
             })
-            //window.location.href = `/payment/p/${reference}`
+              //window.location.href = `/payment/p/${reference}`
         }
     }
     if (Boolean(currency)){

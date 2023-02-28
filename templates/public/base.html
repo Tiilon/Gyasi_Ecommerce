@@ -1520,6 +1520,7 @@
                 success: (res)=>{
                     if(res.message =='success'){
                         getCartItems()
+                        $("#add_button_cart").html('Added to Cart')
                     }
                     else{
                         Swal.fire({

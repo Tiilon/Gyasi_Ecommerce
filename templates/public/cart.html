@@ -17,7 +17,11 @@
                         {% for item in cart_items %}
                         <li>
                             <div class="ps-product ps-product--wishlist">
-                                <div class="ps-product__remove"><a href="#"><img src="{% static 'public/img/icon/close.svg' %}" alt="" onclick="deleteCartItem({{item.id}})"/></a></div>
+                                <div class="ps-product__remove">
+                                    <a href="#" id="delete_cart_item" data-href={{item.id}}>
+                                        <img src="{% static 'public/img/icon/close.svg' %}" alt=""/>
+                                    </a>
+                                </div>
                                 <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
                                         <figure><img class="ps-product__image-default" src="{{item.image}}" alt="alt" />
                                         </figure>
@@ -78,7 +82,8 @@
                                 <tr>
                                     <td class="ps-table__product">
                                         <div class="ps-table__box">
-                                            <div class="ps-table__remove"> <a href="javascript:void(0)"><img src="{% static 'public/img/icon/close.svg' %}" alt="" onclick="deleteCartItem({{item.id}})"></a></div>
+                                            <div class="ps-table__remove"> 
+                                                <a href="javascript:void(0)" id="delete_cart_item_web" data-href="{{item.id}}"><img src="{% static 'public/img/icon/close.svg' %}" alt=""></a></div>
                                             <div class="ps-product ps-product--standard">
                                                 <div class="ps-product__thumbnail"><a class="ps-product__image" href="product-1.html">
                                                         <figure><img class="ps-product__image-default" src="{{item.image}}" alt="alt" />
@@ -199,5 +204,13 @@
         })
     
     }
+
+    $("#delete_cart_item").click(function(e) {
+        deleteCartItem($(this).attr('data-href'))
+    });
+
+    $("#delete_cart_item_web").click(function(e) {
+        deleteCartItem($(this).attr('data-href'))
+    });
 </script>
 {% endblock js %}

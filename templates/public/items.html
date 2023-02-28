@@ -390,14 +390,17 @@
                                                 <button class="minus" onclick="this.parentNode.querySelector('input[type=number]').stepDown()"><img src="{% static 'public/img/icon/minus.svg'%}" alt="" /></button>
                                                 <input class="quantity" min="0" name="quantity" value="1" type="number" id="cart_product_quantity"/>
                                                 <button class="plus" onclick="this.parentNode.querySelector('input[type=number]').stepUp()"><img src="{% static 'public/img/icon/plus.svg'%}" alt="" /></button>
-                                            </div><br>
+                                            </div>
+                                            <br>
+                                            <div id="add_button_cart">
                                             {% if request.user.is_authenticated %}
-                                            <a class="ps-btn ps-btn--rounded ps-btn--dark" data-target="#popupAddcartV2" style="margin-left:0px;width:120px;" id="addToCart"> 
-                                                <img src="{% static 'public/img/icon/cart.svg'%}" alt="" />Add
-                                            </a>
+                                                <a class="ps-btn ps-btn--rounded ps-btn--dark" data-target="#popupAddcartV2" style="margin-left:0px;width:120px;" id="addToCart">   
+                                                    <img src="{% static 'public/img/icon/cart.svg'%}" alt="" />Add
+                                                </a>
                                             {% else %}
-                                            Login to buy ticket
+                                                Login to buy ticket
                                             {% endif %}
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -440,10 +443,15 @@
           success: (res)=>{
               if(res.message =='success'){
                   const data = res.data;
+                  console.log(data)
                   product_name.innerHTML = data.name
                   product_ticket_price.innerHTML = data.ticket_price
                   product_description.innerHTML = data.description
                   product_status.innerHTML = data.status
+                  if(data.product_in_cart){
+                    $('#add_button_cart').html('Already added to cart')
+                    $('#cart_product_quantity').val(data.product_in_cart_quantity)
+                  }
                   $('#addToCart').attr('data-href', product_id);
                   $('#addToCart').attr('cart-href', data.ticket_price);
                   const images = data.images;

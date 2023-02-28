@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from celery import shared_task
 from time import sleep
-from main_site.models import Cart, TicketModel
+from main_site.models import Cart, ProductModel, TicketModel
 from payment_app.models import Payment
 from user.models import User
 
@@ -48,42 +48,37 @@ def send_payment_receipt(email, item_list):
 
 
 @shared_task
-def create_ticket(user_id, payment_id):
-    user = User.objects.get(id=user_id)
-    payment = Payment.objects.get(id=payment_id)
-    item_list = []
-    cart_items = Cart.objects.filter(user=user, paid=False)
-    for item in cart_items:
-        for _ in range(item.quantity):
-            new_ticket = TicketModel.objects.create(
-                user = item.user,
-                product = item.product,
-            )
-            number_of_tickets = new_ticket.product.number_of_tickets() #pyright:ignore
-            product_tickets = new_ticket.product.product_tickets.filter(status=False).order_by("created_at")[:10] #pyright:ignore
-            if product_tickets.count() == number_of_tickets:
-                ticket_ids = [ticket.uid for ticket in product_tickets]
-                selected_id = random.choice(ticket_ids)
-                selected_ticket = TicketModel.objects.get(uid=selected_id)
-                email = selected_ticket.user.email
-                product = selected_ticket.product.name #pyright:ignore
-                send_winner_email.delay(email, product)
-                selected_ticket.is_winner = True
-                selected_ticket.save()
-                for i in product_tickets:
-                    i.status = True
-                    i.save()
+def create_ticket(item_qty, user_id, product_id):
+    for _ in range(item_qty):
+        new_ticket = TicketModel.objects.create(
+            user = User.objects.get(id=user_id),
+            product = ProductModel.objects.get(id=product_id),
+        )
+        number_of_tickets = new_ticket.product.number_of_tickets() #pyright:ignore
+        product_tickets = new_ticket.product.product_tickets.filter(status=False).order_by("created_at")[:10] #pyright:ignore
+        if product_tickets.count() == number_of_tickets:
+            ticket_ids = [ticket.uid for ticket in product_tickets]
+            selected_id = random.choice(ticket_ids)
+            selected_ticket = TicketModel.objects.get(uid=selected_id)
+            email = selected_ticket.user.email
+            product = selected_ticket.product.name #pyright:ignore
+            send_winner_email.delay(email, product)
+            selected_ticket.is_winner = True
+            selected_ticket.save()
+            for i in product_tickets:
+                i.status = True
+                i.save()
             
-        if not item.paid:
-            item.paid = True
-            item.status = False
-            item.payment_id = payment #pyright:ignore
-            item.save()
-            item_detail = {
-                'product':item.product.name, #pyright:ignore
-                'quantity': item.quantity,
-                'price':item.price
-            }
-            item_list.append(item_detail)
-    send_payment_receipt.delay(user.email, item_list)  # type: ignore
+    #     if not item.paid:
+    #         item.paid = True
+    #         item.status = False
+    #         item.payment_id = payment #pyright:ignore
+    #         item.save()
+    #         item_detail = {
+    #             'product':item.product.name, #pyright:ignore
+    #             'quantity': item.quantity,
+    #             'price':item.price
+    #         }
+    #         item_list.append(item_detail)
+    # send_payment_receipt.delay(user.email, item_list)  # type: ignore
     return True
