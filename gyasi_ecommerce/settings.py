@@ -175,11 +175,18 @@ LOGOUT_REDIRECT_URL = "/login"
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-# EMAIL_HOST_USER = 'success@notionafrica.org'
 EMAIL_HOST_USER = 'tiilon42@gmail.com'
 EMAIL_HOST_PASSWORD = 'pjhmgexqapqpbplo'
+EMAIL_PORT = 587
 EMAIL_USE_TLS = True
+DEFAULT_FROM_EMAIL = 'tiilon42@gmail.com'
+
+#Redis Config
+CELERY_BROKER_URL = 'redis://default:GKT6nr4vqec4xEo5eymC@containers-us-west-37.railway.app:6324'
+# CELERY_ACCEPT_CONTENT = ['json']
+# CELERY_TASK_SERIALIZER = 'json'
+
+
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]
 DJANGORESIZED_DEFAULT_QUALITY = 75
 DJANGORESIZED_DEFAULT_KEEP_META = True

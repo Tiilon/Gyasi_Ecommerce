@@ -9,6 +9,9 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from base.utils import send_account_activation_email
 
+#To use celery in sending email
+# from main_site.tasks import send_account_activation_email
+
 # from allauth.account.signals import user_signed_up
 
 

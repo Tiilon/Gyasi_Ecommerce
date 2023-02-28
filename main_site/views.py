@@ -165,6 +165,8 @@ def get_product_by_filter(request, status, cart_id=None):
 def get_product_details(request, product_id):
     product = ProductModel.objects.get(uid=product_id)
     images = ProductImageModel.objects.filter(product=product)
+    product_in_cart = False
+
     context = {
         'id': product.uid, #pyright:ignore
         'name': product.name,
@@ -174,6 +176,11 @@ def get_product_details(request, product_id):
         'ticket_price': product.ticket_price,
         'images': [{'id':image.uid,'url':image.image.url} for image in images] #pyright: ignore
     }
+
+    with contextlib.suppress(Cart.DoesNotExist):
+        product_in_cart = Cart.objects.get(product=product, status=True)
+        context['product_in_cart'] = bool(product_in_cart)
+        context['product_in_cart_quantity'] = product_in_cart.quantity
     return JsonResponse({"message": "success", "data": context})
     
 class CartView(View):
