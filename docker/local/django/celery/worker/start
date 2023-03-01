@@ -1,0 +1,8 @@
+#!/bin/bash
+
+set -o errexit
+
+set -o nounset
+
+
+watchmedo auto-restart -d gyasi_ecommerce/ -p '*.py' -- celery worker -A gyasi_ecommerce --loglevel=info

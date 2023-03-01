@@ -26,9 +26,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = bool(config('DEBUG'))
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['localhost']
 DEFAULT_DOMAIN = f'http://{ALLOWED_HOSTS[0]}:8000/'
 
 
@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'main_site',
     'management',
     'payment_app',
-
-    "django_unicorn",
 ]
 
 MIDDLEWARE = [
@@ -100,11 +98,11 @@ WSGI_APPLICATION = 'gyasi_ecommerce.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gyasi_ecommerce',
-        'USER': 'postgres',
-        'PASSWORD': 'Sparrow0500',
-        'HOST': 'localhost',
+        'ENGINE': config('SQL_ENGINE'),
+        'NAME': config('POSTGRES_DATABASE'),
+        'USER': config('POSTGRES_USER'),
+        'PASSWORD': config('POSTGRES_PASSWORD'),
+        'HOST': config('POSTGRES_HOST'),
         # 'DISABLE_SERVER_SIDE_CURSORS': True,
     }
 }
@@ -154,6 +152,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATICFILES_DIRS = [BASE_DIR / "static"]
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
@@ -192,10 +191,18 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'tiilon42@gmail.com'
 
-#Redis Config
-CELERY_BROKER_URL = 'redis://default:tLsaISRwEFiQDYJupRki@containers-us-west-104.railway.app:7255'
+#Redis Config for external provision by railway
+# CELERY_BROKER_URL = 'redis://default:tLsaISRwEFiQDYJupRki@containers-us-west-104.railway.app:7255'
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
+
+#Redis Config provisioned in container
+CELERY_BROKER_URL = config('CELERY_BROKER')
+CELERY_RESULT_BACKEND = config('CELERY_BACKEND')
+CELERY_ACCEPT_CONTENT = ['json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = "UTC"
 
 
 DJANGORESIZED_DEFAULT_SIZE = [1920, 1080]

@@ -68,7 +68,7 @@ def create_ticket(item_qty, user_id, product_id):
             for i in product_tickets:
                 i.status = True
                 i.save()
-            
+        
     #     if not item.paid:
     #         item.paid = True
     #         item.status = False
