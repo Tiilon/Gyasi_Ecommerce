@@ -42,5 +42,4 @@ def verify_payment(request, ref):
             }
             item_list.append(item_detail)
     send_payment_receipt.delay(request.user.email, item_list)  # type: ignore
-    
     return JsonResponse({"message": "success"})
