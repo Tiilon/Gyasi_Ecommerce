@@ -28,8 +28,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(config('DEBUG'))
 
-ALLOWED_HOSTS = ['localhost' 'ec2-54-162-33-103.compute-1.amazonaws.com']
-DEFAULT_DOMAIN = f'http://{ALLOWED_HOSTS[0]}:8000/'
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
+DEFAULT_DOMAIN = 'http://ec2-54-162-33-103.compute-1.amazonaws.com/'
 
 
 # Application definition
