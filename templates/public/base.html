@@ -31,6 +31,7 @@
 
 <body>
     {% csrf_token %}
+    {{ redirect_to_login_immediately }}
     <div class="ps-page">
         <header class="ps-header ps-header--1">
             {% comment %} <div class="ps-notify">
