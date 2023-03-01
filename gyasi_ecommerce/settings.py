@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
 
+from datetime import timedelta
 import os
 from pathlib import Path
 from decouple import config
@@ -58,6 +59,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    'django_auto_logout.middleware.auto_logout',
 ]
 
 ROOT_URLCONF = 'gyasi_ecommerce.urls'
@@ -75,6 +78,8 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
                 'main_site.context_processors.selected_categories',
                 'main_site.context_processors.all_categories',
+                
+                'django_auto_logout.context_processors.auto_logout_client',
             ],
         },
     },
@@ -173,6 +178,12 @@ LOGIN_URL = "accounts:login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/login"
 
+AUTO_LOGOUT = {
+    'IDLE_TIME': timedelta(minutes=30),
+    'REDIRECT_TO_LOGIN_IMMEDIATELY': True,
+    'MESSAGE': 'The session has expired. Please login again to continue.',
+}
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_HOST_USER = 'tiilon42@gmail.com'
@@ -182,7 +193,7 @@ EMAIL_USE_TLS = True
 DEFAULT_FROM_EMAIL = 'tiilon42@gmail.com'
 
 #Redis Config
-CELERY_BROKER_URL = 'redis://default:GKT6nr4vqec4xEo5eymC@containers-us-west-37.railway.app:6324'
+CELERY_BROKER_URL = 'redis://default:tLsaISRwEFiQDYJupRki@containers-us-west-104.railway.app:7255'
 # CELERY_ACCEPT_CONTENT = ['json']
 # CELERY_TASK_SERIALIZER = 'json'
 
