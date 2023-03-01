@@ -29,6 +29,8 @@ services:
     volumes:
       - ./nginx/conf.d/:/etc/nginx/conf.d/
       - static_files:/home/app/staticfiles
+    depends_on:
+      - web
       
   dns:
     build:
