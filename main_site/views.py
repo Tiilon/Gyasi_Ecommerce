@@ -274,7 +274,6 @@ class CheckOutView(View):
     def get(self, request):
         template_name = "public/checkout.html"
         cart_items = Cart.objects.filter(user = request.user, status=True)
-        print(cart_items)
         cart_list = []
         total_payable = 0
         for item in cart_items:

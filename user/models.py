@@ -1,18 +1,9 @@
 from django.db import models
-import secrets
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.utils.crypto import get_random_string
 from django.contrib.auth.models import PermissionsMixin
 from django_resized import ResizedImageField
 from base.models import *
-from django.db.models.signals import post_save
-from django.dispatch import receiver
-from base.utils import send_account_activation_email
-
-#To use celery in sending email
-# from main_site.tasks import send_account_activation_email
-
-# from allauth.account.signals import user_signed_up
 
 
 class MyUserManager(BaseUserManager):
@@ -97,6 +88,7 @@ class UserProfile(BaseModel):
     profile_image = ResizedImageField(
         size=[400, 400], upload_to="user/display_image", blank=True, null=True
     )
+    uid = models.UUIDField(editable=False , default=uuid.uuid4, unique=True)
     # bio_file = models.FileField(upload_to='user/bio', blank=True, null=True)
     phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
     otp = models.CharField(max_length=10, null=True, blank=True)
@@ -126,16 +118,3 @@ class UserProfile(BaseModel):
     # Methods
     def __str__(self):
         return f"{self.user}"
-
-
-@receiver(post_save , sender = User)
-def send_email_token(sender , instance , created , **kwargs):
-    try:
-        if created:
-            email_token = str(secrets.token_hex(16))
-            UserProfile.objects.create(user = instance , email_token = email_token)
-            email = instance.email
-            send_account_activation_email(email , email_token)
-
-    except Exception as e:
-        print(e)

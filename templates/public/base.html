@@ -41,7 +41,8 @@
             </div> {% endcomment %}
             <div class="ps-header__inner">
                 <div class="ps-header__left">
-                    <div class="ps-logo"><a href="index.html"> <img src="{% static 'public/img/logo.png' %}" alt></a></div>
+                    {% comment %} <div class="ps-logo"><a href="index.html"> <img src="{% static 'public/img/logo.png' %}" alt></a></div> {% endcomment %}
+                    Logo goes here
                 </div>
                 <div class="ps-header__center">
                     <ul class="menu">
@@ -330,6 +331,7 @@
                         <li class="ps-header__item open-user"><a class="ps-header__link" href="#"><img src="{% static 'public/img/icon/user.svg' %} " alt=""></a>
                             <div class="ps-login--modal">
                                 {% if request.user.is_authenticated %}
+                                    <a href="{% url 'accounts:user_public_profile' %}">Profile</a>
                                     <a href="{% url 'accounts:logout' %}">Logout</a>
                                 {% else %}
                                     <form method="post" action="{% url 'accounts:login' %}">
@@ -671,9 +673,21 @@
                     <div class="row">
                         <div class="col-12 col-md-4 col-lg-3">
                             <div class="ps-footer--address">
-                                <div class="ps-logo"><a href="index.html"> <img src="{% static 'public/img/logo.png' %} " alt><img class="logo-white" src="{% static 'public/img/logo-white.png' %} " alt></a></div>
-                                <p>Wl395/1 Kasoa Cp<br>P.O.Box TX 16819</p>
-                                <p><a target="_blank" href="https://www.google.com/maps/place/Arlington,+TX,+USA/@32.701968,-97.2054529,12z/data=!3m1!4b1!4m8!1m2!2m1!1s1487+Rocky+Horse+Carrefour+Arlington,+TX+16819!3m4!1s0x864e62d2e40898d3:0xb5ef6ac1fa05351!8m2!3d32.735687!4d-97.1080656">Show on map</a></p>
+                                {% comment %} <div class="ps-logo"><a href="index.html"> <img src="{% static 'public/img/logo.png' %} " alt><img class="logo-white" src="{% static 'public/img/logo-white.png' %} " alt></a></div> {% endcomment %}
+                               Logo goes here
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-8 col-lg-5">
+                            <div class="row">
+                                <div class="col-12 col-md-12 col-lg-12 mb-3">
+                                    Wl395/1 Kasoa Cp
+                                </div>
+                                <div class="col-12 col-md-12 col-lg-12 mb-3">
+                                    P.O.Box TX 16819
+                                </div>
+                                {% comment %} <p>
+                                    <a target="_blank" href="https://www.google.com/maps/place/Arlington,+TX,+USA/@32.701968,-97.2054529,12z/data=!3m1!4b1!4m8!1m2!2m1!1s1487+Rocky+Horse+Carrefour+Arlington,+TX+16819!3m4!1s0x864e62d2e40898d3:0xb5ef6ac1fa05351!8m2!3d32.735687!4d-97.1080656">Show on map</a>
+                                </p> {% endcomment %}
                                 <ul class="ps-social">
                                     <li><a class="ps-social__link facebook" href="#"><i class="fa fa-facebook"> </i><span class="ps-tooltip">Facebook</span></a></li>
                                     <li><a class="ps-social__link instagram" href="#"><i class="fa fa-instagram"></i><span class="ps-tooltip">Instagram</span></a></li>
@@ -681,11 +695,7 @@
                                     <li><a class="ps-social__link pinterest" href="#"><i class="fa fa-pinterest-p"></i><span class="ps-tooltip">Pinterest</span></a></li>
                                     <li><a class="ps-social__link linkedin" href="#"><i class="fa fa-linkedin"></i><span class="ps-tooltip">Linkedin</span></a></li>
                                 </ul>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-8 col-lg-5">
-                            <div class="row">
-                                <div class="col-6 col-md-6">
+                                {% comment %} <div class="col-6 col-md-6">
                                     <div class="ps-footer--widget">
                                         <ul class="ps-footer__list">
                                             <li><a href="#">Jeans</a></li>
@@ -708,7 +718,7 @@
                                             <li><a href="#">T-Shirts</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> {% endcomment %}
                                 {% comment %}
                                 <div class="col-6 col-md-4">
                                     <div class="ps-footer--widget">
@@ -726,8 +736,18 @@
                             </div>
                         </div>
                         <div class="col-12 col-md-5 col-lg-4">
-                            <div class="ps-footer--newsletter">
-                                <h5 class="ps-footer__title">Join our newsletter and get $20 for your first order</h5>
+                            {% comment %} <div class="ps-footer--newsletter"> {% endcomment %}
+                                <div class="row">
+                                    <div class="col-12 col-md-6">
+                                        <p class="ps-footer__contact"> 
+                                            <a class="ps-footer__phone" href="tel:024685449">024685449</a>
+                                            {% comment %} <a class="ps-footer__mail" href="https://nouthemes.net/cdn-cgi/l/email-protection#96fff8f0f9d6f5f9fbe6f7f8efb8f5f9fb"><span class="__cf_email__" data-cfemail="f1989f979eb1929e9c81909f88df929e9c">[email&#160;protected]</span></a> {% endcomment %}
+                                        </p>
+                                        <p class="ps-footer__copyright">Copyright © 2021, Your Store. All Rights Reserved.</p>
+                                    </div>
+                                    {% comment %} <div class="col-12 col-md-6 text-right"><img src="{% static 'public/img/payment.png' %} " alt><img class="img-white" src="{% static 'public/img/payment-white.png' %} " alt></div> {% endcomment %}
+                                </div>
+                                {% comment %} <h5 class="ps-footer__title">Join our newsletter and get $20 for your first order</h5>
                                 <form action="https://nouthemes.net/html/yobazar/do_action" method="post">
                                     <div class="ps-form--newsletter">
                                         <div class="input-group">
@@ -735,8 +755,8 @@
                                             <button class="ps-btn ps-btn--danger ps-btn--rounded">Subscribe </button>
                                         </div>
                                     </div>
-                                </form>
-                            </div>
+                                </form> {% endcomment %}
+                            {% comment %} </div> {% endcomment %}
                         </div>
                     </div>
                 </div>
@@ -751,13 +771,7 @@
                     </div>
                 </div> {% endcomment %}
                 <div class="ps-footer--bottom">
-                    <div class="row">
-                        <div class="col-12 col-md-6">
-                            <p class="ps-footer__contact"> <a class="ps-footer__phone" href="tel:024685449">024685449</a><a class="ps-footer__mail" href="https://nouthemes.net/cdn-cgi/l/email-protection#96fff8f0f9d6f5f9fbe6f7f8efb8f5f9fb"><span class="__cf_email__" data-cfemail="f1989f979eb1929e9c81909f88df929e9c">[email&#160;protected]</span></a></p>
-                            <p class="ps-footer__copyright">Copyright © 2021, Your Store. All Rights Reserved.</p>
-                        </div>
-                        {% comment %} <div class="col-12 col-md-6 text-right"><img src="{% static 'public/img/payment.png' %} " alt><img class="img-white" src="{% static 'public/img/payment-white.png' %} " alt></div> {% endcomment %}
-                    </div>
+                    
                 </div>
             </div>
         </footer>
@@ -914,6 +928,7 @@
                 {% comment %} <li class="has-mega-menu"><a href="#">Explore Categories</a></li> {% endcomment %}
                 <li class="has-mega-menu"><a href="contact-us-v1.html">Contact</a></li>
                 {% if request.user.is_authenticated %}
+                <li class="has-mega-menu"><a href="{% url 'accounts:user_public_profile' %}">Profile</a></li>
                 <li class="has-mega-menu"><a href="{% url 'accounts:logout' %}">Logout</a></li>
                 {% else %}
                 <li class="has-mega-menu"><a href="{% url 'accounts:login' %}">Login</a></li>

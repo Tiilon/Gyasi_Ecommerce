@@ -180,7 +180,6 @@
                 headers:{"X-Requested-With": "XMLHttpRequest"},
                 success: (res)=>{
                     if(res.message =='success'){
-                       console.log("success");
                         $("#cart_info").load(location.href + " #cart_info");
                         $("#cart_summary").load(location.href + " #cart_summary");
                         $("#cart_items_number").load(location.href + " #cart_items_number");

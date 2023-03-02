@@ -28,8 +28,8 @@ SECRET_KEY = config('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = bool(config('DEBUG'))
 
+# ALLOWED_HOSTS = ["*"]
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
-DEFAULT_DOMAIN = 'http://ec2-54-162-33-103.compute-1.amazonaws.com/'
 
 
 # Application definition
@@ -102,6 +102,7 @@ DATABASES = {
         'NAME': config('POSTGRES_DATABASE'),
         'USER': config('POSTGRES_USER'),
         'PASSWORD': config('POSTGRES_PASSWORD'),
+        # 'HOST': 'localhost',
         'HOST': config('POSTGRES_HOST'),
         # 'DISABLE_SERVER_SIDE_CURSORS': True,
     }

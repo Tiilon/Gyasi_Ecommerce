@@ -1,12 +1,15 @@
 from django.urls import path, reverse_lazy
 from user.views import *
-from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, PasswordResetCompleteView
 
 app_name = 'accounts'
 
 urlpatterns = [
     path('login', LoginView.as_view(), name='login'),
     path('admin-login', AdminLoginView.as_view(), name='admin_login'),
+    path('user-public-profile', PublicProfileView.as_view(), name='user_public_profile'),
+    path('user-public-profile-update', PublicProfileUpdateView.as_view(), name='user_public_profile_update'),
+    path('user-public-profile-change-password', ChangePasswordView.as_view(), name='user_public_change_password'),
+    path('user-public-profile', PublicProfileView.as_view(), name='user_public_profile'),
     path('register', RegisterUserView.as_view(), name='user_register'),
     path('logout', LogoutView.as_view(), name='logout'),
     path('activate/<token>', verification, name='activate'),

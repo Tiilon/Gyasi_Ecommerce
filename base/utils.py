@@ -3,12 +3,17 @@ from django.core.mail import EmailMultiAlternatives
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-def send_account_activation_email(email , email_token):
+
+def send_account_activation_email(email , email_token, domain):
     email_from = settings.EMAIL_HOST_USER
-    urlx = f"{settings.DEFAULT_DOMAIN}/user/activate/{email_token}"
-    subject, from_email, to = ('Your account needs to be verified',email_from,f"{email}",)
-    text_content = "This is an important message."
-    html_content = f"<h1>Thanks for joining our platform</h1><p>click to verify:{urlx}</p><p>After clicking the link. You may be required to log in with the details you provided</p>"
+    subject, from_email, to = ('Verify your account',email_from,f"{email}",)
+    context = {
+        'test':"Account activation",
+        "token":email_token,
+        "domain":domain
+    }
+    html_content = render_to_string("email/verification_mail.html", context)
+    text_content = strip_tags(html_content)
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     return msg.send()
@@ -35,3 +40,4 @@ def send_payment_receipt(email, item_list):
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     return msg.send()
+

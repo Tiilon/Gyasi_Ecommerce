@@ -1,15 +1,18 @@
 import contextlib
+import secrets
 from django.db import transaction
 from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import redirect, render, get_object_or_404
+from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.views import View
 from django.contrib import messages
+from main_site.tasks import send_account_activation_email
 from user.models import UserProfile, User
 from .forms import *
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import PasswordChangeForm
 from django.utils.text import slugify
+from django.contrib.sites.shortcuts import get_current_site  
 from django.contrib.auth.hashers import check_password
 
 # Create your views here.
@@ -26,12 +29,6 @@ def error_500_view(request, exception):
     # here. The name of our HTML file is 404.html
     return render(request, "errors/500.html")
 
-
-class MainView(View):
-    def get(self, request):
-        template_name = "main.html"
-        context = {}
-        return render(request, template_name, context)
 
 class LoginView(View):
     
@@ -81,6 +78,30 @@ class AdminLoginView(View):
             return redirect("management:dashboard")
         
         return render(request, self.template_name)
+    
+    def post(self, request):
+        email = request.POST["email"]
+        password = request.POST["password"]
+        try:
+            
+            user= User.objects.get(email=email) or User.objects.get(username=email)
+
+            if not user.is_active:
+                messages.error(request, "Your account is not active")
+                return HttpResponseRedirect(request.path_info)
+
+            if not check_password(password, user.password):
+                messages.error(request, "Wrong Password")
+                return HttpResponseRedirect(request.path_info)
+
+            if user := authenticate(email=user.email, password=password):
+                login(request, user)
+                return redirect("management:dashboard") if user.is_staff else redirect('/') #pyright:ignore
+
+        except User.DoesNotExist:
+            messages.warning(request, 'Account not found.')
+            return HttpResponseRedirect(request.path_info)
+        return HttpResponseRedirect(request.path_info)
 
 # In case otp for verification
 # class AdminLoginView(View):
@@ -159,6 +180,11 @@ class RegisterUserView(View):
         user.is_active = False
         user.is_staff = False
         user.save()
+        current_site = get_current_site(request)
+        email_token = str(secrets.token_hex(16))
+        UserProfile.objects.create(user = user, email_token = email_token)
+        email = user.email
+        send_account_activation_email.delay(email , email_token, current_site.domain)
         messages.success(request,"An email has been sent for verification")
         return HttpResponseRedirect(request.path_info)
 
@@ -176,36 +202,7 @@ def verification(request, token):
         messages.success(request,"Account verification failed, Please try again")
         return redirect("accounts:signup-user")
 
-
-# class UploadProfilePictureView(LoginRequiredMixin, View):
-#     login_url = "accounts:login"
-#     redirect_field_name = "redirect_to"
-#     form_class = UploadProfilePictureForm
-
-#     def post(self, request, id, *args, **kwargs):
-
-#         profile = UserProfile.objects.get(id=id)
-#         data = {"image": profile.image}
-#         form = self.form_class(request.POST, request.FILES, initial=data)
-#         if form.is_valid():
-#             # check if image field is not empty and check if image field path exist in directory
-#             if profile.image and os.path.exists(profile.image.path):
-#                 # remove from path and reupdate with the new one
-#                 os.remove(profile.image.path)
-#             profile.image = request.FILES["image"]
-#             profile.save()
-#             return JsonResponse(
-#                 {"message": "success", "img": profile.image.url}
-#             )
-#         return JsonResponse({"message": "Validating image failed"})
-
-
 class ChangePasswordView(LoginRequiredMixin, View):
-    def get(self, request):
-        template_name = "accounts/change_password.html"
-        context = {}
-        return render(request, template_name, context)
-
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         form = PasswordChangeForm(request.user, request.POST)
@@ -213,6 +210,35 @@ class ChangePasswordView(LoginRequiredMixin, View):
             return JsonResponse({"message": form.errors})
         user = form.save()
         update_session_auth_hash(request, user)  # Important!
+        return JsonResponse({"message": "success"})
+
+class PublicProfileView(LoginRequiredMixin, View):
+    def get(self, request):
+        template_name = "accounts/public_user_profile.html"
+        context = {}
+        return render(request, template_name, context) 
+    
+class PublicProfileUpdateView(LoginRequiredMixin, View):
+    def post(self, request):
+        email = request.POST.get("email")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        other_name = request.POST.get("other_name")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
+        try:
+            profile = UserProfile.objects.get(uid = request.user.user_profile.uid)
+            profile.first_name = first_name
+            profile.last_name = last_name
+            profile.address = address
+            profile.phone = phone
+            profile.address=address
+            profile.other_name = other_name
+            request.user.email = email
+            profile.save()
+            request.user.save()
+        except UserProfile.DoesNotExist:
+            return JsonResponse({"message": "Profile does not exist"})            
         return JsonResponse({"message": "success"})
 
 

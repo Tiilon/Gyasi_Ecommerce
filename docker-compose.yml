@@ -31,18 +31,6 @@ services:
       - static_files:/home/app/staticfiles
     depends_on:
       - web
-      
-  dns:
-    build:
-      context: ./dns/
-    restart: always
-    ports:
-      - 53:53
-      - 53:53/udp
-    volumes:
-      - ./dns/named.conf:/etc/bind/named.conf
-      - ./dns/zone/:/etc/bind/zone/
-    command: named -c /etc/bind/named.conf -g -u named
 
   # Database Postgres
   db:

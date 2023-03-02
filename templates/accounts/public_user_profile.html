@@ -6,15 +6,15 @@
     <div class="container">
         <ul class="ps-breadcrumb">
             <li class="ps-breadcrumb__item"><a href="/">Home</a></li>
-            <li class="ps-breadcrumb__item"><a class="active" aria-current="page" href="#"> Checkout</a></li>
+            <li class="ps-breadcrumb__item"><a class="active" aria-current="page" href="#"> Profile</a></li>
         </ul>
-        <h3 class="ps-checkout__title"> Checkout</h3>
+        <h3 class="ps-checkout__title"> {{request.user.email}}</h3>
         <div class="ps-checkout__content">
             {% comment %} <div class="ps-checkout__wapper">
                 <p class="ps-checkout__text">Returning customer? <a href="my-account.html">Click here to login</a></p>
                 <p class="ps-checkout__text">Have a coupon? <a href="shopping-cart.html">Click here to enter your code</a></p>
             </div> {% endcomment %}
-            <form action="" method="post" id="paymentForm">
+            <form action="{% url 'accounts:user_public_profile_update' %}" method="post" id="e_profile_update_form">
                 {% csrf_token %}
                 <div class="row">
                     <div class="col-12 col-lg-8">
@@ -24,25 +24,25 @@
                                 <div class="col-12">
                                     <div class="ps-checkout__group">
                                         <label class="ps-checkout__label">Email address *</label>
-                                        <input class="ps-input" type="email" id="email-address" name="user_email" value="{% if request.user.email %}{{request.user.email}}{% else %}N/A{% endif %}">
+                                        <input class="ps-input" type="email" id="e_profile_email" name="user_email" value="{% if request.user.email %}{{request.user.email}}{% else %}N/A{% endif %}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="ps-checkout__group">
                                         <label class="ps-checkout__label">First name *</label>
-                                        <input class="ps-input" type="text" value="{% if request.user.user_profile.first_name %}{{request.user.user_profile.first_name}}{% endif %}">
+                                        <input class="ps-input" name="first_name" id="e_profile_first_name" type="text" value="{% if request.user.user_profile.first_name %}{{request.user.user_profile.first_name}}{% endif %}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="ps-checkout__group">
                                         <label class="ps-checkout__label">Last name *</label>
-                                        <input class="ps-input" type="text" value="{% if request.user.user_profile.last_name %}{{request.user.user_profile.last_name}}{% endif %}">
+                                        <input class="ps-input" name="last_name" id="e_profile_last_name" type="text" value="{% if request.user.user_profile.last_name %}{{request.user.user_profile.last_name}}{% endif %}">
                                     </div>
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <div class="ps-checkout__group">
                                         <label class="ps-checkout__label">Other name</label>
-                                        <input class="ps-input" type="text" value="{% if request.user.user_profile.other_name %}{{request.user.user_profile.other_name}}{% endif %}">
+                                        <input class="ps-input" name="other_name" id="e_profile_other_name" type="text" value="{% if request.user.user_profile.other_name %}{{request.user.user_profile.other_name}}{% endif %}">
                                     </div>
                                 </div>
                                 {% comment %} <div class="col-12">
@@ -61,7 +61,7 @@
                                 <div class="col-12 col-md-6">
                                     <div class="ps-checkout__group">
                                         <label class="ps-checkout__label">Phone *</label>
-                                        <input class="ps-input" type="text" value="{% if request.user.user_profile.phone %}{{request.user.user_profile.phone}}{% endif %}">
+                                        <input class="ps-input" name="phone" id="e_profile_phone" type="text" value="{% if request.user.user_profile.phone %}{{request.user.user_profile.phone}}{% endif %}">
                                     </div>
                                 </div>
                                 {% comment %} <div class="col-12 col-md-6">
@@ -79,8 +79,12 @@
                                 <div class="col-12">
                                     <div class="ps-checkout__group">
                                         <label class="ps-checkout__label">Address</label>
-                                        <input class="ps-input" type="text" value="{% if request.user.user_profile.address %}{{request.user.user_profile.address}}{% endif %}">
+                                        <input class="ps-input" name="address" id="e_profile_address" type="text" value="{% if request.user.user_profile.address %}{{request.user.user_profile.address}}{% endif %}">
                                     </div>
+                                </div>
+                                
+                                <div class="ps-form__submit">
+                                    <button class="ps-btn ps-btn--rounded ps-btn--danger" type="submit">Update</button>
                                 </div>
                                 {% comment %} <div class="col-12">
                                     <div class="ps-checkout__group">
@@ -163,71 +167,46 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-12 col-lg-4">
-                        <div class="ps-checkout__order">
-                            <h3 class="ps-checkout__heading">Your order</h3>
-                            <div class="ps-checkout__row">
-                                <div class="ps-title">Product</div>
-                                <div class="ps-title">Amount</div>
-                            </div>
-                            {% for item in cart_items %}
-                            <div class="ps-checkout__row ps-product">
-                                <div class="ps-product__name">{{item.product}} <span>{{item.quantity}}</span></div>
-                                <div class="ps-product__price">${{item.price}}</div>
-                            </div>
-                            {% endfor %}
-                            <div class="ps-checkout__row ps-product">
-                                <div class="ps-product__name">Miscellaneous</div>
-                                <div class="ps-product__price">$0</div>
-                            </div>
-                            <div class="ps-checkout__row">
-                                <div class="ps-title">Subtotal</div>
-                                <div class="ps-product__price">${{total_payable}}</div>
-                            </div>
-                            <input type="hidden" id="ref_key">
-                            {% comment %} <div class="ps-checkout__row">
-                                <div class="ps-title">Shipping</div>
-                                <div class="ps-checkout__checkbox">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="ship" value="free" type="radio" id="free-ship" checked>
-                                        <label class="form-check-label" for="free-ship">Free shipping</label>
-                                    </div>
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="ship" value="price" type="radio" id="price-ship">
-                                        <label class="form-check-label" for="price-ship">Local Pickup: <span>$10.00</span></label>
-                                    </div>
-                                </div>
-                            </div> {% endcomment %}
-                            <div class="ps-checkout__row">
-                                <div class="ps-title">Total</div>
-                                <div class="ps-product__price" id="cart_total_amount">${{total_payable}}</div>
-                            </div>
-                            <div class="ps-checkout__payment">
-                                {% comment %} <div class="payment-method">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="payment" type="radio" value="payment" id="payment" checked>
-                                        <label class="form-check-label" for="payment">Check payments</label>
-                                    </div>
-                                    <p class="ps-note">Please send a check to Store Name, Store Street, Store Town, Store State / County, Store Postcode.</p>
-                                </div>
-                                <div class="paypal-method">
-                                    <div class="form-check">
-                                        <input class="form-check-input" name="payment" type="radio" value="paypal" id="paypal">
-                                        <label class="form-check-label" for="paypal"> PayPal <a href="https://www.paypal.com/uk/webapps/mpp/paypal-popup" target="_blank">What is PayPal?</a></label>
-                                    </div>
-                                </div> {% endcomment %}
-                                <div class="check-faq">
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" id="agree-faq" checked>
-                                        <label class="form-check-label" for="agree-faq"> I have read and agree to the website terms and conditions *</label>
-                                    </div>
-                                </div>
-                                <button class="ps-btn ps-btn--rounded ps-btn--dark" type='button' onclick="makePayment()">Place order</a>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </form>
+        </div>
+    </div>
+    <div class="ps-account">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8" id="register_form_view">
+                    <form action="{% url 'accounts:user_public_change_password' %}" method="post" id="e_change_password_form">
+                        {% csrf_token %}
+                        <div class="ps-form--review">
+                            <h2 class="ps-form__title">Password Change</h2>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <label class="ps-form__label text-danger">{{message}} *</label>
+                                {% endfor %}
+                            {% endif %}
+                            <div class="ps-form__group">
+                                <label class="ps-form__label">Current password *</label>
+                                <input class="form-control ps-form__input" type="password" name="old_password" id="e_current_password" required>
+                            </div>
+                            <div class="ps-form__group">
+                                <label class="ps-form__label">Email address *</label>
+                                <input class="form-control ps-form__input" type="password" name="new_password1" id="e_password" required>
+                            </div>
+                            <div class="ps-form__group">
+                                <label class="ps-form__label">Password *</label>
+                                <div class="input-group">
+                                    <input class="form-control ps-form__input" type="password" name="new_password2" id="e_password_confirmation" required>
+                                    <div class="input-group-append"><a class="fa fa-eye-slash toogle-password" href="javascript: vois(0);"></a></div>
+                                </div>
+                                <p class="ps-form__text">Hint: The password should be at least twelve characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).</p>
+                            </div>
+                            <div class="ps-form__submit">
+                                <button class="ps-btn ps-btn--rounded ps-btn--danger" type="submit">Change Password</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -235,86 +214,45 @@
 {% block js %}
 <script src="https://js.paystack.co/v1/inline.js"></script> 
 <script>
-var email = $("#email-address").val()
-var amount = {{total_payable}}
 
-function payWithPayStack(ref) {
-    let currency = "GHS";
-    let plan = ""
-    let obj = {
-        key: '{{public_key}}',
-        email: $("#email-address").val(),
-        amount:amount * 100,
-        ref:ref,
-        callback: function(response) {
-            Swal.fire({
-                title: "Verifying payment...",
-                html: "Please wait a moment"
-              })
-            Swal.showLoading()
-            $.ajax({
-                type:'GET',
-                url:`/payment/verify-payment/${ref}`,
-                headers:{"X-Requested-With": "XMLHttpRequest"},
-                success: (res)=>{
-                    if(res.message =='success'){
-                        Swal.hideLoading()
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Payment Verified',
-                            showConfirmButton: false,
-                            timer: 10000
-                        })
-                        setTimeout(function(){
-                            window.location.replace("/");
-                        }, 2000);
-                    }
-                    else{
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'error',
-                            title: 'Failed',
-                            showConfirmButton: false,
-                            timer: 1500
-                        })
-                    }
-                },
-                error:(err)=>{
-                    console.log(err)
-                }
-            })
-              //window.location.href = `/payment/p/${reference}`
-        }
-    }
-    if (Boolean(currency)){
-        obj.currency = currency.toUpperCase()
-    }
-
-    if (Boolean(plan)){
-        obj.plan = plan;
-    }
-
-    var handler = PaystackPop.setup(obj);
-    handler.openIframe();
-}
-function makePayment(){
+function updateProfile(urlx){
+    const email = $("#e_profile_email").val();
+    const first_name = $("#e_profile_first_name").val();
+    const last_name = $("#e_profile_last_name").val();
+    const other_name = $("#e_profile_other_name").val();
+    const phone = $("#e_profile_phone").val();
+    const address = $("#e_profile_address").val();
     $.ajax({
         type:'POST',
-        url:`/payment/`,
+        url:urlx,
         data: {
             'csrfmiddlewaretoken':'{{ csrf_token }}',
-            'amount':amount,
-            'email':email,
+            "email":email,
+            "first_name":first_name,
+            "last_name":last_name,
+            "other_name":other_name,
+            "phone":phone,
+            "address":address
         },
         headers:{"X-Requested-With": "XMLHttpRequest"},
         success: (res)=>{
             if(res.message =='success'){
-                console.log("fuck")
-                payWithPayStack(res.data)
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Profile Updated',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
             else{
-                console.log('failed')
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Update Failed',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }
         },
         error:(err)=>{
@@ -322,12 +260,58 @@ function makePayment(){
         }
     })  
 }
-//var paymentForm = document.getElementById('paymentForm');
 
-//paymentForm.addEventListener('submit', payWithPaystack, false);
+$( "#e_profile_update_form" ).submit(function( event ) {
+    event.preventDefault();
+    url = $(this).attr("action");
+    updateProfile(url)
+});
 
+function changePassword(urlx){
+    const old_password = $("#e_current_password").val();
+    const new_password1 = $("#e_password").val();
+    const new_password2 = $("#e_password_confirmation").val();
+    $.ajax({
+        type:'POST',
+        url:urlx,
+        data: {
+            'csrfmiddlewaretoken':'{{ csrf_token }}',
+            "old_password":old_password,
+            "new_password1":new_password1,
+            "new_password2":new_password2,
+        },
+        headers:{"X-Requested-With": "XMLHttpRequest"},
+        success: (res)=>{
+            if(res.message =='success'){
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Password Updated',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+            else{
+                Swal.fire({
+                    position: 'top-end',
+                    icon: 'error',
+                    title: 'Update Failed',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
+            }
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+    })   
+}
 
-
+$( "#e_change_password_form" ).submit(function( event ) {
+    event.preventDefault();
+    url = $(this).attr("action");
+    changePassword(url)
+});
 
 </script>
 {% endblock js %}
