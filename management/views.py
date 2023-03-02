@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views import View
 from django.http import JsonResponse
 from main_site.models import ProductCategoryModel,ProductModel,ProductImageModel
@@ -7,7 +7,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class DashboardView(LoginRequiredMixin,View):
+    login_url = '/user/admin-login'
+    
     def get(self, request):
+        # if request.user.is_authenticated() == False:
+        #     return redirect("accounts:admin_login")
         template_name = "management/dashboard.html"
         # products = ProductModel.objects.all()
         context = {}

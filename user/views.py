@@ -81,6 +81,30 @@ class AdminLoginView(View):
             return redirect("management:dashboard")
         
         return render(request, self.template_name)
+    
+    def post(self, request):
+        email = request.POST["email"]
+        password = request.POST["password"]
+        try:
+            
+            user= User.objects.get(email=email) or User.objects.get(username=email)
+
+            if not user.is_active:
+                messages.error(request, "Your account is not active")
+                return HttpResponseRedirect(request.path_info)
+
+            if not check_password(password, user.password):
+                messages.error(request, "Wrong Password")
+                return HttpResponseRedirect(request.path_info)
+
+            if user := authenticate(email=user.email, password=password):
+                login(request, user)
+                return redirect("management:dashboard") if user.is_staff else redirect('/') #pyright:ignore
+
+        except User.DoesNotExist:
+            messages.warning(request, 'Account not found.')
+            return HttpResponseRedirect(request.path_info)
+        return HttpResponseRedirect(request.path_info)
 
 # In case otp for verification
 # class AdminLoginView(View):

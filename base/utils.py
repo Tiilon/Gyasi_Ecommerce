@@ -1,7 +1,13 @@
 from django.conf import settings
 from django.core.mail import EmailMultiAlternatives
+from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
+from django.contrib import messages
+from django.contrib.auth.hashers import check_password
+from django.contrib.auth import authenticate, login
+from django.shortcuts import redirect
+
 
 def send_account_activation_email(email , email_token):
     email_from = settings.EMAIL_HOST_USER
@@ -35,3 +41,4 @@ def send_payment_receipt(email, item_list):
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     return msg.send()
+
