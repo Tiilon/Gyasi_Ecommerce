@@ -301,7 +301,7 @@
                                     {% comment %} <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Wishlist"><a href="wishlist.html"><i class="fa fa-heart-o"></i></a></div> {% endcomment %}
                                     {% comment %} <div class="ps-product__item rotate" data-toggle="tooltip" data-placement="left" title="Add to compare"><a href="#" data-toggle="modal" data-target="#popupCompare"><i class="fa fa-align-left"></i></a></div> {% endcomment %}
                                     <div class="ps-product__item" data-toggle="tooltip" data-placement="left" title="Quick view">
-                                        <a href="#" data-toggle="modal" data-target=".popupQuickviewz" id="web_view_modal_details" data-href="{{product.id}}">
+                                        <a href="#" data-toggle="modal" data-target=".popupQuickviewz" class="web_view_modal_details" data-href="{{product.id}}">
                                             <i class="fa fa-search"></i>
                                         </a>
                                     </div>
@@ -322,7 +322,7 @@
                                 {% comment %} <a class="ps-product__item" href="wishlist.html">
                                     <i class="fa fa-heart-o"></i>
                                 </a> {% endcomment %}
-                                <a class="ps-product__item"  data-toggle="modal" data-target=".popupQuickviewz" id="mob_view_modal_details" data-href="{{product.id}}">
+                                <a class="ps-product__item"  data-toggle="modal" data-target=".popupQuickviewz" class="mob_view_modal_details" data-href="{{product.id}}">
                                     <i class="fa fa-search"></i>
                                 </a>
                             </div>
@@ -542,11 +542,11 @@
           })
     }
 
-    $("#web_view_modal_details").click(function(e) {
+    $(".web_view_modal_details").click(function(e) {
         getProductDetails($(this).attr('data-href'))
     });
 
-    $("#mob_view_modal_details").click(function(e) {
+    $(".mob_view_modal_details").click(function(e) {
         getProductDetails($(this).attr('data-href'))
     });
 
