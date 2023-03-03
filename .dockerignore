@@ -25,7 +25,7 @@ src/node_modules
 web/media
 web/static/CACHE
 stats
-Dockerfile
+# Dockerfile
 
 .git
 .gitignore
