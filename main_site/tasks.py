@@ -10,7 +10,7 @@ from user.models import User
 @shared_task
 def send_account_activation_email(email , email_token, domain):
     email_from = settings.EMAIL_HOST_USER
-    subject, from_email, to = ('Verify your account',email_from,f"{email}",)
+    subject, from_email, to = ('Verify your account',email_from,email)
     context = {
         'test':"Account activation",
         "token":email_token,
@@ -26,9 +26,12 @@ def send_account_activation_email(email , email_token, domain):
 def send_winner_email(email, product):
     email_from = settings.EMAIL_HOST_USER
     subject, from_email, to = ('Winner',email_from,email,)
-    # subject, from_email, to = ('Winner',email_from,f"{email}",)
+    context = {
+        'test':"Winner Confirmation",
+        "product":product
+    }
     text_content = "Congratulations."
-    html_content = f"<h1>We would like to congratulate you for being the winner of {product} Thanks for joining our participating</h1>"
+    html_content = render_to_string("email/winner_mail.html", context)
     msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
     msg.attach_alternative(html_content, "text/html")
     return msg.send()
