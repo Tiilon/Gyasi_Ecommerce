@@ -1,6 +1,7 @@
 import contextlib
 import secrets
 from django.db import transaction
+from django.forms import ValidationError
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
@@ -14,6 +15,7 @@ from django.contrib.auth.forms import PasswordChangeForm
 from django.utils.text import slugify
 from django.contrib.sites.shortcuts import get_current_site  
 from django.contrib.auth.hashers import check_password
+from django.contrib.auth.password_validation import MinimumLengthValidator,UserAttributeSimilarityValidator,CommonPasswordValidator
 
 # Create your views here.
 
@@ -45,24 +47,27 @@ class LoginView(View):
         email = request.POST["email"]
         password = request.POST["password"]
         try:
-            user= User.objects.get(email=email) or User.objects.get(username=email)
-            
+            try:
+                user = User.objects.get(email=email)
+            except User.DoesNotExist:
+                user = User.objects.get(username=email)
+
             if not user.user_profile.is_email_verified:
                 messages.warning(request, 'Your account is not verified.')
                 return HttpResponseRedirect(request.path_info)
-        
+
             if not user.is_active:
                 messages.error(request, "Your account is not active")
                 return HttpResponseRedirect(request.path_info)
-            
+
             if not check_password(password, user.password):
                 messages.error(request, "Wrong Password")
                 return HttpResponseRedirect(request.path_info)
-            
+
             if user := authenticate(email=user.email, password=password):
                 login(request, user)
                 return redirect("management:dashboard") if user.is_staff else redirect('/') #pyright:ignore
-            
+
         except User.DoesNotExist:
             messages.warning(request, 'Account not found.')
             return HttpResponseRedirect(request.path_info)
@@ -162,12 +167,21 @@ class RegisterUserView(View):
         other_name = request.POST.get("other_name")
         phone = request.POST.get("phone")
         address = request.POST.get("address")
+        validators = [MinimumLengthValidator, UserAttributeSimilarityValidator, CommonPasswordValidator]
+        try:
+            for validator in validators:
+                    validator().validate(password)
+        except ValidationError as e:
+            messages.error(request, str(e))
+            return HttpResponseRedirect(request.path_info)
+
         with contextlib.suppress(User.DoesNotExist):
             if user := User.objects.get(username=username):
                 messages.error(
                     request, "Username is already in use. Please try another one"
                 )
                 return HttpResponseRedirect(request.path_info)
+            
         with contextlib.suppress(User.DoesNotExist):
             if user := User.objects.get(email=email):
                 messages.error(

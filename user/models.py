@@ -90,7 +90,7 @@ class UserProfile(BaseModel):
     )
     uid = models.UUIDField(editable=False , default=uuid.uuid4, unique=True)
     # bio_file = models.FileField(upload_to='user/bio', blank=True, null=True)
-    phone = models.CharField(max_length=15, unique=True, null=True, blank=True)
+    phone = models.CharField(max_length=25, unique=True, null=True, blank=True)
     otp = models.CharField(max_length=10, null=True, blank=True)
     email_token = models.CharField(max_length=300, null=True, blank=True)
     is_email_verified = models.BooleanField(default=False)
