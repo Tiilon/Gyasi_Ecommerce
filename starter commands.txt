@@ -1,0 +1,3 @@
+celery -A elevate worker -l info --without-gossip --without-mingle --without-heartbeat -Ofair --pool=solo
+
+docker-compose -f docker-compose.yml up -d --remove-orphans
