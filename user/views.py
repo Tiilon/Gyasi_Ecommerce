@@ -157,6 +157,11 @@ class RegisterUserView(View):
         email = request.POST.get("email")
         password = request.POST.get("password")
         username = request.POST.get("username")
+        first_name = request.POST.get("first_name")
+        last_name = request.POST.get("last_name")
+        other_name = request.POST.get("other_name")
+        phone = request.POST.get("phone")
+        address = request.POST.get("address")
         with contextlib.suppress(User.DoesNotExist):
             if user := User.objects.get(username=username):
                 messages.error(
@@ -170,9 +175,9 @@ class RegisterUserView(View):
                     "User with this email already exists. Please login with email address",
                 )
                 return HttpResponseRedirect(request.path_info)
-        return self.create_new_user(password, username, email, request)
+        return self.create_new_user(password, username, email, first_name, last_name, other_name,phone, address, request)
 
-    def create_new_user(self, password, username, email, request):
+    def create_new_user(self, password, username, email, first_name, last_name, other_name,phone, address, request):
         user = User.objects.create(username=username, email=email)
         user.set_password(password)
         user.username = username
@@ -182,7 +187,14 @@ class RegisterUserView(View):
         user.save()
         current_site = get_current_site(request)
         email_token = str(secrets.token_hex(16))
-        UserProfile.objects.create(user = user, email_token = email_token)
+        profile = UserProfile.objects.create(user = user, email_token = email_token)
+        profile.first_name = first_name
+        profile.last_name = last_name
+        profile.address = address
+        profile.phone = phone
+        profile.address=address
+        profile.other_name = other_name
+        profile.save()
         email = user.email
         send_account_activation_email.delay(email , email_token, current_site.domain)
         messages.success(request,"An email has been sent for verification")
