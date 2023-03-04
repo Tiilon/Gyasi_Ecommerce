@@ -83,43 +83,5 @@
             </form>
         </div>
     </div>
-    <div class="ps-account">
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-8" id="register_form_view">
-                    <form action="{% url 'accounts:user_public_change_password' %}" method="post" id="e_change_password_form">
-                        {% csrf_token %}
-                        <div class="ps-form--review">
-                            <h2 class="ps-form__title">Password Change</h2>
-                            {% if messages %}
-                                {% for message in messages %}
-                                    <label class="ps-form__label text-danger">{{message}} *</label>
-                                {% endfor %}
-                            {% endif %}
-                            <div class="ps-form__group">
-                                <label class="ps-form__label">Current password *</label>
-                                <input class="form-control ps-form__input" type="password" name="old_password" id="e_current_password" required>
-                            </div>
-                            <div class="ps-form__group">
-                                <label class="ps-form__label">New Password *</label>
-                                <input class="form-control ps-form__input" type="password" name="new_password1" id="e_password" required>
-                            </div>
-                            <div class="ps-form__group">
-                                <label class="ps-form__label">Confirm Password *</label>
-                                <div class="input-group">
-                                    <input class="form-control ps-form__input" type="password" name="new_password2" id="e_password_confirmation" required>
-                                    <div class="input-group-append"><a class="fa fa-eye-slash toogle-password" href="javascript: vois(0);"></a></div>
-                                </div>
-                                <p class="ps-form__text">Hint: The password should be at least twelve characters long. To make it stronger, use upper and lower case letters, numbers, and symbols like ! " ? $ % ^ & ).</p>
-                            </div>
-                            <div class="ps-form__submit">
-                                <button class="ps-btn ps-btn--rounded ps-btn--danger" type="submit">Change Password</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 {% endblock %}
