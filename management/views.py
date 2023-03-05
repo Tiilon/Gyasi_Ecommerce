@@ -1,20 +1,119 @@
-from django.shortcuts import redirect, render
+from django.shortcuts import render
 from django.views import View
 from django.http import JsonResponse
-from main_site.models import ProductCategoryModel,ProductModel,ProductImageModel, TicketModel
+from main_site.models import Cart, ProductCategoryModel,ProductModel,ProductImageModel, TicketModel
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from datetime import date, datetime, timedelta
+from django.db.models import Count
 
 class DashboardView(LoginRequiredMixin,View):
     login_url = '/user/admin-login'
+    today = date.today()
+    currentWeek = date(today.year, today.month, today.day).strftime('%V')
+    # for first_day for previous week it will be {int(currentWeek)-1}-1
+    first_day_currentWeek= datetime.strptime(f"{today.year}-W{int(currentWeek)}-1", "%Y-W%W-%w").date()
+    last_day_currentWeek = first_day_currentWeek + timedelta(days=6.9)
+    
+    first_day_previousWeek= datetime.strptime(f"{today.year}-W{int(currentWeek)-1}-1", "%Y-W%W-%w").date()
+    last_day_previousWeek = first_day_previousWeek + timedelta(days=6.9)
     
     def get(self, request):
-        # if request.user.is_authenticated() == False:
-        #     return redirect("accounts:admin_login")
         template_name = "management/dashboard.html"
-        # products = ProductModel.objects.all()
-        context = {}
+
+        #today's sales
+        tickets = TicketModel.objects.filter(created_at=self.today) #get tickets for today
+        ticket_today_sales = sum(ticket.product.ticket_price for ticket in tickets) #pyright:ignore
+
+        #total sales
+        tickets = TicketModel.objects.all() #get tickets for today
+        ticket_total_sales = sum(ticket.product.ticket_price for ticket in tickets) #pyright:ignore
+
+        #total products
+        total_products = ProductModel.objects.all().count() #get total number of products
+        
+
+        #current weekly sales
+        tickets = TicketModel.objects.filter(created_at__date__range=[self.first_day_currentWeek,self.last_day_currentWeek])
+        current_week_ticket_sales = sum(ticket.product.ticket_price for ticket in tickets) #pyright:ignore
+
+        #previous weekly sales
+        tickets = TicketModel.objects.filter(created_at__date__range=[self.first_day_previousWeek,self.last_day_previousWeek])
+        previous_week_ticket_sales = sum(ticket.product.ticket_price for ticket in tickets) #pyright:ignore
+
+        # today's total orders
+        total_orders = Cart.objects.filter(created_at__date=self.today).count() #get total number of orders
+        
+        # total pending orders
+        total_pending_orders = Cart.objects.filter(paid=False).count() #get total number of pending orders
+        
+        # total completed orders
+        total_completed_orders = Cart.objects.filter(paid=True).count() #get total number of completed orders
+
+        #current week orders
+        current_weekly_orders_number = Cart.objects.filter(created_at__date__range=[self.first_day_currentWeek,self.last_day_currentWeek]).count()
+
+        #previous week orders
+        previous_weekly_orders_number = Cart.objects.filter(created_at__date__range=[self.first_day_previousWeek,self.last_day_previousWeek]).count()
+
+        #best selling products
+        best_selling_products = ProductModel.objects.annotate(count=Count('product_tickets')).order_by('count') #sales based on number of products sold
+
+        best_selling_products_list = []
+        for product in best_selling_products:
+            
+            # name of product
+            product_name = product.name
+            
+            # name of product category
+            product_category = product.category.name #pyright:ignore
+
+            # owner of product
+            product_owner = product.created_by.username #pyright:ignore
+
+            #get number of product orders
+            number_of_orders = product.cart_set.all().count() #pyright:ignore
+
+            #get number of completed orders
+            number_of_completed_orders = product.cart_set.filter(paid=True).count() #pyright:ignore
+            completed_orders = product.cart_set.filter(paid=True) #pyright:ignore
+
+            #get order percentage
+            complete_order_percentage = (number_of_completed_orders/number_of_orders) * 100
+            
+            #get revenue by product
+            product_revenue = sum(i.price for i in completed_orders)
+            
+            # revenue percentage of product
+            product_revenue_percentage = (product_revenue/ticket_total_sales) * 100
+
+
+            details = {
+                'product':product_name,
+                'product_owner':product_owner,
+                'product_category':product_category,
+                'number_of_orders':number_of_orders,
+                'number_of_completed_orders':number_of_completed_orders,
+                'complete_order_percentage':complete_order_percentage,
+                'product_revenue':product_revenue,
+                'product_revenue_percentage':product_revenue_percentage,
+            }
+            best_selling_products_list.append(details)
+
+        context = {
+            'todays_sales': ticket_today_sales,
+            'total_sales': ticket_total_sales,
+            'total_products': total_products,
+            'total_orders': total_orders,
+            'current_week_ticket_sales': current_week_ticket_sales,
+            'previous_week_ticket_sales': previous_week_ticket_sales,
+            'current_weekly_orders_number': current_weekly_orders_number,
+            'previous_weekly_orders_number': previous_weekly_orders_number,
+            'best_selling_products': best_selling_products_list,
+            'total_pending_orders': total_pending_orders,
+            'total_completed_orders': total_completed_orders,
+        }
 
         return render(request, template_name, context)
 
