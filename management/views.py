@@ -1,7 +1,7 @@
 from django.shortcuts import redirect, render
 from django.views import View
 from django.http import JsonResponse
-from main_site.models import ProductCategoryModel,ProductModel,ProductImageModel
+from main_site.models import ProductCategoryModel,ProductModel,ProductImageModel, TicketModel
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -139,7 +139,8 @@ def create_product(request):
             ticket_price=ticket_price,
             actual_price=actual_price,
             description=description,
-            status = True
+            status = True,
+            created_by=request.user
         )
         
         for image in images:
@@ -203,3 +204,25 @@ def delete_product_image(request, image_id):
     product_image = ProductImageModel.objects.get(id=image_id)
     product_image.delete()
     return JsonResponse({'message': 'success'})
+
+def payment_page(request):
+    return render(request,'management/payments.html')
+
+
+@login_required
+def get_tickets(request):
+    tickets = TicketModel.objects.all()
+    message = 'success'
+    sales = []
+    for sale in tickets:
+        details = {
+            'id': sale.id, # pyright: ignore
+            'date': sale.created_at.date(),
+            'owner': sale.user.email,
+            'product': sale.product.name, # pyright: ignore
+            'product_owner': sale.product.created_by.email, # pyright: ignore
+            'ticket_status': 'Completed' if sale.status == 1 else 'Pending',
+            'ticket_class': 'success' if sale.status == 1 else 'warning',
+        }
+        sales.append(details)
+    return JsonResponse({'message': message, 'data': sales})

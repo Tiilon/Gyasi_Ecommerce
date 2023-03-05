@@ -18,4 +18,6 @@ urlpatterns = [
     path("update-product/<int:product_id>", update_product, name="update_product"), # pyright: ignore
     path("delete-product/<product_id>", delete_product, name="delete_product"),
     path("delete-image/<image_id>", delete_product_image, name="delete_product_image"),
+    path("payments-all/", payment_page, name="all_payments"),
+    path("payments/", get_tickets, name="all_sales"),
 ]

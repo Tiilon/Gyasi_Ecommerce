@@ -1,9 +1,9 @@
 from django.shortcuts import get_object_or_404
 # from base.utils import send_payment_receipt, send_winner_email
-from main_site.models import Cart, TicketModel
+from main_site.models import Cart
 from .models import Payment
 from django.http import JsonResponse
-import random
+
 
 # To use celery in sending email
 from main_site.tasks import send_payment_receipt, create_ticket

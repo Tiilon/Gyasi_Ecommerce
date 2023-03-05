@@ -414,7 +414,7 @@
                             <div class="nav flex-column">
                               <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:category' %}">Category</a>
                               <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:get_product_list' %}">Products</a>
-                              <a class="nav-link py-1 link-600 fw-medium" href="../app/kanban.html">Payments</a>
+                              <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:all_payments' %}">Payments</a>
                             </div>
                           </div>
                         </div>
@@ -507,7 +507,7 @@
                   <a class="nav-link" href="{% url 'management:get_product_list' %}" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-hdd"></span></span><span class="nav-link-text ps-1">Products</span></div>
                   </a><!-- parent pages-->
-                  <a class="nav-link" href="{% url 'management:category' %}" role="button">
+                  <a class="nav-link" href="{% url 'management:all_payments' %}" role="button">
                     <div class="d-flex align-items-center"><span class="nav-link-icon"><span class="far fa-credit-card"></span></span><span class="nav-link-text ps-1">Payments</span></div>
                   </a><!-- parent pages-->
 
@@ -553,7 +553,7 @@
                           <div class="nav flex-column">
                             <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:category' %}">Category</a>
                             <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:get_product_list' %}">Products</a>
-                            <a class="nav-link py-1 link-600 fw-medium" href="../app/kanban.html">Payments</a>
+                            <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:all_payments' %}">Payments</a>
                           </div>
                         </div>
                       </div>
@@ -1114,7 +1114,7 @@
                           <div class="col-6 col-md-4">
                             <div class="nav flex-column"><a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:category' %}">Category</a>
                               <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:get_product_list' %}">Products</a>
-                              <a class="nav-link py-1 link-600 fw-medium" href="../app/kanban.html">Payments</a>
+                              <a class="nav-link py-1 link-600 fw-medium" href="{% url 'management:all_payments' %}">Payments</a>
                             </div>
                           </div>
                         </div>
