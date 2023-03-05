@@ -71,6 +71,6 @@ def create_ticket(item_qty, user_id, product_id):
             selected_ticket.is_winner = True
             selected_ticket.save()
             for i in product_tickets:
-                i.status = True
+                i.status = True #tickets used
                 i.save()
     return True

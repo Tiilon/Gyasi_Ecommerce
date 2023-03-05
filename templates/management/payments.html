@@ -1,0 +1,154 @@
+{% extends 'management/base.html' %}
+{% block content %}
+<div data-list='{"valueNames":["date","ticket_owner","product",product_owner,status],"page":5,"pagination":true}'>
+    <div class="row justify-content-center g-0">
+        <div class="col-auto col-sm-5 mb-3">
+            <button class="btn btn-sm btn-success me-1 mb-1" type="button" type="button" data-bs-toggle="modal" data-bs-target="#new_cart_form_modal">+ New</button>
+        </div>
+        {% comment %} <div class="col-auto col-sm-5 mb-3">
+            <form>
+            <div class="input-group"><input class="form-control form-control-sm shadow-none search" type="search" placeholder="Search..." aria-label="search" />
+                <div class="input-group-text bg-transparent"><span class="fa fa-search fs--1 text-600"></span></div>
+            </div>
+            </form>
+        </div> {% endcomment %}
+      
+    </div>
+    <div class="table-responsive scrollbar">
+      <table class="table table-bordered table-striped fs--1 mb-0" id="payments_table">
+        <thead class="bg-200 text-900">
+          <tr>
+            <th class="sort" data-sort="date">Date</th>
+            <th class="sort" data-sort="ticket_owner">Ticket Owner</th>
+            <th class="sort" data-sort="product">Product</th>
+            <th class="sort" data-sort="product_owner">Product Owner</th>
+            <th class="sort" data-sort="status">Status</th>
+          </tr>
+        </thead>
+        <tbody class="list" id="sales_list">
+            {% comment %} {% for cart in categories %}
+                <tr>
+                    <td class="name">{{cart.name}}</td>
+                    <td class="email">{{cart.created_by.email}}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success me-1 mb-1" type="button">Activate</button>
+                    </td>
+                
+                </tr>
+            {% endfor %} {% endcomment %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!--modal for new category-->
+  <div class="modal fade" id="new_cart_form_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+      <div class="modal-content position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+            <h4 class="mb-1" id="modalExampleDemoLabel">Create Category</h4>
+          </div>
+          <div class="p-4 pb-0">
+            <form id="create-cart-form" method='post' enctype='multipart/form-data'>
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">Name:</label>
+                <input class="form-control" id="cart-name" type="text" name="cart_name"/>
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">Image:</label>
+                <input class="form-control" id="cart-image" type="file" name="edit-cart-image"/>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" id="new_cart" type="submit" data-bs-dismiss="modal">Create</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--modal to edit category-->
+  <div class="modal fade" id="edit_cart_form_modal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 500px">
+      <div class="modal-content position-relative">
+        <div class="position-absolute top-0 end-0 mt-2 me-2 z-index-1">
+          <button class="btn-close btn btn-sm btn-circle d-flex flex-center transition-base" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-0">
+          <div class="rounded-top-lg py-3 ps-4 pe-6 bg-light">
+            <h4 class="mb-1" id="modalExampleDemoLabel1">Edit Category</h4>
+          </div>
+          <div class="p-4 pb-0">
+            <form id="edit-cart-form" method='post' enctype='multipart/form-data'>
+              {% csrf_token %}
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">Name:</label>
+                <input class="form-control" id="cart-edit-name" type="text" name="edit-cart-name"/>
+              </div>
+              <div class="mb-3" id="cart-edit-image-src">
+                
+              </div>
+              <div class="mb-3">
+                <label class="col-form-label" for="recipient-name">New Image:</label>
+                <input class="form-control" id="cart-edit-image" type="file" name="edit-cart-image"/>
+              </div>
+              <div class="modal-footer">
+                <button class="btn btn-primary" id="update_cart" type="submit" data-bs-dismiss="modal">Edit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock content %}
+{% block js %}
+<script>
+    function getSales() {
+      const sales_list = document.getElementById('sales_list')
+      $.ajax({
+        type: "GET",
+        url:'{% url 'management:all_sales' %}',
+        headers:{"X-Requested-With": "XMLHttpRequest"},
+        success: (res)=>{
+            if(res.message =='success'){
+                const data = res.data;
+
+                if(Array.isArray(data)){
+                    sales_list.innerHTML =``
+
+                data.forEach(product=>{
+                    var date = new Date(product.date);
+                    var use_date = date.toString('dd-MM-yy')
+                    sales_list.innerHTML += 
+                    `
+                    <tr>
+                        <td class="date">${use_date}</td>
+                        <td class="ticket_owner">${product.owner}</td>
+                        <td class="product">${product.product}</td>
+                        <td class="product_owner">${product.product_owner}</td>
+                        <td class="status text-${product.ticket_class}">${product.ticket_status}</td>
+                    </tr>
+                    `
+                })
+                $('#payments_table').DataTable();
+                }else{
+                }
+            } 
+        },
+        error:(err)=>{
+            console.log(err)
+        }
+      })
+    }
+    
+    $(document).ready(function () {
+        getSales()
+    })
+</script>
+{% endblock js %}
