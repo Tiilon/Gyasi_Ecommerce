@@ -17,11 +17,11 @@
                 <div class="d-flex py-3">
                     <div class="pe-3">
                     <p class="text-600 fs--1 fw-medium">Total Products </p>
-                    <h4 class="text-800 mb-0">14,209</h4>
+                    <h4 class="text-800 mb-0">{{total_products}}</h4>
                     </div>
                     <div class="ps-3">
                     <p class="text-600 fs--1">Total sales </p>
-                    <h4 class="text-800 mb-0">$21,349.29 </h4>
+                    <h4 class="text-800 mb-0">GHC {{total_sales}}</h4>
                     </div>
                 </div>
                 </div>
@@ -75,11 +75,13 @@
                     <div class="card-body">
                         <div class="row align-items-end">
                         <div class="col">
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">58.4K</p>
-                            <div class="badge badge-soft-primary rounded-pill fs--2"><span class="fas fa-caret-up me-1"></span>13.6%</div>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{todays_orders}}</p>
+                            <div class="badge badge-soft-primary rounded-pill fs--2">
+                                {% comment %} <span class="fas fa-caret-up me-1"></span>13.6% {% endcomment %}
+                            </div>
                         </div>
                         <div class="col-auto ps-0">
-                            <div class="total-order-ecommerce" data-echarts='{"series":[{"type":"line","data":[110,100,250,210,530,480,320,325]}],"grid":{"bottom":"-10px"}}'></div>
+                            {% comment %} <div class="total-order-ecommerce" data-echarts='{"series":[{"type":"line","data":[110,100,250,210,530,480,320,325]}],"grid":{"bottom":"-10px"}}'></div> {% endcomment %}
                         </div>
                         </div>
                     </div>
@@ -93,7 +95,7 @@
                     <div class="card-body d-flex flex-column justify-content-end">
                         <div class="row">
                         <div class="col">
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">$47K</p>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">GHC{{todays_sales}}</p>
                             {% comment %} <span class="badge badge-soft-success rounded-pill fs--2">+3.5%</span> {% endcomment %}
                         </div>
                         <div class="col-auto ps-0">
@@ -111,11 +113,11 @@
                     <div class="card-body">
                         <div class="row align-items-end">
                         <div class="col">
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">58.4K</p>
-                            <div class="badge badge-soft-primary rounded-pill fs--2"><span class="fas fa-caret-up me-1"></span>13.6%</div>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{current_weekly_orders_number}}</p>
+                            {% comment %} <div class="badge badge-soft-primary rounded-pill fs--2"><span class="fas fa-caret-up me-1"></span>13.6%</div> {% endcomment %}
                         </div>
                         <div class="col-auto ps-0">
-                            <div class="total-order-ecommerce" data-echarts='{"series":[{"type":"line","data":[110,100,250,210,530,480,320,325]}],"grid":{"bottom":"-10px"}}'></div>
+                            {% comment %} <div class="total-order-ecommerce" data-echarts='{"series":[{"type":"line","data":[110,100,250,210,530,480,320,325]}],"grid":{"bottom":"-10px"}}'></div> {% endcomment %}
                         </div>
                         </div>
                     </div>
@@ -129,7 +131,7 @@
                     <div class="card-body d-flex flex-column justify-content-end">
                         <div class="row">
                         <div class="col">
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">$47K</p>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">${{current_week_ticket_sales}}</p>
                             {% comment %} <span class="badge badge-soft-success rounded-pill fs--2">+3.5%</span> {% endcomment %}
                         </div>
                         <div class="col-auto ps-0">
@@ -147,11 +149,11 @@
                     <div class="card-body">
                         <div class="row align-items-end">
                         <div class="col">
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">58.4K</p>
-                            <div class="badge badge-soft-primary rounded-pill fs--2"><span class="fas fa-caret-up me-1"></span>13.6%</div>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{previous_weekly_orders_number}}</p>
+                            {% comment %} <div class="badge badge-soft-primary rounded-pill fs--2"><span class="fas fa-caret-up me-1"></span>13.6%</div> {% endcomment %}
                         </div>
                         <div class="col-auto ps-0">
-                            <div class="total-order-ecommerce" data-echarts='{"series":[{"type":"line","data":[110,100,250,210,530,480,320,325]}],"grid":{"bottom":"-10px"}}'></div>
+                            {% comment %} <div class="total-order-ecommerce" data-echarts='{"series":[{"type":"line","data":[110,100,250,210,530,480,320,325]}],"grid":{"bottom":"-10px"}}'></div> {% endcomment %}
                         </div>
                         </div>
                     </div>
@@ -165,7 +167,7 @@
                     <div class="card-body d-flex flex-column justify-content-end">
                         <div class="row">
                         <div class="col">
-                            <p class="font-sans-serif lh-1 mb-1 fs-2">$47K</p>
+                            <p class="font-sans-serif lh-1 mb-1 fs-2">{{previous_week_ticket_sales}}</p>
                             {% comment %} <span class="badge badge-soft-success rounded-pill fs--2">+3.5%</span> {% endcomment %}
                         </div>
                         <div class="col-auto ps-0">
@@ -185,7 +187,7 @@
             <div class="row g-0">
             <div class="col-6 col-md-4 border-200 border-bottom border-end pb-4">
                 <h6 class="pb-1 text-700">Total Orders </h6>
-                <p class="font-sans-serif lh-1 mb-1 fs-2">15,450 </p>
+                <p class="font-sans-serif lh-1 mb-1 fs-2">{{total_orders}}</p>
                 <div class="d-flex align-items-center">
                 {% comment %} <h6 class="fs--1 text-500 mb-0">13,675 </h6>
                 <h6 class="fs--2 ps-3 mb-0 text-primary"><span class="me-1 fas fa-caret-up"></span>21.8%</h6> {% endcomment %}
@@ -193,7 +195,7 @@
             </div>
             <div class="col-6 col-md-4 border-200 border-md-200 border-bottom border-md-end pb-4 ps-3">
                 <h6 class="pb-1 text-700">Completed Orders </h6>
-                <p class="font-sans-serif lh-1 mb-1 fs-2">1,054 </p>
+                <p class="font-sans-serif lh-1 mb-1 fs-2">{{total_completed_orders}}</p>
                 <div class="d-flex align-items-center">
                 {% comment %} <h6 class="fs--1 text-500 mb-0">13,675 </h6>
                 <h6 class="fs--2 ps-3 mb-0 text-warning"><span class="me-1 fas fa-caret-up"></span>21.8%</h6> {% endcomment %}
@@ -201,7 +203,7 @@
             </div>
             <div class="col-6 col-md-4 border-200 border-bottom border-end border-md-end-0 pb-4 pt-4 pt-md-0 ps-md-3">
                 <h6 class="pb-1 text-700">Pending Orders </h6>
-                <p class="font-sans-serif lh-1 mb-1 fs-2">$145.65 </p>
+                <p class="font-sans-serif lh-1 mb-1 fs-2">{{total_pending_orders}}</p>
                 <div class="d-flex align-items-center">
                 {% comment %} <h6 class="fs--1 text-500 mb-0">13,675 </h6>
                 <h6 class="fs--2 ps-3 mb-0 text-success"><span class="me-1 fas fa-caret-up"></span>21.8%</h6> {% endcomment %}
@@ -272,34 +274,36 @@
                 <thead class="bg-light">
                 <tr class="text-900">
                     <th>Best Selling Products</th>
-                    <th class="text-center">Orders(269)</th>
+                    <th class="text-center">Orders({{total_orders}})</th>
                     <th class="text-center">Order(%)</th>
                     <th class="text-end">Revenue</th>
                     <th class="pe-x1 text-end" style="width: 8rem">Revenue (%)</th>
                 </tr>
                 </thead>
                 <tbody>
+                {% for product in best_selling_products %}
                 <tr class="border-bottom border-200">
                     <td>
                     <div class="d-flex align-items-center position-relative"><img class="rounded-1 border border-200" src="../management/assets/img/ecommerce/1.jpg" width="60" alt="" />
                         <div class="flex-1 ms-3">
-                        <h6 class="mb-1 fw-semi-bold text-nowrap"><a class="text-900 stretched-link" href="#!">iPad Pro 2020 11</a></h6>
-                        <p class="fw-semi-bold mb-0 text-500">Tablet</p>
+                        <h6 class="mb-1 fw-semi-bold text-nowrap"><a class="text-900 stretched-link" href="{% url 'management:get_product_details' product.id %}">{{product.name}}</a></h6>
+                        <p class="fw-semi-bold mb-0 text-500">{{product.category}}</p>
                         </div>
                     </div>
                     </td>
-                    <td class="align-middle text-center fw-semi-bold">26</td>
-                    <td class="align-middle text-center fw-semi-bold">31%</td>
-                    <td class="align-middle text-end fw-semi-bold">$1311</td>
+                    <td class="align-middle text-center fw-semi-bold">{{product.number_of_orders}}</td>
+                    <td class="align-middle text-center fw-semi-bold">{{product.complete_order_percentage}}%</td>
+                    <td class="align-middle text-end fw-semi-bold">${{product.revenue}}</td>
                     <td class="align-middle pe-x1">
                     <div class="d-flex align-items-center">
                         <div class="progress me-3 rounded-3 bg-200" style="height: 5px;width:80px">
-                        <div class="progress-bar bg-primary rounded-pill" role="progressbar" style="width: 41%;" aria-valuenow="41" aria-valuemin="0" aria-valuemax="100"></div>
+                        <div class="progress-bar bg-primary rounded-pill" role="progressbar" style="width: {{product.revenue_percentage}}%;" aria-valuenow="{{product.revenue_percentage}}" aria-valuemin="0" aria-valuemax="100"></div>
                         </div>
-                        <div class="fw-semi-bold ms-2">41%</div>
+                        <div class="fw-semi-bold ms-2">{{product.revenue_percentage}}%</div>
                     </div>
                     </td>
                 </tr>
+                {% endfor %}
                 </tbody>
             </table>
             </div>
@@ -312,7 +316,7 @@
                     <option>Last Month</option>
                     <option>Last Year</option>
                 </select></div>
-            <div class="col-auto"><a class="btn btn-sm btn-falcon-default" href="#!">View All</a></div>
+            {% comment %} <div class="col-auto"><a class="btn btn-sm btn-falcon-default" href="{% url 'management:get_product_list' %}">View All</a></div> {% endcomment %}
             </div>
         </div>
         </div>

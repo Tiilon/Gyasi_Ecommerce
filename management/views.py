@@ -32,7 +32,7 @@ class DashboardView(LoginRequiredMixin,View):
 
         #total products
         total_products = ProductModel.objects.all().count() #get total number of products
-        
+
 
         #current weekly sales
         tickets = TicketModel.objects.filter(created_at__date__range=[self.first_day_currentWeek,self.last_day_currentWeek])
@@ -42,12 +42,15 @@ class DashboardView(LoginRequiredMixin,View):
         tickets = TicketModel.objects.filter(created_at__date__range=[self.first_day_previousWeek,self.last_day_previousWeek])
         previous_week_ticket_sales = sum(ticket.product.ticket_price for ticket in tickets) #pyright:ignore
 
-        # today's total orders
-        total_orders = Cart.objects.filter(created_at__date=self.today).count() #get total number of orders
-        
+        # today's orders
+        todays_orders = Cart.objects.filter(created_at__date=self.today).count() #get total number of orders
+
+        # total orders
+        total_orders = Cart.objects.all().count() #get total number of orders
+
         # total pending orders
         total_pending_orders = Cart.objects.filter(paid=False).count() #get total number of pending orders
-        
+
         # total completed orders
         total_completed_orders = Cart.objects.filter(paid=True).count() #get total number of completed orders
 
@@ -62,10 +65,10 @@ class DashboardView(LoginRequiredMixin,View):
 
         best_selling_products_list = []
         for product in best_selling_products:
-            
+
             # name of product
             product_name = product.name
-            
+
             # name of product category
             product_category = product.category.name #pyright:ignore
 
@@ -81,23 +84,23 @@ class DashboardView(LoginRequiredMixin,View):
 
             #get order percentage
             complete_order_percentage = (number_of_completed_orders/number_of_orders) * 100
-            
+
             #get revenue by product
             product_revenue = sum(i.price for i in completed_orders)
-            
+
             # revenue percentage of product
             product_revenue_percentage = (product_revenue/ticket_total_sales) * 100
 
-
             details = {
-                'product':product_name,
-                'product_owner':product_owner,
-                'product_category':product_category,
+                'id':product.id, #pyright:ignore
+                'name':product_name,
+                'owner':product_owner,
+                'category':product_category,
                 'number_of_orders':number_of_orders,
                 'number_of_completed_orders':number_of_completed_orders,
                 'complete_order_percentage':complete_order_percentage,
-                'product_revenue':product_revenue,
-                'product_revenue_percentage':product_revenue_percentage,
+                'revenue':product_revenue,
+                'revenue_percentage':product_revenue_percentage,
             }
             best_selling_products_list.append(details)
 
@@ -105,6 +108,7 @@ class DashboardView(LoginRequiredMixin,View):
             'todays_sales': ticket_today_sales,
             'total_sales': ticket_total_sales,
             'total_products': total_products,
+            'todays_orders': todays_orders,
             'total_orders': total_orders,
             'current_week_ticket_sales': current_week_ticket_sales,
             'previous_week_ticket_sales': previous_week_ticket_sales,
