@@ -33,8 +33,7 @@ class DashboardView(LoginRequiredMixin,View):
         #total products
         total_products = ProductModel.objects.all().count() #get total number of products
 
-
-        #current weekly sales
+        # current weekly sales
         tickets = TicketModel.objects.filter(created_at__date__range=[self.first_day_currentWeek,self.last_day_currentWeek])
         current_week_ticket_sales = sum(ticket.product.ticket_price for ticket in tickets) #pyright:ignore
 
