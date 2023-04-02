@@ -263,7 +263,7 @@ function updateProfile(urlx){
 
 $( "#e_profile_update_form" ).submit(function( event ) {
     event.preventDefault();
-    url = $(this).attr("action");
+    let url = $(this).attr("action");
     updateProfile(url)
 });
 
@@ -282,7 +282,7 @@ function changePassword(urlx){
         },
         headers:{"X-Requested-With": "XMLHttpRequest"},
         success: (res)=>{
-            if(res.message =='success'){
+            if(res.message === 'success'){
                 Swal.fire({
                     position: 'top-end',
                     icon: 'success',
@@ -309,7 +309,7 @@ function changePassword(urlx){
 
 $( "#e_change_password_form" ).submit(function( event ) {
     event.preventDefault();
-    url = $(this).attr("action");
+    let url = $(this).attr("action");
     changePassword(url)
 });
 

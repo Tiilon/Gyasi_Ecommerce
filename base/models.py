@@ -2,7 +2,7 @@ from django.db import models
 import uuid
 
 
-#with created by field
+# with created by field
 class BaseModel(models.Model):
     uid = models.UUIDField(editable=False , default=uuid.uuid4, unique=True)
     status = models.BooleanField(default=False)

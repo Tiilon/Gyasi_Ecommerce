@@ -43,7 +43,8 @@ class LoginView(View):
         
         return render(request, self.template_name)
 
-    def post(self, request, *args, **kwargs):
+    @staticmethod
+    def post(request, *args, **kwargs):
         email = request.POST["email"]
         password = request.POST["password"]
         try:
@@ -64,9 +65,10 @@ class LoginView(View):
                 messages.error(request, "Wrong Password")
                 return HttpResponseRedirect(request.path_info)
 
-            if user := authenticate(email=user.email, password=password):
+            user = authenticate(email=user.email, password=password)
+            if user :
                 login(request, user)
-                return redirect("management:dashboard") if user.is_staff else redirect('/') #pyright:ignore
+                return redirect("management:dashboard") if user.is_staff else redirect('/')
 
         except User.DoesNotExist:
             messages.warning(request, 'Account not found.')
@@ -83,12 +85,12 @@ class AdminLoginView(View):
             return redirect("management:dashboard")
         
         return render(request, self.template_name)
-    
+
     def post(self, request):
         email = request.POST["email"]
         password = request.POST["password"]
         try:
-            
+
             user= User.objects.get(email=email) or User.objects.get(username=email)
 
             if not user.is_active:
@@ -99,9 +101,10 @@ class AdminLoginView(View):
                 messages.error(request, "Wrong Password")
                 return HttpResponseRedirect(request.path_info)
 
-            if user := authenticate(email=user.email, password=password):
+            auth_user = authenticate(email=user.email, password=password)
+            if auth_user :
                 login(request, user)
-                return redirect("management:dashboard") if user.is_staff else redirect('/') #pyright:ignore
+                return redirect("management:dashboard") if auth_user.is_staff else redirect('/') #pyright:ignore
 
         except User.DoesNotExist:
             messages.warning(request, 'Account not found.')
@@ -170,25 +173,30 @@ class RegisterUserView(View):
         validators = [MinimumLengthValidator, UserAttributeSimilarityValidator, CommonPasswordValidator]
         try:
             for validator in validators:
-                    validator().validate(password)
+                validator().validate(password)
         except ValidationError as e:
             messages.error(request, str(e))
             return HttpResponseRedirect(request.path_info)
 
-        with contextlib.suppress(User.DoesNotExist):
-            if user := User.objects.get(username=username):
+        try:
+            user = User.objects.get(username=username)
+            if user:
                 messages.error(
                     request, "Username is already in use. Please try another one"
                 )
                 return HttpResponseRedirect(request.path_info)
-            
-        with contextlib.suppress(User.DoesNotExist):
-            if user := User.objects.get(email=email):
+        except User.DoesNotExist:
+            pass
+
+        try:
+            user = User.objects.get(email=email)
+            if user:
                 messages.error(
-                    request,
-                    "User with this email already exists. Please login with email address",
+                    request, "User with this email already exists. Please login with email address"
                 )
                 return HttpResponseRedirect(request.path_info)
+        except User.DoesNotExist:
+            pass
         return self.create_new_user(password, username, email, first_name, last_name, other_name,phone, address, request)
 
     def create_new_user(self, password, username, email, first_name, last_name, other_name,phone, address, request):
@@ -219,8 +227,8 @@ def verification(request, token):
     try:
         profile = UserProfile.objects.select_related('user').get(email_token=token)
         profile.is_email_verified = True
-        profile.user.is_active = True #pyright:ignore
-        profile.user.save() #pyright:ignore
+        profile.user.is_active = True
+        profile.user.save()
         profile.save()
         messages.success(request,"Account verified, Please Login")
         return redirect("accounts:login")
@@ -228,7 +236,9 @@ def verification(request, token):
         messages.success(request,"Account verification failed, Please try again")
         return redirect("accounts:signup-user")
 
+
 class ChangePasswordView(LoginRequiredMixin, View):
+
     @transaction.atomic
     def post(self, request, *args, **kwargs):
         form = PasswordChangeForm(request.user, request.POST)
@@ -238,12 +248,14 @@ class ChangePasswordView(LoginRequiredMixin, View):
         update_session_auth_hash(request, user)  # Important!
         return JsonResponse({"message": "success"})
 
+
 class PublicProfileView(LoginRequiredMixin, View):
     def get(self, request):
         template_name = "accounts/public_user_profile.html"
         context = {}
         return render(request, template_name, context) 
-    
+
+
 class PublicProfileUpdateView(LoginRequiredMixin, View):
     def post(self, request):
         email = request.POST.get("email")
