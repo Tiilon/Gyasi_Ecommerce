@@ -14,7 +14,6 @@ RUN pip3 install --upgrade pip
 
 COPY ./requirements.txt /raffle_app/requirements.txt
 
-
 RUN pip install -r requirements.txt
 
 COPY . .
