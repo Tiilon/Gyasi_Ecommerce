@@ -9,6 +9,6 @@ git pull origin main
 pip install -r requirements.txt
 python3 manage.py makemigrations
 python3 manage.py migrate  --run-syncdb
-sudo systemctl reload apache2.service
+sudo systemctl restart apache2
 exit
 #EOF
