@@ -89,24 +89,24 @@ WSGI_APPLICATION = 'gyasi_ecommerce.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
-
 DATABASES = {
     'default': {
-        'ENGINE': config('SQL_ENGINE'),
-        'NAME': config('POSTGRES_DATABASE'),
-        'USER': config('POSTGRES_USER'),
-        'PASSWORD': config('POSTGRES_PASSWORD'),
-        # 'HOST': 'localhost',
-        'HOST': config('POSTGRES_HOST'),
-        # 'DISABLE_SERVER_SIDE_CURSORS': True,
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# DATABASES = {
+#     'default': {
+#         'ENGINE': config('SQL_ENGINE'),
+#         'NAME': config('POSTGRES_DATABASE'),
+#         'USER': config('POSTGRES_USER'),
+#         'PASSWORD': config('POSTGRES_PASSWORD'),
+#         # 'HOST': 'localhost',
+#         'HOST': config('POSTGRES_HOST'),
+#         # 'DISABLE_SERVER_SIDE_CURSORS': True,
+#     }
+# }
 
 
 # Password validation
