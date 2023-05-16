@@ -1,11 +1,11 @@
 #!/bin/bash
 
 #ssh -i ~/.ssh/id_rsa 18.205.194.28 <<EOF
-#ssh ubuntu@172.31.82.198
-echo 'logged in'
-sudo -i
-echo 'superuser'
-cd /var/www/html/Gyasi_Ecommerce
+ssh ubuntu@172.31.82.198
+# echo 'logged in'
+# sudo -i
+# echo 'superuser'
+# cd /var/www/html/Gyasi_Ecommerce
 # git pull origin main
 # . venv/bin/activate
 # pip install -r requirements.txt
