@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #ssh -i ~/.ssh/id_rsa 18.205.194.28 <<EOF
-ssh -i ~/.ssh/id_rsa 18.205.194.28
+ssh -i ~/.ssh/id_rsa 172.31.82.198
 echo 'logged in'
 sudo -i
 echo 'superuser'
