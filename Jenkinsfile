@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Testing has started'
                 sh 'virtualenv venv'
-                sh 'source venv/bin/activate'
+                sh '. venv/bin/activate'
                 sh 'pip install -r requirements.txt'
                 sh 'python3 manage.py makemigrations'
                 sh 'python3 manage.py migrate'
