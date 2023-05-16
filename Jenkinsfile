@@ -13,14 +13,9 @@ pipeline {
                 echo 'finished migrating'
             }
         }
-        stage('Test') {
+        stage('Deploy to test server') {
             steps {
-                echo 'Testing..'
-            }
-        }
-        stage('Deploy') {
-            steps {
-                echo 'Deploying....'
+                sh './pull_updates_to_test_server.sh'
             }
         }
     }
