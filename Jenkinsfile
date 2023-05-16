@@ -2,10 +2,15 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Testing with python env') {
             steps {
-                echo 'Building..'
-                echo 'version 2 working'
+                echo 'Testing has started'
+                sh 'virtualenv venv'
+                sh 'source venv/bin/activate'
+                sh 'pip install -r requirements.txt'
+                sh 'python3 manage.py makemigrations'
+                sh 'python3 manage.py migrate'
+                sh 'python3 manage.py runserver'
             }
         }
         stage('Test') {
