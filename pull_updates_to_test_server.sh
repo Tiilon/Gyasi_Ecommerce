@@ -7,7 +7,7 @@
 # echo 'superuser'
 cp -R /var/www/html/Gyasi_Ecommerce/workspace/DjangoApp/* /var/www/html/Gyasi_Ecommerce/
 cd /var/www/html/Gyasi_Ecommerce
-git pull origin main
+# git pull origin main
 source venv/bin/activate
 pip install -r requirements.txt
 python3 manage.py makemigrations
