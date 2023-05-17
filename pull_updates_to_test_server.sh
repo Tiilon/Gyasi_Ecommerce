@@ -5,9 +5,10 @@
 # echo 'logged in'
 # sudo -i
 # echo 'superuser'
-# cd /var/www/html/Gyasi_Ecommerce
+mv /var/www/html/Gyasi_Ecommerce/workspace/DjangoApp/* /var/www/html/Gyasi_Ecommerce
+cd /var/www/html/Gyasi_Ecommerce
 git pull origin main
-. venv/bin/activate
+source venv/bin/activate
 pip install -r requirements.txt
 python3 manage.py makemigrations
 python3 manage.py migrate  --run-syncdb
