@@ -1,5 +1,5 @@
 pipeline {
-    agent { label params['agent-name'] }
+    agent { label params['Silver'] }
 
     stages {
         stage('Deploy to test server') {
