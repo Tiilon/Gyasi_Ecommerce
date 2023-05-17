@@ -5,7 +5,7 @@
 # echo 'logged in'
 # sudo -i
 # echo 'superuser'
-cp -R /var/www/html/Gyasi_Ecommerce/workspace/DjangoApp/* /var/www/html/Gyasi_Ecommerce/ rm -R /var/www/html/Gyasi_Ecommerce/workspace/DjangoApp/*
+cp -R /var/www/html/Gyasi_Ecommerce/workspace/DjangoApp/* /var/www/html/Gyasi_Ecommerce/
 cd /var/www/html/Gyasi_Ecommerce
 git pull origin main
 source venv/bin/activate
