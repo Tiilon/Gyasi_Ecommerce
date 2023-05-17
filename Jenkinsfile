@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent silver-node
 
     stages {
         stage('Deploy to test server') {
