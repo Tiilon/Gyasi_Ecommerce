@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: celery-flower
+  labels:
+    app: celery-flower
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: celery-flower
+  template:
+    metadata:
+      labels:
+        app: celery-flower
+    spec:
+      containers:
+      - name: flower
+        image: gyasi_ecom:v2
+        # command: ['celery', 'flower', '-A', 'gyasi_ecommerce']
+        command: ["/bin/bash", "/start-flower"]
+        ports:
+          - containerPort: 5555
+        env:
+            - name: REDIS_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: gyasi-config
+                  key: gyasi_redis_host
+        resources:
+          limits:
+            cpu: 100m
+            memory: '128Mi'

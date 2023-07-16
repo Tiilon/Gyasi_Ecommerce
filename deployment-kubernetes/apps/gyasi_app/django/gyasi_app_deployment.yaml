@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gyasi-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gyasi-app
+  template:
+    metadata:
+      labels:
+        app: gyasi-app
+        tier: frontend
+    spec:
+      containers:
+      - name: gyasi-app
+        image: gyasi_ecom:v2
+        command: ["/bin/bash", "/start"]
+        imagePullPolicy: Never
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: gyasi-postgres-credentials
+                key: user
+          - name: POSTGRES_PORT
+            value: '5432'
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: gyasi-postgres-credentials
+                key: password
+          - name: POSTGRES_DATABASE
+            valueFrom:
+              secretKeyRef:
+                name: gyasi-postgres-credentials
+                key: name
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: gyasi-config
+                key: gyasi_db_host
+          - name: REDIS_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: gyasi-config
+                key: gyasi_redis_host
+        ports:
+        - containerPort: 8000
+

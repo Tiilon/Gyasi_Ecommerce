@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gyasi-postgres-service
+spec:
+  selector:
+    app: gyasi-postgres-container
+  ports:
+  - port: 5432
+    targetPort: 5432

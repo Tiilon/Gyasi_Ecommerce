@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: gyasi-config
+data:
+  gyasi_db_host: gyasi-postgres-service
+  gyasi_redis_host: gyasi-redis-service

@@ -1,0 +1,31 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+celery = "*"
+django = "*"
+redis = "*"
+flower = "*"
+django-environ = "*"
+django-celery-email = "*"
+argh = "*"
+watchdog = "*"
+pyyaml = "*"
+beautifulsoup4 = "*"
+django-auto-logout = "*"
+django-material-admin = "*"
+django-resized = "*"
+gunicorn = "*"
+requests = "*"
+twilio = "*"
+python-decouple = "*"
+psycopg2 = "*"
+pillow = "*"
+lxml = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"

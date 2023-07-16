@@ -296,4 +296,3 @@ class CheckOutView(View):
             'public_key':settings.PAYSTACK_PUBLIC_KEY
         }
         return render(request, template_name, context)
-        

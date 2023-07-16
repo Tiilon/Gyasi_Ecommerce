@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gyasi-celery-worker
+spec:
+  selector:
+    matchLabels:
+      app: gyasi-celery-worker
+  template:
+    metadata:
+      labels:
+        app: gyasi-celery-worker
+    spec:
+      containers:
+      - name: gyasi-celery-worker
+        image: gyasi_ecom:v2
+        imagePullPolicy: Never
+        # command: ['celery', '-A', 'gyasi_ecommerce', 'worker', '-l', 'INFO']
+        command: ["/bin/bash", "/start-celeryworker"]
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        env:
+          - name: POSTGRES_USER
+            valueFrom:
+              secretKeyRef:
+                name: gyasi-postgres-credentials
+                key: user
+          - name: POSTGRES_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: gyasi-postgres-credentials
+                key: password
+          - name: POSTGRES_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: gyasi-config
+                key: gyasi_db_host
+          - name: REDIS_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: gyasi-config
+                key: gyasi_redis_host
