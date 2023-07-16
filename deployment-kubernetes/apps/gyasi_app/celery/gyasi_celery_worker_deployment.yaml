@@ -15,7 +15,6 @@ spec:
       - name: gyasi-celery-worker
         image: gyasi_ecom:v2
         imagePullPolicy: Never
-        # command: ['celery', '-A', 'gyasi_ecommerce', 'worker', '-l', 'INFO']
         command: ["/bin/bash", "/start-celeryworker"]
         resources:
           limits:
