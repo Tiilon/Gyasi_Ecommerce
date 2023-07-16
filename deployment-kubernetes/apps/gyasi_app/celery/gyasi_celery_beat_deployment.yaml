@@ -15,7 +15,6 @@ spec:
       - name: celery-beat
         image: gyasi_ecom:v2
         imagePullPolicy: Never
-        # command: ['celery', '-A', 'kubernetes_django', 'beat', '-l', 'DEBUG']
         command: ["/bin/bash", "/start-celerybeat"]
         env:
           - name: POSTGRES_USER
