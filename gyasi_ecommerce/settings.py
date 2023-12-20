@@ -192,11 +192,11 @@ AUTO_LOGOUT = {
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_HOST_USER = 'tiilon42@gmail.com'
-EMAIL_HOST_PASSWORD = 'pjhmgexqapqpbplo'
+EMAIL_HOST_USER = os.environ.get('HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('HOST_PASSWORD')
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = 'tiilon42@gmail.com'
+DEFAULT_FROM_EMAIL = os.environ.get('HOST_EMAIL')
 
 #Redis Config for external provision by railway
 # CELERY_BROKER_URL = 'redis://default:tLsaISRwEFiQDYJupRki@containers-us-west-104.railway.app:7255'
